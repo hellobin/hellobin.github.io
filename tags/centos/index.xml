@@ -16,26 +16,15 @@
       
       <guid>http://luobin.me/post/centos%E4%B8%8B%E6%BA%90%E7%A0%81%E5%AE%89%E8%A3%85php5.3.24%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9/</guid>
       <description>&lt;p&gt;1.注意事项.&lt;br /&gt;
- &amp;emsp;&amp;emsp;需要先安装libxml2 和 libxml2-devel&lt;/p&gt;
+ &amp;emsp;&amp;emsp;需要先安装libxml2 和 libxml2-devel&lt;br /&gt;
+2.php.ini的路径&lt;br /&gt;
+&amp;emsp;&amp;emsp;在Unix上，php.ini文件缺省放在/usr/local/lib上面，因为缺省的存放路径是/lib，但是可以在编译的时候使用&amp;ndash;with-config-file-path参数 来修改php.ini的存放位置，例如你可以使用&amp;ndash;with-config-file-path=/etc把它存放到/etc下面，然后可以从源码包中拷贝php.ini-develop 或者 php.ini-product到/etc/php.ini并修改使之满足需要。&lt;br /&gt;
+3.安装php的mcrypt扩展(动态加载编译)&lt;br /&gt;
+&amp;emsp;&amp;emsp;执行 &lt;code&gt;yum list installed|grep mcrypt&lt;/code&gt;查看mcrypt及依赖库是否安装，没有的话执行 &lt;code&gt;yum -y install libmcrypt libmcrypt-devel mcrypt mhash&lt;/code&gt;安装。下载php下的mcrypt扩展或者直接下载php的完整安装包,切换到php代码下的 ext/mcrypt目录执phpize命令（phpize是用来扩展php扩展模块的，通过phpize可以建立php的外挂模块）执行完后，会发现当前目录下多了一些configure文件，执行:&lt;/p&gt;
 
-&lt;p&gt;2.php.ini的路径&lt;/p&gt;
-
-&lt;p&gt;&amp;emsp;&amp;emsp;在Unix上，php.ini文件缺省放在/usr/local/lib上面，因为缺省的存放路径是/lib，但是可以在编译的时候使用&amp;ndash;with-config-file-path参数 来修改php.ini的存放位置，例如你可以使用&amp;ndash;with-config-file-path=/etc把它存放到/etc下面，然后可以从源码包中拷贝php.ini-develop 或者 php.ini-product到/etc/php.ini并修改使之满足需要。&lt;/p&gt;
-
-&lt;p&gt;3.安装php的mcrypt扩展(动态加载编译)&lt;/p&gt;
-
-&lt;p&gt;&amp;emsp;&amp;emsp;执行 &lt;code&gt;yum list installed|grep mcrypt&lt;/code&gt;查看mcrypt及依赖库是否安装，没有的话执行 &lt;code&gt;yum -y install libmcrypt libmcrypt-devel mcrypt mhash&lt;/code&gt;安装&lt;/p&gt;
-
-&lt;p&gt;下载php下的mcrypt扩展或者直接下载php的完整安装包,切换到php代码下的 ext/mcrypt目录&lt;/p&gt;
-
-&lt;p&gt;执行phpize命令（phpize是用来扩展php扩展模块的，通过phpize可以建立php的外挂模块）&lt;/p&gt;
-
-&lt;p&gt;执行完后，会发现当前目录下多了一些configure文件，&lt;/p&gt;
-
-&lt;p&gt;执行&lt;br /&gt;
-&lt;code&gt;./configure --with-php-config=/usr/local/bin/php-config&lt;/code&gt; //根据具体的安装路径&lt;/p&gt;
-
-&lt;p&gt;然后&lt;code&gt;make &amp;amp;&amp;amp; make install&lt;/code&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;./configure --with-php-config=/usr/local/bin/php-config` //根据具体的安装路径
+make &amp;amp;&amp;amp; make install
+&lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;最后出现提示：&lt;br /&gt;
 &lt;code&gt;Installing shared extensions: /path&lt;/code&gt; //path可在 php-config 中的extension_dir处设置&lt;/p&gt;
@@ -62,8 +51,7 @@ easy.h should be in /include/curl/
 &lt;pre&gt;&lt;code&gt;yum -y install curl-devel    
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;6.在用phpmyadmin导入数据经常会出现提示:*没有接收到要导入的数据*。&lt;br /&gt;
-&amp;emsp;&amp;emsp;可能是文件名没有提交，也可能是文件大小超出 PHP 限制。phpmyadmin在选择文件时会有最大限制的提示，对比下待导入数据的大小，然后打开php.ini,查找“upload_max_filesize”关键字，将其修改为比待导入数据稍大些的值，然后重启 web服务器即可。&lt;/p&gt;
+&lt;p&gt;6.在用phpmyadmin导入数据经常会出现提示:*没有接收到要导入的数据*。可能是文件名没有提交，也可能是文件大小超出 PHP 限制。phpmyadmin在选择文件时会有最大限制的提示，对比下待导入数据的大小，然后打开php.ini,查找&lt;code&gt;upload_max_filesize&lt;/code&gt;关键字，将其修改为比待导入数据稍大些的值，然后重启 web服务器即可。&lt;/p&gt;
 </description>
     </item>
     
@@ -99,53 +87,39 @@ easy.h should be in /include/curl/
       <pubDate>Mon, 18 Feb 2013 21:43:12 +0800</pubDate>
       
       <guid>http://luobin.me/post/centos%E6%90%AD%E5%BB%BAsvn%E6%9C%8D%E5%8A%A1%E5%99%A8/</guid>
-      <description>&lt;p&gt;首先安装subversion，直接：&lt;/p&gt;
+      <description>
 
-&lt;pre&gt;&lt;code&gt;yum -y install subversion 
-&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;安装:3ceb527a872673594bc5e76baba49d67&#34;&gt;安装&lt;/h3&gt;
 
-&lt;p&gt;&lt;code&gt;svnserve --version&lt;/code&gt; 查看 返回版本号说明安装成功&lt;/p&gt;
+&lt;p&gt;首先安装subversion，直接：
+    yum -y install subversion
+&lt;code&gt;svnserve --version&lt;/code&gt; 查看 返回版本号说明安装成功
+建立svn库,执行：&lt;br /&gt;
+    svnadmin create /opt/svn/kuyustore
+执行上面的命令后，自动在kuyustore下建立多个文件， 分别是conf, db,format,hooks, locks, README.txt。&lt;/p&gt;
 
-&lt;p&gt;建立svn库,执行：&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;svnadmin create /opt/svn/kuyustore
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;执行上面的命令后，自动在kuyustore下建立多个文件， 分别是conf, db,format,hooks, locks, README.txt。&lt;/p&gt;
-
-&lt;p&gt;配置svnserve&lt;/p&gt;
+&lt;h3 id=&#34;配置:3ceb527a872673594bc5e76baba49d67&#34;&gt;配置&lt;/h3&gt;
 
 &lt;p&gt;进入上面生成conf目录， 有以下几个文件:&lt;/p&gt;
 
 &lt;p&gt;authz, passwd, svnserve.conf&lt;/p&gt;
 
-&lt;p&gt;其中authz 配置用户权限，设置哪些用户可以读写哪些目录,passwd是设置用户和密码的, svnserve是主配置文件设置svn相关的操作。&lt;/p&gt;
+&lt;p&gt;其中authz 配置用户权限，设置哪些用户可以读写哪些目录,passwd是设置用户和密码的, svnserve是主配置文件设置svn相关的操作。&lt;br /&gt;
+passwd文件:&lt;br /&gt;
+[users]
+# 用户名 =密码&lt;br /&gt;
+kuyu=123456
+以上表示建立了用户kuyu，注意行首不能有空格&lt;br /&gt;
+authz文件:&lt;br /&gt;
+[/]&lt;br /&gt;
+kuyu= rw&lt;br /&gt;
+。。。&lt;br /&gt;
+意思是用户kuyu对所有的目录有读写权限&lt;/p&gt;
 
-&lt;p&gt;passwd文件:&lt;/p&gt;
+&lt;p&gt;svnserve.conf文件:&lt;br /&gt;
+[general]&lt;/p&gt;
 
-&lt;p&gt;[users]&lt;/p&gt;
-
-&lt;p&gt;# 用户名 =密码&lt;/p&gt;
-
-&lt;p&gt;kuyu=123456&lt;/p&gt;
-
-&lt;p&gt;以上表示建立了用户kuyu，注意行首不能有空格&lt;/p&gt;
-
-&lt;p&gt;authz文件：&lt;/p&gt;
-
-&lt;p&gt;[/]&lt;/p&gt;
-
-&lt;p&gt;kuyu= rw&lt;/p&gt;
-
-&lt;p&gt;。。。&lt;/p&gt;
-
-&lt;p&gt;意思是用户kuyu对所有的目录有读写权限&lt;/p&gt;
-
-&lt;p&gt;svnserve.conf文件：&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;[general]
-
-auth-access = write
+&lt;pre&gt;&lt;code&gt;auth-access = write
 password-db = passwd
 authz-db = authz
 realm = kuyustore

@@ -17,6 +17,8 @@
     
     <meta property="og:article:tag" content="magento" />
     
+    <meta property="og:article:tag" content="php" />
+    
     
 
   <title>
@@ -135,23 +137,19 @@
          
           <span class="post-tag small"><a href="http://luobin.me/tags/magento/">#magento</a></span>
          
+          <span class="post-tag small"><a href="http://luobin.me/tags/php/">#php</a></span>
+         
         </section>
     </header>
 
     <section class="post-content">
-      <p>&emsp;&emsp;很明显错误的提示是当前数据库不支持InnoDB storage engine，但是通过show engines命令以及phpinfo()函数查看，mysql的InnodB都是正常的，后来搜到magento中文社区的一篇文章原文链接<a href="http://www.magentochina.org/blog/install-magento-on-mysql-5-6">http://www.magentochina.org/blog/install-magento-on-mysql-5-6</a></p>
+      <p>&emsp;&emsp;很明显错误的提示是当前数据库不支持InnoDB storage engine，但是通过show engines命令以及phpinfo()函数查看，mysql的InnodB都是正常的，后来搜到magento中文社区的<a href="http://www.magentochina.org/blog/install-magento-on-mysql-5-6">一篇文章</a>,原因是Mysql 5.6.1版本已经已经丢弃了<code>have_innodb</code>这个函数.而Magento1.7.0.2以下都是使用该函数检测Mysql是否激活了InnodB引擎。而我的数据库版本正好是5.6.10按照文章中的修改方法:<br />
+在文件app/code/core/Mage/Install/Model/Installer/Db/Mysql4.php中找到以下代码</p>
 
-<p>原因是Mysql 5.6.1版本已经已经丢弃了“have_innodb”这个函数.而Magento1.7.0.2以下，</p>
+<pre><code>$variables  = $this-&gt;_getConnection()-&gt;fetchPairs('SHOW VARIABLES');
+</code></pre>
 
-<p>都是使用该函数检测Mysql是否激活了InnodB引擎。而我的数据库版本正好是5.6.10</p>
-
-<p>按照文章中的修改方法</p>
-
-<p>在文件app/code/core/Mage/Install/Model/Installer/Db/Mysql4.php</p>
-
-<p>找到以下代码
-    $variables  = $this-&gt;_getConnection()-&gt;fetchPairs(&lsquo;SHOW VARIABLES&rsquo;);
-在其后加上:</p>
+<p>在其后加上:</p>
 
 <pre><code>if (!isset($variables['have_innodb'])) 
 {
@@ -160,9 +158,7 @@
     ...
 </code></pre>
 
-<p>原来的return语句注释掉或者保留都不会影响。</p>
-
-<p>刷新一下即可继续正常安装了</p>
+<p>原来的return语句注释掉或者保留都不会影响。刷新一下即可继续正常安装了。</p>
 
     </section>
 

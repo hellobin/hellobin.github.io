@@ -5,24 +5,24 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
-  	<meta property="og:title" content=" centos下mysql5.6.10源码安装 &middot;  不足为外人道" />
+  	<meta property="og:title" content=" OSX环境下liteide的安装和配置 &middot;  不足为外人道" />
   	<meta property="og:site_name" content="不足为外人道" />
-  	<meta property="og:url" content="http://luobin.me/post/centos%E4%B8%8Bmysql5.6.10%E6%BA%90%E7%A0%81%E5%AE%89%E8%A3%85/" />
+  	<meta property="og:url" content="http://luobin.me/post/OSX%E7%8E%AF%E5%A2%83%E4%B8%8Bliteide%E7%9A%84%E5%AE%89%E8%A3%85%E5%92%8C%E9%85%8D%E7%BD%AE/" />
 
     
   	<meta property="og:type" content="article" />
 
-    <meta property="og:article:published_time" content="2013-04-06T22:33:21&#43;08:00" />
+    <meta property="og:article:published_time" content="2015-04-26T21:56:59&#43;08:00" />
 
     
-    <meta property="og:article:tag" content="linux" />
+    <meta property="og:article:tag" content="golang" />
     
-    <meta property="og:article:tag" content="mysql" />
+    <meta property="og:article:tag" content="OSX" />
     
     
 
   <title>
-     centos下mysql5.6.10源码安装 &middot;  不足为外人道
+     OSX环境下liteide的安装和配置 &middot;  不足为外人道
   </title>
 
     <meta name="description" content="忽逢桃花林，夹岸数百步，芳草鲜美，落英缤纷" />
@@ -47,7 +47,7 @@
     
     <meta name="generator" content="Hugo 0.16-DEV" />
 
-    <link rel="canonical" href="http://luobin.me/post/centos%E4%B8%8Bmysql5.6.10%E6%BA%90%E7%A0%81%E5%AE%89%E8%A3%85/" />
+    <link rel="canonical" href="http://luobin.me/post/OSX%E7%8E%AF%E5%A2%83%E4%B8%8Bliteide%E7%9A%84%E5%AE%89%E8%A3%85%E5%92%8C%E9%85%8D%E7%BD%AE/" />
 
     
 
@@ -125,82 +125,61 @@
   <article class="post post">
 
     <header class="post-header">
-        <h1 class="post-title">centos下mysql5.6.10源码安装</h1>
+        <h1 class="post-title">OSX环境下liteide的安装和配置</h1>
         <small></small>
 
         <section class="post-meta">
         
-          <time class="post-date" datetime="2013-04-06T22:33:21&#43;08:00">
-            Apr 6, 2013
+          <time class="post-date" datetime="2015-04-26T21:56:59&#43;08:00">
+            Apr 26, 2015
           </time>
         
          
-          <span class="post-tag small"><a href="http://luobin.me/tags/linux/">#linux</a></span>
+          <span class="post-tag small"><a href="http://luobin.me/tags/golang/">#golang</a></span>
          
-          <span class="post-tag small"><a href="http://luobin.me/tags/mysql/">#mysql</a></span>
+          <span class="post-tag small"><a href="http://luobin.me/tags/osx/">#OSX</a></span>
          
         </section>
     </header>
 
     <section class="post-content">
-      <p>从mysql5.5起，mysql源码安装开始使用cmake了，所以首先要安装cmake
-可以用命令:</p>
+      <p>&emsp;&emsp;首先要安装qt</p>
 
-<pre><code>    rpm -qa | grep cmake
+<pre><code>$  brew update &amp;&amp; brew install qt
 </code></pre>
 
-<p>查询当前系统有没有安装查cmake。</p>
+<p>&emsp;&emsp;clone liteide代码</p>
 
-<p>下载解压安装cmake</p>
-
-<pre><code>#tar -zvxf cmake-2.8.3.tar.gz
-#cd cmake-2.8.3
-#./configure
-#make
-#make install 
+<pre><code>$  git clone https://github.com/visualfc/liteide.git
+$  cd liteide/build
+$  ./update_pkg.sh
+$ export QTDIR=/usr/local/Cellar/qt/xxx  //qt的版本号
+$ ./build_osx.sh
+$ ./deploy_osx_qt4.sh
 </code></pre>
 
-<p>可能会出现没有C++编译器的错误，默认的gcc默认没有支持c++，使用以下语句安装</p>
+<p>&emsp;&emsp;最后的结果在 liteide/build/liteide,但是liteide/liteidex/liteide/bin 下面也有一个更小的版本。<br />
+&emsp;&emsp;liteide需要gdb来调试go程序，check下系统有安装了gdb。(命令行下敲gdb有版本信息输出，有安装的话
+用 <code>which gdb</code> 看下gdb的路径，签名的时候用得着)。没有的话</p>
 
-<pre><code>#yum -y install gcc-c++
+<pre><code>brew update &amp;&amp; brew install gdb
 </code></pre>
 
-<p>执行源码编译配置脚本</p>
+<p>然后还要给gdb签名，需要创建一个code signing证书。
+<img src="http://77g3g7.com1.z0.glb.clouddn.com/gdbcert.png" alt="" />
+&emsp;&emsp;如图所示，一直continue，直到选择证书存放地址，选择system。右键刚才创建的 gdbCert 证书，选择Get Info，点击“信任”，
+会显示可以自定义的信任选项。代码签名”选择“总是信任” （Code Signing to Always Trust）。
+&emsp;&emsp;执行：</p>
 
-<pre><code>cmake \
--DCMAKE_INSTALL_PREFIX=/usr/local/mysql \
--DMYSQL_UNIX_ADDR=/usr/local/mysql/mysql.sock \
--DDEFAULT_CHARSET=utf8 \
--DDEFAULT_COLLATION=utf8_general_ci \
--DWITH_MYISAM_STORAGE_ENGINE=1 \
--DWITH_INNOBASE_STORAGE_ENGINE=1 \
--DWITH_ARCHIVE_STORAGE_ENGINE=1 \
--DWITH_BLACKHOLE_STORAGE_ENGINE=1 \
--DWITH_MEMORY_STORAGE_ENGINE=1 \
--DWITH_READLINE=1 \
--DENABLED_LOCAL_INFILE=1 \
--DMYSQL_DATADIR=/db/mysql/data \
--DMYSQL_USER=mysql \
--DMYSQL_TCP_PORT=3306
+<pre><code>$codesign -s gdb-cert /path/to/gdb
 </code></pre>
 
-<p>如果出现以下错误：</p>
+<p>然后重启下系统，在liteide中打开view-&gt;edit current environment，在配置文件中设置下</p>
 
-<pre><code>cmake .
--- MySQL 5.5.8
--- Could NOT find Curses (missing:  CURSES_LIBRARY  CURSES_INCLUDE_PATH)
-CMake Error at cmake/readline.cmake:82 (MESSAGE):
-Curses library not found.  Please install appropriate package,。。。
+<pre><code>LITEIDE_GDB=/path/to/gdb
 </code></pre>
 
-<p>执行 yum -y install ncurses-devel 命令，然后删除生成的CMakeCache.txt文件，重新执行cmake
-执行 <code>＃make  &amp;&amp; make install</code> 编译安装
-在运行mysqld的时候可能会遇到类似：</p>
-
-<pre><code>ERROR 2002 (HY000): Can’t connect to local MySQL server through socket ‘/var/lib/mysql/mysql.sock’ (2) 
-</code></pre>
-
-<p>这样的错误，只需重新确认一下mysql.sock文件的路径，在/etc/my.cnf 文件中设施一下socket=path即可。对于mysqladmin，同样需要在/etc/my.cnf 文件中[mysqladmin]下设置socket 路径。</p>
+<p>然后就可以在liteide中尽情的享受调试go的快感。。。（目前免费方案中最好用的golang ide，无障碍单步调试）</p>
 
     </section>
 
@@ -218,7 +197,7 @@ Curses library not found.  Please install appropriate package,。。。
 <div id="disqus_thread"></div>
 <script type="text/javascript">
   var disqus_shortname = 'icenan2';
-  var disqus_url = 'http:\/\/luobin.me\/post\/centos%E4%B8%8Bmysql5.6.10%E6%BA%90%E7%A0%81%E5%AE%89%E8%A3%85\/';
+  var disqus_url = 'http:\/\/luobin.me\/post\/OSX%E7%8E%AF%E5%A2%83%E4%B8%8Bliteide%E7%9A%84%E5%AE%89%E8%A3%85%E5%92%8C%E9%85%8D%E7%BD%AE\/';
   (function() {
     var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
     dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';

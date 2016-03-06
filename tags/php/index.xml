@@ -16,26 +16,15 @@
       
       <guid>http://luobin.me/post/centos%E4%B8%8B%E6%BA%90%E7%A0%81%E5%AE%89%E8%A3%85php5.3.24%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9/</guid>
       <description>&lt;p&gt;1.注意事项.&lt;br /&gt;
- &amp;emsp;&amp;emsp;需要先安装libxml2 和 libxml2-devel&lt;/p&gt;
+ &amp;emsp;&amp;emsp;需要先安装libxml2 和 libxml2-devel&lt;br /&gt;
+2.php.ini的路径&lt;br /&gt;
+&amp;emsp;&amp;emsp;在Unix上，php.ini文件缺省放在/usr/local/lib上面，因为缺省的存放路径是/lib，但是可以在编译的时候使用&amp;ndash;with-config-file-path参数 来修改php.ini的存放位置，例如你可以使用&amp;ndash;with-config-file-path=/etc把它存放到/etc下面，然后可以从源码包中拷贝php.ini-develop 或者 php.ini-product到/etc/php.ini并修改使之满足需要。&lt;br /&gt;
+3.安装php的mcrypt扩展(动态加载编译)&lt;br /&gt;
+&amp;emsp;&amp;emsp;执行 &lt;code&gt;yum list installed|grep mcrypt&lt;/code&gt;查看mcrypt及依赖库是否安装，没有的话执行 &lt;code&gt;yum -y install libmcrypt libmcrypt-devel mcrypt mhash&lt;/code&gt;安装。下载php下的mcrypt扩展或者直接下载php的完整安装包,切换到php代码下的 ext/mcrypt目录执phpize命令（phpize是用来扩展php扩展模块的，通过phpize可以建立php的外挂模块）执行完后，会发现当前目录下多了一些configure文件，执行:&lt;/p&gt;
 
-&lt;p&gt;2.php.ini的路径&lt;/p&gt;
-
-&lt;p&gt;&amp;emsp;&amp;emsp;在Unix上，php.ini文件缺省放在/usr/local/lib上面，因为缺省的存放路径是/lib，但是可以在编译的时候使用&amp;ndash;with-config-file-path参数 来修改php.ini的存放位置，例如你可以使用&amp;ndash;with-config-file-path=/etc把它存放到/etc下面，然后可以从源码包中拷贝php.ini-develop 或者 php.ini-product到/etc/php.ini并修改使之满足需要。&lt;/p&gt;
-
-&lt;p&gt;3.安装php的mcrypt扩展(动态加载编译)&lt;/p&gt;
-
-&lt;p&gt;&amp;emsp;&amp;emsp;执行 &lt;code&gt;yum list installed|grep mcrypt&lt;/code&gt;查看mcrypt及依赖库是否安装，没有的话执行 &lt;code&gt;yum -y install libmcrypt libmcrypt-devel mcrypt mhash&lt;/code&gt;安装&lt;/p&gt;
-
-&lt;p&gt;下载php下的mcrypt扩展或者直接下载php的完整安装包,切换到php代码下的 ext/mcrypt目录&lt;/p&gt;
-
-&lt;p&gt;执行phpize命令（phpize是用来扩展php扩展模块的，通过phpize可以建立php的外挂模块）&lt;/p&gt;
-
-&lt;p&gt;执行完后，会发现当前目录下多了一些configure文件，&lt;/p&gt;
-
-&lt;p&gt;执行&lt;br /&gt;
-&lt;code&gt;./configure --with-php-config=/usr/local/bin/php-config&lt;/code&gt; //根据具体的安装路径&lt;/p&gt;
-
-&lt;p&gt;然后&lt;code&gt;make &amp;amp;&amp;amp; make install&lt;/code&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;./configure --with-php-config=/usr/local/bin/php-config` //根据具体的安装路径
+make &amp;amp;&amp;amp; make install
+&lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;最后出现提示：&lt;br /&gt;
 &lt;code&gt;Installing shared extensions: /path&lt;/code&gt; //path可在 php-config 中的extension_dir处设置&lt;/p&gt;
@@ -62,8 +51,32 @@ easy.h should be in /include/curl/
 &lt;pre&gt;&lt;code&gt;yum -y install curl-devel    
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;6.在用phpmyadmin导入数据经常会出现提示:*没有接收到要导入的数据*。&lt;br /&gt;
-&amp;emsp;&amp;emsp;可能是文件名没有提交，也可能是文件大小超出 PHP 限制。phpmyadmin在选择文件时会有最大限制的提示，对比下待导入数据的大小，然后打开php.ini,查找“upload_max_filesize”关键字，将其修改为比待导入数据稍大些的值，然后重启 web服务器即可。&lt;/p&gt;
+&lt;p&gt;6.在用phpmyadmin导入数据经常会出现提示:*没有接收到要导入的数据*。可能是文件名没有提交，也可能是文件大小超出 PHP 限制。phpmyadmin在选择文件时会有最大限制的提示，对比下待导入数据的大小，然后打开php.ini,查找&lt;code&gt;upload_max_filesize&lt;/code&gt;关键字，将其修改为比待导入数据稍大些的值，然后重启 web服务器即可。&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>magento 1.7.02安装问题</title>
+      <link>http://luobin.me/post/magento-1.7.02%E5%AE%89%E8%A3%85%E9%97%AE%E9%A2%98/</link>
+      <pubDate>Sat, 13 Apr 2013 22:40:08 +0800</pubDate>
+      
+      <guid>http://luobin.me/post/magento-1.7.02%E5%AE%89%E8%A3%85%E9%97%AE%E9%A2%98/</guid>
+      <description>&lt;p&gt;&amp;emsp;&amp;emsp;很明显错误的提示是当前数据库不支持InnoDB storage engine，但是通过show engines命令以及phpinfo()函数查看，mysql的InnodB都是正常的，后来搜到magento中文社区的&lt;a href=&#34;http://www.magentochina.org/blog/install-magento-on-mysql-5-6&#34;&gt;一篇文章&lt;/a&gt;,原因是Mysql 5.6.1版本已经已经丢弃了&lt;code&gt;have_innodb&lt;/code&gt;这个函数.而Magento1.7.0.2以下都是使用该函数检测Mysql是否激活了InnodB引擎。而我的数据库版本正好是5.6.10按照文章中的修改方法:&lt;br /&gt;
+在文件app/code/core/Mage/Install/Model/Installer/Db/Mysql4.php中找到以下代码&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$variables  = $this-&amp;gt;_getConnection()-&amp;gt;fetchPairs(&#39;SHOW VARIABLES&#39;);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;在其后加上:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;if (!isset($variables[&#39;have_innodb&#39;])) 
+{
+    $engines = $this-&amp;gt;_getConnection()-&amp;gt;fetchPairs(&#39;SHOW ENGINES&#39;);        
+    return (isset($engines[&#39;InnoDB&#39;]) &amp;amp;&amp;amp; ($engines[&#39;InnoDB&#39;] == &#39;DEFAULT&#39; || $engines[&#39;InnoDB&#39;] == &#39;YES&#39;);
+    ...
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;原来的return语句注释掉或者保留都不会影响。刷新一下即可继续正常安装了。&lt;/p&gt;
 </description>
     </item>
     

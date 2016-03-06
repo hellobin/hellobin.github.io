@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Osx on 不足为外人道</title>
+    <link>http://luobin.me/tags/osx/</link>
+    <description>Recent content in Osx on 不足为外人道</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 26 Apr 2015 21:56:59 +0800</lastBuildDate>
+    <atom:link href="http://luobin.me/tags/osx/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>OSX环境下liteide的安装和配置</title>
+      <link>http://luobin.me/post/OSX%E7%8E%AF%E5%A2%83%E4%B8%8Bliteide%E7%9A%84%E5%AE%89%E8%A3%85%E5%92%8C%E9%85%8D%E7%BD%AE/</link>
+      <pubDate>Sun, 26 Apr 2015 21:56:59 +0800</pubDate>
+      
+      <guid>http://luobin.me/post/OSX%E7%8E%AF%E5%A2%83%E4%B8%8Bliteide%E7%9A%84%E5%AE%89%E8%A3%85%E5%92%8C%E9%85%8D%E7%BD%AE/</guid>
+      <description>&lt;p&gt;&amp;emsp;&amp;emsp;首先要安装qt&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$  brew update &amp;amp;&amp;amp; brew install qt
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&amp;emsp;&amp;emsp;clone liteide代码&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$  git clone https://github.com/visualfc/liteide.git
+$  cd liteide/build
+$  ./update_pkg.sh
+$ export QTDIR=/usr/local/Cellar/qt/xxx  //qt的版本号
+$ ./build_osx.sh
+$ ./deploy_osx_qt4.sh
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&amp;emsp;&amp;emsp;最后的结果在 liteide/build/liteide,但是liteide/liteidex/liteide/bin 下面也有一个更小的版本。&lt;br /&gt;
+&amp;emsp;&amp;emsp;liteide需要gdb来调试go程序，check下系统有安装了gdb。(命令行下敲gdb有版本信息输出，有安装的话
+用 &lt;code&gt;which gdb&lt;/code&gt; 看下gdb的路径，签名的时候用得着)。没有的话&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;brew update &amp;amp;&amp;amp; brew install gdb
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;然后还要给gdb签名，需要创建一个code signing证书。
+&lt;img src=&#34;http://77g3g7.com1.z0.glb.clouddn.com/gdbcert.png&#34; alt=&#34;&#34; /&gt;
+&amp;emsp;&amp;emsp;如图所示，一直continue，直到选择证书存放地址，选择system。右键刚才创建的 gdbCert 证书，选择Get Info，点击“信任”，
+会显示可以自定义的信任选项。代码签名”选择“总是信任” （Code Signing to Always Trust）。
+&amp;emsp;&amp;emsp;执行：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$codesign -s gdb-cert /path/to/gdb
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;然后重启下系统，在liteide中打开view-&amp;gt;edit current environment，在配置文件中设置下&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;LITEIDE_GDB=/path/to/gdb
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;然后就可以在liteide中尽情的享受调试go的快感。。。（目前免费方案中最好用的golang ide，无障碍单步调试）&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>
