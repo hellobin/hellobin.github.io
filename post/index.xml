@@ -255,6 +255,31 @@ x2 = std::move(x3);
     </item>
     
     <item>
+      <title>C&#43;&#43;学习资源</title>
+      <link>http://luobin.me/post/c&#43;&#43;%E5%AD%A6%E4%B9%A0%E8%B5%84%E6%BA%90/</link>
+      <pubDate>Sun, 09 Mar 2014 21:52:05 +0800</pubDate>
+      
+      <guid>http://luobin.me/post/c&#43;&#43;%E5%AD%A6%E4%B9%A0%E8%B5%84%E6%BA%90/</guid>
+      <description>&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.ibm.com/developerworks/community/blogs/5894415f-be62-4bc0-81c5-3956e82276f3?sortby=0&amp;amp;maxresults=15&amp;amp;order=desc&amp;amp;lang=en&#34;&gt;IBM C/C++ Cafe&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://isocpp.org/wiki/faq&#34;&gt;C++ FAQ&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://www.stroustrup.com/C++11FAQ.html&#34;&gt;C++11FAQ by Bjarne Stroustrup&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://www.open-std.org/jtc1/sc22/wg21/&#34;&gt;latest C++ standards drafts&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://www.umich.edu/~eecs381/handouts/C++11_smart_ptrs.pdf&#34;&gt;C++11’s Smart Pointers&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://en.wikibooks.org/wiki/More_C%2B%2B_Idioms&#34;&gt;More C++ Idioms&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://www.umich.edu/~eecs381/&#34;&gt;University of Michigan&amp;rsquo;s EECS 381 - Object-Oriented and Advanced Programming&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/wuye9036/CppTemplateTutorial&#34;&gt;CppTemplateTutorial-空明流转作品&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;###Blogs&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://solarianprogrammer.com/&#34;&gt;Solarian Programmer&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+    <item>
       <title>C&#43;&#43;特殊成员函数总结</title>
       <link>http://luobin.me/post/C&#43;&#43;%E7%89%B9%E6%AE%8A%E6%88%90%E5%91%98%E5%87%BD%E6%95%B0%E6%80%BB%E7%BB%93/</link>
       <pubDate>Sun, 25 Aug 2013 09:48:23 +0800</pubDate>
