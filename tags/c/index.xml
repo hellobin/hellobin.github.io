@@ -6,8 +6,191 @@
     <description>Recent content in C on 不足为外人道</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 21 Mar 2014 16:20:01 +0800</lastBuildDate>
+    <lastBuildDate>Mon, 07 Mar 2016 17:50:24 +0800</lastBuildDate>
     <atom:link href="http://luobin.me/tags/c/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>C&#43;&#43;智能指针</title>
+      <link>http://luobin.me/post/C&#43;&#43;%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88/</link>
+      <pubDate>Mon, 07 Mar 2016 17:50:24 +0800</pubDate>
+      
+      <guid>http://luobin.me/post/C&#43;&#43;%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88/</guid>
+      <description>
+
+&lt;p&gt;&amp;emsp;&amp;emsp;关于智能指针，C++11中废弃了原来的auto_ptr，引入了shared_ptr,unique_ptr,weak_ptr。在引入智能指针之前，我们使用原生指针(built-in or raw)来手动控制内存的操作和释放，稍有不慎常会发生各种内存泄露或者undefined行为，这点使用c/c++开发过项目的必然都深有体会。世间万事万物都有其两面性，我们享受直接内存操作的便利快感的同时，有时候难免要忍受调试各种稀奇古怪的内存bug的酸爽。下面将逐个剖析新的智能指针系列引入的这几种类型的背后实现机制以及对于开发工作会有那些帮助。&lt;/p&gt;
+
+&lt;h4 id=&#34;shared-ptr:86125507f6e433adf8544745a5755250&#34;&gt;shared_ptr&lt;/h4&gt;
+
+&lt;p&gt;&amp;emsp;&amp;emsp;首先这三种类型都是STL中实现的，具体不同的编译器附带的STL中的实现会有差异(事实上差异还比较大)，但是我们使用的时候需要引用的同一个头文件名:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;#include&amp;lt;memory&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;由于本人的主要开发环境是OS X,对应的主力编译器是clang,clang默认由原来使用GNU的libstdc++到现在自己重新实现了一套c++标准库，叫libc++,所以这里不加特别说明的话，当介绍具体实现的时候，默认指的是libc++的实现。&lt;br /&gt;
+&amp;emsp;&amp;emsp;shared_基本用法:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-C++&#34;&gt;
+#include &amp;lt;iostream&amp;gt;
+#include &amp;lt;memory&amp;gt;
+using namespace std;
+
+class X{
+public:
+    X()=default;
+    X(int value)
+            :data(value)
+    {
+        cout &amp;lt;&amp;lt;&amp;quot;constructor&amp;quot;&amp;lt;&amp;lt;endl;
+    }
+    ~X()
+    {
+        cout &amp;lt;&amp;lt;&amp;quot;destrucctor&amp;quot;&amp;lt;&amp;lt;endl;
+    }
+    int get_data() const
+    {
+        return  data;
+    }
+
+    friend ostream&amp;amp; operator &amp;lt;&amp;lt; (ostream &amp;amp;out, const X&amp;amp; x)
+    {
+        out &amp;lt;&amp;lt;x.get_data();
+        return out;
+    }
+
+private:
+    int data;
+};
+void f()
+{
+    shared_ptr&amp;lt;X&amp;gt; sp(new X(5)); //
+    cout&amp;lt;&amp;lt;*sp&amp;lt;&amp;lt;endl; //the same use as raw point
+    cout &amp;lt;&amp;lt;&amp;quot;data = &amp;quot;&amp;lt;&amp;lt;sp-&amp;gt;get_data()&amp;lt;&amp;lt;endl;
+    cout &amp;lt;&amp;lt;&amp;quot;use_count = &amp;quot; &amp;lt;&amp;lt;sp.use_count()&amp;lt;&amp;lt;endl; // should print use_count = 1
+    shared_ptr&amp;lt;X&amp;gt; sp1 = sp;
+    cout &amp;lt;&amp;lt;&amp;quot;use_count = &amp;quot; &amp;lt;&amp;lt;sp.use_count()&amp;lt;&amp;lt;endl; // should print use_count = 2
+    sp.reset();
+    cout &amp;lt;&amp;lt;&amp;quot;use_count = &amp;quot; &amp;lt;&amp;lt;sp.use_count()&amp;lt;&amp;lt;endl; // should print use_count = 0 because sp is reseted
+    shared_ptr&amp;lt;X&amp;gt; sp2 = sp1;
+    cout &amp;lt;&amp;lt;&amp;quot;use_count = &amp;quot; &amp;lt;&amp;lt;sp1.use_count()&amp;lt;&amp;lt;endl; // should print use_count = 2
+    sp = sp1;  // now can also assign to sp with a same(or convertible) type of shared_ptr
+    cout &amp;lt;&amp;lt;&amp;quot;use_count = &amp;quot; &amp;lt;&amp;lt;sp.use_count()&amp;lt;&amp;lt;endl; // should print use_count = 3
+    sp = nullptr; //the same effect as reset
+    cout &amp;lt;&amp;lt;&amp;quot;use_count = &amp;quot; &amp;lt;&amp;lt;sp.use_count()&amp;lt;&amp;lt;endl; //shoud print use_cout = 0
+    cout &amp;lt;&amp;lt;&amp;quot;use_count = &amp;quot; &amp;lt;&amp;lt;sp1.use_count()&amp;lt;&amp;lt;endl; // should print use_cout = 2
+}
+int main()
+{
+    f();
+    return 0;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;运行下测试程序验证输出结果正如如我们注释中所料：
+&lt;img src=&#34;http://77g3g7.com1.z0.glb.clouddn.com/shared_ptr.png&#34; alt=&#34;&#34; /&gt;
+仅仅介绍怎么用远不是在我们这篇文章的终极目标，下面让我们一层一层揭开智能指针的神秘面纱。从上面的例子我们已经可以看出，shared_ptr本质是一个模板类，这个模板类实例化的参数类型就是对应我们要“智能”管理对象类型(或者 convertible的类型)，讲起来还是蛮拗口的,举个栗子：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-C++&#34;&gt;class Y:public X
+{
+private:
+    float value;
+};
+...
+shared_ptr&amp;lt;X&amp;gt; sfp(new Y()); //这么写也是合法的
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;说了这么多，shared_ptr的本质就是一个包含raw指针以及关于这个raw指针的全局引用信息的对象，通过在这个对象的destructor中修改raw指针的全局引用信息来控制raw指针的释放时机。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-C++&#34;&gt;template&amp;lt;class _Tp&amp;gt;
+class _LIBCPP_TYPE_VIS_ONLY shared_ptr
+{
+public:
+    typedef _Tp element_type;
+private:
+    element_type*      __ptr_;
+    __shared_weak_count* __cntrl_;
+
+    struct __nat {int __for_bool_;};
+public:
+    _LIBCPP_CONSTEXPR shared_ptr() _NOEXCEPT;
+    _LIBCPP_CONSTEXPR shared_ptr(nullptr_t) _NOEXCEPT;
+    template&amp;lt;class _Yp&amp;gt;
+        explicit shared_ptr(_Yp* __p,
+                            typename enable_if&amp;lt;is_convertible&amp;lt;_Yp*, element_type*&amp;gt;::value, __nat&amp;gt;::type = __nat());
+     			...
+    element_type* get() const _NOEXCEPT {return __ptr_;}
+    _LIBCPP_INLINE_VISIBILITY
+    typename add_lvalue_reference&amp;lt;element_type&amp;gt;::type operator*() const _NOEXCEPT
+        {return *__ptr_;}
+    _LIBCPP_INLINE_VISIBILITY
+    element_type* operator-&amp;gt;() const _NOEXCEPT {return __ptr_;}
+    _LIBCPP_INLINE_VISIBILITY
+    long use_count() const _NOEXCEPT {return __cntrl_ ? __cntrl_-&amp;gt;use_count() : 0;}
+    			...
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;如上代码所示，&lt;code&gt;__ptr_&lt;/code&gt;即是我们说的raw指针，&lt;code&gt;__cntrl_&lt;/code&gt;就是那个控制raw指针的全局引用信息的对象指针，其中&lt;code&gt;__share_weak_count&lt;/code&gt;又是继承自一个叫&lt;code&gt;__shared_count&lt;/code&gt;的类:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-C++&#34;&gt;class _LIBCPP_TYPE_VIS __shared_weak_count
+    : private __shared_count
+{
+    long __shared_weak_owners_;
+
+public:
+    _LIBCPP_INLINE_VISIBILITY
+    explicit __shared_weak_count(long __refs = 0) _NOEXCEPT
+        : __shared_count(__refs),
+          __shared_weak_owners_(__refs) {}
+protected:
+    virtual ~__shared_weak_count();
+
+public:
+    void __add_shared() _NOEXCEPT;
+    void __add_weak() _NOEXCEPT;
+    void __release_shared() _NOEXCEPT;
+    void __release_weak() _NOEXCEPT;
+    _LIBCPP_INLINE_VISIBILITY
+    long use_count() const _NOEXCEPT {return __shared_count::use_count();}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;我们上个shared_ptr简单实用的例子中输出的use_count信息实际上完全是由这个&lt;code&gt;shared_count&lt;/code&gt;来控制的,即实际是下面的__shared_owers_这个变量的值&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-C++&#34;&gt;class _LIBCPP_TYPE_VIS __shared_count
+{
+    __shared_count(const __shared_count&amp;amp;);
+    __shared_count&amp;amp; operator=(const __shared_count&amp;amp;);
+
+protected:
+    long __shared_owners_;
+    virtual ~__shared_count();
+private:
+    virtual void __on_zero_shared() _NOEXCEPT = 0;
+
+public:
+    _LIBCPP_INLINE_VISIBILITY
+    explicit __shared_count(long __refs = 0) _NOEXCEPT
+        : __shared_owners_(__refs) {}
+
+    void __add_shared() _NOEXCEPT;
+    bool __release_shared() _NOEXCEPT;
+    _LIBCPP_INLINE_VISIBILITY
+    long use_count() const _NOEXCEPT {return __shared_owners_ + 1;}
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;code&gt;shared_ptr&amp;lt;X&amp;gt; sp(new X(5));&lt;/code&gt;搞懂懂这个语句背后发生了什么，可谓费了好大一番周折，学习了C++中一种叫SFINAE的技巧&amp;mdash;&amp;mdash;&lt;em&gt;匹配失败并不是一种错误(Substitution Failure Is Not An Error)&lt;/em&gt;.
+首先我们要搞懂shared_ptr模板类中下面这个声明的意思:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-C++&#34;&gt;template&amp;lt;class _Yp&amp;gt;
+explicit shared_ptr(_Yp* __p,typename enable_if&amp;lt;is_convertible&amp;lt;_Yp*, element_type*&amp;gt;::value, __nat&amp;gt;::type = __nat());
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;SFINAE名字听上去很高大上，其实知道is_convertible和enable_if表示什么意思后也不是太难理解.从字面上理解is_convertible应该就是判断两个类型是否可以相互转换,起末班&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-C++&#34;&gt;template&amp;lt; class From, class To &amp;gt;
+struct is_convertible;
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
     
     <item>
       <title>C&#43;&#43;右值引用</title>
@@ -209,7 +392,7 @@ x2 = std::move(x3);
     </item>
     
     <item>
-      <title>C&#43;&#43;学习资源</title>
+      <title>C/C&#43;&#43;学习资源</title>
       <link>http://luobin.me/post/c&#43;&#43;%E5%AD%A6%E4%B9%A0%E8%B5%84%E6%BA%90/</link>
       <pubDate>Sun, 09 Mar 2014 21:52:05 +0800</pubDate>
       
@@ -225,12 +408,29 @@ x2 = std::move(x3);
 &lt;li&gt;&lt;a href=&#34;https://en.wikibooks.org/wiki/More_C%2B%2B_Idioms&#34;&gt;More C++ Idioms&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;http://www.umich.edu/~eecs381/&#34;&gt;University of Michigan&amp;rsquo;s EECS 381 - Object-Oriented and Advanced Programming&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;https://github.com/wuye9036/CppTemplateTutorial&#34;&gt;CppTemplateTutorial-空明流转作品&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://www.opensource.apple.com/source/libcpp/&#34;&gt;apple libcpp&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://isocpp.org/&#34;&gt;isocpp&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h3 id=&#34;blogs:0d4096247a1d6d615fd39a9291128ec7&#34;&gt;Blogs&lt;/h3&gt;
+&lt;h3 id=&#34;blogs:e2038cc77dcd4378caf4476464aa8303&#34;&gt;Blogs&lt;/h3&gt;
 
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;https://solarianprogrammer.com/&#34;&gt;Solarian Programmer&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;graphic:e2038cc77dcd4378caf4476464aa8303&#34;&gt;Graphic&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/ssloy/tinyrenderer/wiki&#34;&gt;How OpenGL works:soft render&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;network:e2038cc77dcd4378caf4476464aa8303&#34;&gt;Network&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/cloudwu/skynet&#34;&gt;skynet&amp;ndash;A lightweight online game framework&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://www.kegel.com/c10k.html&#34;&gt;The C10K problem&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://www.wangafu.net/~nickm/libevent-book/&#34;&gt;Fast portable non-blocking network programming with Libevent&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://en.cppreference.com/w/&#34;&gt;cppreference&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 </description>
     </item>
