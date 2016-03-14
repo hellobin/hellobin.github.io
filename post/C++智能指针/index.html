@@ -306,11 +306,134 @@ public:
 explicit shared_ptr(_Yp* __p,typename enable_if&lt;is_convertible&lt;_Yp*, element_type*&gt;::value, __nat&gt;::type = __nat());
 </code></pre>
 
-<p>SFINAE名字听上去很高大上，其实知道is_convertible和enable_if表示什么意思后也不是太难理解.从字面上理解is_convertible应该就是判断两个类型是否可以相互转换,起末班</p>
+<p>SFINAE名字听上去很高大上，其实知道is_convertible和enable_if表示什么意思后也不是太难理解.从字面上理解is_convertible应该就是判断两个类型是否可以相互转换,其模板类型：</p>
 
 <pre><code class="language-C++">template&lt; class From, class To &gt;
 struct is_convertible;
 </code></pre>
+
+<p><code>typename enable_if&lt;is_convertible&lt;_Yp*, element_type*&gt;::value, __nat&gt;::type = __nat()</code>这一语句实际上表示的意思是当is_convertible的value为true的时候生命一个带默认值的形参，即成功匹配后的构造函数类型应该是这样的
+<code>shared_ptr(X *__p,__nat=__nat())</code>,为了验证下我们的分析，将我们上面的测试函数f()稍微修改一下：</p>
+
+<pre><code class="language-C++">void f()
+{
+    shared_ptr&lt;X&gt; sp(new X(5),{1});  //这里我们指定一个实参取代__nat() 
+    cout&lt;&lt;*sp&lt;&lt;endl; //the same use as raw point
+    cout &lt;&lt;&quot;data = &quot;&lt;&lt;sp-&gt;get_data()&lt;&lt;endl;
+    cout &lt;&lt;&quot;use_count = &quot; &lt;&lt;sp.use_count()&lt;&lt;endl; // should print use_count = 1
+    shared_ptr&lt;X&gt; sp1 = sp;
+    cout &lt;&lt;&quot;use_count = &quot; &lt;&lt;sp.use_count()&lt;&lt;endl; // should print use_count = 2
+    sp.reset();
+    cout &lt;&lt;&quot;use_count = &quot; &lt;&lt;sp.use_count()&lt;&lt;endl; // should print use_count = 0 because sp is reseted
+    shared_ptr&lt;X&gt; sp2 = sp1;
+    cout &lt;&lt;&quot;use_count = &quot; &lt;&lt;sp1.use_count()&lt;&lt;endl; // should print use_count = 2
+    sp = sp1;  // now can also assign to sp with a same(or convertible) type of shared_ptr
+    cout &lt;&lt;&quot;use_count = &quot; &lt;&lt;sp.use_count()&lt;&lt;endl; // should print use_count = 3
+    sp = nullptr; //the same effect as reset
+    cout &lt;&lt;&quot;use_count = &quot; &lt;&lt;sp.use_count()&lt;&lt;endl; //shoud print use_cout = 0
+    cout &lt;&lt;&quot;use_count = &quot; &lt;&lt;sp1.use_count()&lt;&lt;endl; // should print use_cout = 2
+}
+</code></pre>
+
+<p>然后执行，输出相同的结果:</p>
+
+<pre><code class="language-C++">luobin@luobinMini:shared_point$ clang++ -std=c++11 main.cpp 
+luobin@luobinMini:shared_point$ ./a.out 
+constructor
+5
+data = 5
+use_count = 1
+use_count = 2
+use_count = 0
+use_count = 2
+use_count = 3
+use_count = 0
+use_count = 2
+destrucctor
+</code></pre>
+
+<p>下面是shared_ptr这个构造函数的具体模板实现</p>
+
+<pre><code class="language-C++">template&lt;class _Tp&gt;
+template&lt;class _Yp&gt;
+shared_ptr&lt;_Tp&gt;::shared_ptr(_Yp* __p,
+                            typename enable_if&lt;is_convertible&lt;_Yp*, element_type*&gt;::value, __nat&gt;::type)
+    : __ptr_(__p)
+{
+    unique_ptr&lt;_Yp&gt; __hold(__p);
+    typedef __shared_ptr_pointer&lt;_Yp*, default_delete&lt;_Yp&gt;, allocator&lt;_Yp&gt; &gt; _CntrlBlk;
+    __cntrl_ = new _CntrlBlk(__p, default_delete&lt;_Yp&gt;(), allocator&lt;_Yp&gt;()); //__contrl_实际上是个指向个__shared_ptr_pointer类型
+    __hold.release();
+    __enable_weak_this(__p);
+}
+</code></pre>
+
+<p>__shared_ptr_pointer:</p>
+
+<pre><code class="language-C++">class __shared_ptr_pointer
+    : public __shared_weak_count
+{
+    __compressed_pair&lt;__compressed_pair&lt;_Tp, _Dp&gt;, _Alloc&gt; __data_;
+public:
+    _LIBCPP_INLINE_VISIBILITY
+    __shared_ptr_pointer(_Tp __p, _Dp __d, _Alloc __a)
+        :  __data_(__compressed_pair&lt;_Tp, _Dp&gt;(__p, _VSTD::move(__d)), _VSTD::move(__a)) {}
+
+#ifndef _LIBCPP_NO_RTTI
+    virtual const void* __get_deleter(const type_info&amp;) const _NOEXCEPT;
+#endif
+
+private:
+    virtual void __on_zero_shared() _NOEXCEPT;  //这个是负责最终delete掉所管理的raw指针
+    virtual void __on_zero_shared_weak() _NOEXCEPT; //这个是处理weak引用，暂不细表
+};
+</code></pre>
+
+<p>其成员<code>__data_</code>是个<code>__compressd_pair</code>,其中first依旧是个<code>__compressed_pair</code>,second是个_Alloc(//叫对象生成器?)。first.first是_Alloc生成对象的指针类型(我们的raw指针)，first.second是个<code>default_delete</code>(叫对象销毁器?),这个才是关键。
+形势逐渐明朗了，现在我们可以一窥shared_ptr如何控制raw指针的释放时机了，进入~shared_ptr():</p>
+
+<pre><code class="language-C++">template&lt;class _Tp&gt;
+shared_ptr&lt;_Tp&gt;::~shared_ptr()
+{
+    if (__cntrl_)
+        __cntrl_-&gt;__release_shared();
+}
+</code></pre>
+
+<p>进入<code>__shared_weak_count</code> 的<code>__release_shared()</code>:</p>
+
+<pre><code class="language-C++">void
+__shared_weak_count::__release_shared() _NOEXCEPT
+{
+    if (__shared_count::__release_shared())
+        __release_weak();
+}
+</code></pre>
+
+<p>这里调用下<code>__shared_count::__release_shared()</code>,true 的话继续处理<code>__release_weak()</code>,进入<code>__shared_count::__release_shared()</code>:</p>
+
+<pre><code class="language-C++">bool
+__shared_count::__release_shared() _NOEXCEPT
+{
+    if (decrement(__shared_owners_) == -1) //表示这是raw指针的最后一个引用
+    {
+        __on_zero_shared();
+        return true;
+    }
+    return false;
+}
+</code></pre>
+
+<p>由于<code>__on_zero_shared()</code>是个虚函数,所以这里实际上调用的是<code>__shared_ptr_pointer</code>中的实现:</p>
+
+<pre><code class="language-C++">__shared_ptr_pointer&lt;_Tp, _Dp, _Alloc&gt;::__on_zero_shared() _NOEXCEPT
+{
+    __data_.first().second()(__data_.first().first()); //first.first就是我们的raw指针，这里被最终释放啦
+    __data_.first().second().~_Dp(); //?这里是销毁器也要释放的意思吗，看着像default_delete的析构函数？
+}
+</code></pre>
+
+<p>shared_ptr的分析告一段落。</p>
 
     </section>
 
