@@ -6,8 +6,26 @@
     <description>Recent content on 不足为外人道</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 07 Mar 2016 17:50:24 +0800</lastBuildDate>
+    <lastBuildDate>Mon, 14 Mar 2016 19:26:21 +0800</lastBuildDate>
     <atom:link href="http://luobin.me/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Objective C对象模型</title>
+      <link>http://luobin.me/post/post-title/</link>
+      <pubDate>Mon, 14 Mar 2016 19:26:21 +0800</pubDate>
+      
+      <guid>http://luobin.me/post/post-title/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>我为什么还这么专注C&#43;&#43;</title>
+      <link>http://luobin.me/post/post-title/</link>
+      <pubDate>Mon, 14 Mar 2016 19:16:42 +0800</pubDate>
+      
+      <guid>http://luobin.me/post/post-title/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>C&#43;&#43;智能指针</title>
@@ -311,7 +329,148 @@ __shared_count::__release_shared() _NOEXCEPT
 }
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;shared_ptr的分析告一段落。&lt;/p&gt;
+&lt;p&gt;有前面分析已知fisrt().second()是一个default_delete:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-C++&#34;&gt;template &amp;lt;class _Tp&amp;gt;
+struct _LIBCPP_TYPE_VIS_ONLY default_delete
+{
+#ifndef _LIBCPP_HAS_NO_DEFAULTED_FUNCTIONS
+    _LIBCPP_INLINE_VISIBILITY _LIBCPP_CONSTEXPR default_delete() _NOEXCEPT = default;
+#else
+    _LIBCPP_INLINE_VISIBILITY _LIBCPP_CONSTEXPR default_delete() _NOEXCEPT {}
+#endif
+    template &amp;lt;class _Up&amp;gt;
+        _LIBCPP_INLINE_VISIBILITY default_delete(const default_delete&amp;lt;_Up&amp;gt;&amp;amp;,
+             typename enable_if&amp;lt;is_convertible&amp;lt;_Up*, _Tp*&amp;gt;::value&amp;gt;::type* = 0) _NOEXCEPT {}
+    _LIBCPP_INLINE_VISIBILITY void operator() (_Tp* __ptr) const _NOEXCEPT
+        {
+            static_assert(sizeof(_Tp) &amp;gt; 0, &amp;quot;default_delete can not delete incomplete type&amp;quot;);
+            static_assert(!is_void&amp;lt;_Tp&amp;gt;::value, &amp;quot;default_delete can not delete incomplete type&amp;quot;);
+            delete __ptr;
+        }
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;内部重载了operator()，接收一个_Tp* __ptr参数，&lt;code&gt;__data_.first().second()(__data_.first().first());&lt;/code&gt;这句调用时传进的参数正是我们的raw指针。
+关于shared_ptr的分析告一段落。&lt;/p&gt;
+
+&lt;h4 id=&#34;weak-ptr:86125507f6e433adf8544745a5755250&#34;&gt;weak_ptr&lt;/h4&gt;
+
+&lt;p&gt;经过上面的分析，shared_ptr似乎可以满足我们大部分关于指针的应用场景，然而智能毕竟不是万能,还有一些shared_ptr干不了的活,熟悉ios开发的同学应该清楚，强大的ARC(Automatic Reference Counting)技术依然解决不好如下图所示的循环引用的问题,所以引入了weak指针，同理C++11中引入weak_ptr来解决这一类问题.
+&lt;img src=&#34;http://77g3g7.com1.z0.glb.clouddn.com/weak_ptr.png&#34; alt=&#34;&#34; /&gt;
+我们可以把上面的&lt;code&gt;class X&lt;/code&gt;,稍微修改验证下循环引用的问题：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-C++&#34;&gt;class X{
+public:
+    X()= default;
+    X(int value)
+            :data(value),sp_(nullptr)
+    {
+        cout &amp;lt;&amp;lt;&amp;quot;constructor&amp;quot;&amp;lt;&amp;lt;endl;
+    }
+    X(int value,shared_ptr&amp;lt;X&amp;gt; &amp;amp;sp)
+    :data(value),sp_(sp)
+    {
+        cout &amp;lt;&amp;lt;&amp;quot;constructor&amp;quot;&amp;lt;&amp;lt;endl;
+    }
+    ~X()
+    {
+        cout &amp;lt;&amp;lt;&amp;quot;destructor&amp;quot;&amp;lt;&amp;lt;endl;
+    }
+    int get_data() const
+    {
+        return  data;
+    }
+
+    friend ostream&amp;amp; operator &amp;lt;&amp;lt; (ostream &amp;amp;out, const X&amp;amp; x)
+    {
+        out &amp;lt;&amp;lt;x.get_data();
+        return out;
+    }
+    void set_sp(shared_ptr&amp;lt;X&amp;gt; &amp;amp;sp)
+    {
+        sp_ = sp;
+    }
+
+private:
+    int data;
+    shared_ptr&amp;lt;X&amp;gt;  sp_;
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;测试代码如下：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-C++&#34;&gt;void g()
+{
+    shared_ptr&amp;lt;X&amp;gt; sp1(new X(1));
+    shared_ptr&amp;lt;X&amp;gt; sp2(new X(2,sp1));
+    shared_ptr&amp;lt;X&amp;gt; sp3(new X(3,sp2));
+    sp1-&amp;gt;set_sp(sp3);
+}
+
+int main()
+{
+    //f();
+    g();
+    return 0;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;执行编译一下：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-shell&#34;&gt;luobin@luobinMini:shared_point$ clang++ -std=c++11 main.cpp 
+luobin@luobinMini:shared_point$ ./a.out 
+constructor
+constructor
+constructor
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;事实证明我们new出来的3个对象在g()退出后并没有被释放，而我们又失去了对其的控制，所以造成了内存泄露。
+我们将成员&lt;code&gt;sp_&lt;/code&gt;改成weak_ptr,另外由于weak_ptr不能用nullptr构造,所以还要修改下第二个构造函数：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-C++&#34;&gt;    X(int value)
+            :data(value)
+    {
+        cout &amp;lt;&amp;lt;&amp;quot;constructor&amp;quot;&amp;lt;&amp;lt;endl;
+    }
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;继续执行相同的测试代码：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-shell&#34;&gt;luobin@luobinMini:shared_point$ clang++ -std=c++11 main.cpp 
+luobin@luobinMini:shared_point$ ./a.out 
+constructor
+constructor
+constructor
+destructor
+destructor
+destructor
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;perfect,完美解决环形引用的问题。
+有了前面的分析基础，我们看下weak_ptr的模板类的实现：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-C++&#34;&gt;template&amp;lt;class _Tp&amp;gt;
+class _LIBCPP_TYPE_VIS_ONLY weak_ptr
+{
+public:
+    typedef _Tp element_type;
+private:
+    element_type*        __ptr_;
+    __shared_weak_count* __cntrl_;
+
+public:
+    _LIBCPP_CONSTEXPR weak_ptr() _NOEXCEPT;
+    template&amp;lt;class _Yp&amp;gt; weak_ptr(shared_ptr&amp;lt;_Yp&amp;gt; const&amp;amp; __r,
+                   typename enable_if&amp;lt;is_convertible&amp;lt;_Yp*, _Tp*&amp;gt;::value, __nat*&amp;gt;::type = 0)
+                        _NOEXCEPT;
+    weak_ptr(weak_ptr const&amp;amp; __r) _NOEXCEPT;
+    ...
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;结构大同小异，甚至&lt;code&gt;__cntrl_&lt;/code&gt;都是相同的&lt;code&gt;__shared_weak_cout&lt;/code&gt;类型。&lt;/p&gt;
+
+&lt;h4 id=&#34;unique-ptr:86125507f6e433adf8544745a5755250&#34;&gt;unique_ptr&lt;/h4&gt;
 </description>
     </item>
     
@@ -1042,34 +1201,6 @@ realm = kuyustore
 &lt;li&gt;权限控制比git好，可以精确控制目录权限&lt;/li&gt;
 &lt;li&gt;svn支持空目录，windows平台有较好的支持&lt;/li&gt;
 &lt;/ol&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>win7下开启具有管理员权限的命令行窗口</title>
-      <link>http://luobin.me/post/win7%E4%B8%8B%E5%BC%80%E5%90%AF%E5%85%B7%E6%9C%89%E7%AE%A1%E7%90%86%E5%91%98%E6%9D%83%E9%99%90%E7%9A%84%E5%91%BD%E4%BB%A4%E8%A1%8C%E7%AA%97%E5%8F%A3/</link>
-      <pubDate>Sun, 13 Jan 2013 22:19:53 +0800</pubDate>
-      
-      <guid>http://luobin.me/post/win7%E4%B8%8B%E5%BC%80%E5%90%AF%E5%85%B7%E6%9C%89%E7%AE%A1%E7%90%86%E5%91%98%E6%9D%83%E9%99%90%E7%9A%84%E5%91%BD%E4%BB%A4%E8%A1%8C%E7%AA%97%E5%8F%A3/</guid>
-      <description>&lt;p&gt;&amp;emsp;&amp;emsp;使用vim在win7下敲代码的时候，发现最后保存的时候提示错误 ：E212：无法打开并写入文件，很是奇怪。&lt;br /&gt;
-&amp;emsp;&amp;emsp;不论是新建文件还是编辑已有的文件，问题现象一致，猜想应该是所在目录的权限设置问题。但是问题又只在通过cmd窗口启动vim时才会出现，使用右键&amp;ndash;&amp;gt;vim编辑打开文件是ok的，查了一下，原来Windows7在开启UAC的情况下使用运行启动的cmd.exe是没有管理员权限的。而我的系统文件夹均是在图形界面下创建的，默认是管理员，其他用户没有写的权限。&lt;br /&gt;
-&amp;emsp;&amp;emsp;那么，如何使用管理员权限启动cmd或者其他程序呢，一个简单的方法是：&lt;br /&gt;
-&amp;emsp;&amp;emsp;&lt;em&gt;在开始菜单的搜索框里输入cmd或者你要运行的程序名称，然后按下ctrl + shift + enter&lt;/em&gt; 即可&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>windows下为有道添加星际译王词典</title>
-      <link>http://luobin.me/post/windows%E4%B8%8B%E4%B8%BA%E6%9C%89%E9%81%93%E6%B7%BB%E5%8A%A0%E6%98%9F%E9%99%85%E8%AF%91%E7%8E%8B%E8%AF%8D%E5%85%B8/</link>
-      <pubDate>Thu, 16 Feb 2012 22:29:34 +0800</pubDate>
-      
-      <guid>http://luobin.me/post/windows%E4%B8%8B%E4%B8%BA%E6%9C%89%E9%81%93%E6%B7%BB%E5%8A%A0%E6%98%9F%E9%99%85%E8%AF%91%E7%8E%8B%E8%AF%8D%E5%85%B8/</guid>
-      <description>&lt;p&gt;&amp;emsp;&amp;emsp;windows下一直使用有道词典，缺陷没有离线词库。今天终于找到让有道词典可以支持离线的方法，那就是给其添加大名鼎鼎的星际译王的词典（其实星际译王也有windows版的）。&lt;br /&gt;
- 1.   到这里&lt;a href=&#34;http://abloz.com/huzheng/stardict-dic/zh_CN/&#34;&gt;下载&lt;/a&gt;自己需要的词典&lt;br /&gt;
- 2.   下载的文件默认是tar.bz2格式，一种linux的文件打包压缩格式（因为星际诞生于gnu/linux平台）。有道并不支持这种压缩的格式，需要解压。用winrar，等很多解压缩软件都可以。&lt;br /&gt;
- 3.   解压出来，后缀为dz,idx,ifo三个文件。建议将其全部拷贝到X:/Program Files/Youdao/DeskDict2/localdicts  （X为你的有道安装目录）。&lt;br /&gt;
- 4.   打开有道桌面词典，按照下面的顺序操作：选项…-&amp;gt;词典管理-&amp;gt;添加，找到刚刚解压缩获得的文件夹里的ifo格式的文件，确认后添加。&lt;br /&gt;
-&amp;emsp;&amp;emsp;现在可以方便的使用有道词典离线查词啦&lt;/p&gt;
 </description>
     </item>
     
