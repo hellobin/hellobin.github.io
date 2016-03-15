@@ -6,13 +6,97 @@
     <description>Recent content on 不足为外人道</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 07 Mar 2016 17:50:24 +0800</lastBuildDate>
+    <lastBuildDate>Thu, 07 Jan 2016 10:12:02 +0800</lastBuildDate>
     <atom:link href="http://luobin.me/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>程序猿和科比</title>
+      <link>http://luobin.me/joke/0/</link>
+      <pubDate>Thu, 07 Jan 2016 10:12:02 +0800</pubDate>
+      
+      <guid>http://luobin.me/joke/0/</guid>
+      <description>&lt;p&gt;&lt;img src=&#34;http://ww3.sinaimg.cn/large/6bb75443gw1ezqqd3orj9j207n053jrc.jpg&#34; alt=&#34;程序猿&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;程序员问科比：“你为什么这么成功？”&lt;br /&gt;
+科比：“你知道洛杉矶早晨4点钟是什么样子吗？”&lt;br /&gt;
+程序员：“知道，一般那时候我还没睡。怎么了？”&lt;br /&gt;
+科比：“……没事！”&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;跟程序员比辛苦，你打完炮了人家还在抠腚呢~想想也是苦逼的程序员一枚。。不说了，都是泪。。&lt;/p&gt;
+&lt;/blockquote&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>OSX环境下liteide的安装和配置</title>
+      <link>http://luobin.me/post/OSX%E7%8E%AF%E5%A2%83%E4%B8%8Bliteide%E7%9A%84%E5%AE%89%E8%A3%85%E5%92%8C%E9%85%8D%E7%BD%AE/</link>
+      <pubDate>Sun, 26 Apr 2015 21:56:59 +0800</pubDate>
+      
+      <guid>http://luobin.me/post/OSX%E7%8E%AF%E5%A2%83%E4%B8%8Bliteide%E7%9A%84%E5%AE%89%E8%A3%85%E5%92%8C%E9%85%8D%E7%BD%AE/</guid>
+      <description>&lt;p&gt;&amp;emsp;&amp;emsp;首先要安装qt&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$  brew update &amp;amp;&amp;amp; brew install qt
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&amp;emsp;&amp;emsp;clone liteide代码&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$  git clone https://github.com/visualfc/liteide.git
+$  cd liteide/build
+$  ./update_pkg.sh
+$ export QTDIR=/usr/local/Cellar/qt/xxx  //qt的版本号
+$ ./build_osx.sh
+$ ./deploy_osx_qt4.sh
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&amp;emsp;&amp;emsp;最后的结果在 liteide/build/liteide,但是liteide/liteidex/liteide/bin 下面也有一个更小的版本。&lt;br /&gt;
+&amp;emsp;&amp;emsp;liteide需要gdb来调试go程序，check下系统有安装了gdb。(命令行下敲gdb有版本信息输出，有安装的话
+用 &lt;code&gt;which gdb&lt;/code&gt; 看下gdb的路径，签名的时候用得着)。没有的话&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;brew update &amp;amp;&amp;amp; brew install gdb
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;然后还要给gdb签名，需要创建一个code signing证书。
+&lt;img src=&#34;http://77g3g7.com1.z0.glb.clouddn.com/gdbcert.png&#34; alt=&#34;&#34; /&gt;
+&amp;emsp;&amp;emsp;如图所示，一直continue，直到选择证书存放地址，选择system。右键刚才创建的 gdbCert 证书，选择Get Info，点击“信任”，
+会显示可以自定义的信任选项。代码签名”选择“总是信任” （Code Signing to Always Trust）。
+&amp;emsp;&amp;emsp;执行：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$codesign -s gdb-cert /path/to/gdb
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;然后重启下系统，在liteide中打开view-&amp;gt;edit current environment，在配置文件中设置下&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;LITEIDE_GDB=/path/to/gdb
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;然后就可以在liteide中尽情的享受调试go的快感。。。（目前免费方案中最好用的golang ide，无障碍单步调试）&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>About me</title>
+      <link>http://luobin.me/about/</link>
+      <pubDate>Tue, 14 Apr 2015 22:17:00 +0200</pubDate>
+      
+      <guid>http://luobin.me/about/</guid>
+      <description>&lt;p&gt;85后老程序员&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;2005~2012年 蛰伏与西北某高校潜心修行&lt;/li&gt;
+&lt;li&gt;2012~2013年初 初出茅庐，进入某通信巨头西安分舵&lt;/li&gt;
+&lt;li&gt;2013年 折腾于彭城，相遇人生的另一半&lt;/li&gt;
+&lt;li&gt;2014年 迎着移动互联网的浪潮，南下魔都，在游戏行业扑腾至今&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Mail: &lt;em&gt;icenan2#At#gmail.com&lt;/em&gt;&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>C&#43;&#43;智能指针</title>
       <link>http://luobin.me/post/C&#43;&#43;%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88/</link>
-      <pubDate>Mon, 07 Mar 2016 17:50:24 +0800</pubDate>
+      <pubDate>Sat, 07 Jun 2014 17:50:24 +0800</pubDate>
       
       <guid>http://luobin.me/post/C&#43;&#43;%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88/</guid>
       <description>
@@ -453,90 +537,6 @@ public:
 &lt;p&gt;结构大同小异，甚至&lt;code&gt;__cntrl_&lt;/code&gt;都是相同的&lt;code&gt;__shared_weak_cout&lt;/code&gt;类型。&lt;/p&gt;
 
 &lt;h4 id=&#34;unique-ptr:86125507f6e433adf8544745a5755250&#34;&gt;unique_ptr&lt;/h4&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>程序猿和科比</title>
-      <link>http://luobin.me/joke/0/</link>
-      <pubDate>Thu, 07 Jan 2016 10:12:02 +0800</pubDate>
-      
-      <guid>http://luobin.me/joke/0/</guid>
-      <description>&lt;p&gt;&lt;img src=&#34;http://ww3.sinaimg.cn/large/6bb75443gw1ezqqd3orj9j207n053jrc.jpg&#34; alt=&#34;程序猿&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;程序员问科比：“你为什么这么成功？”&lt;br /&gt;
-科比：“你知道洛杉矶早晨4点钟是什么样子吗？”&lt;br /&gt;
-程序员：“知道，一般那时候我还没睡。怎么了？”&lt;br /&gt;
-科比：“……没事！”&lt;/p&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;跟程序员比辛苦，你打完炮了人家还在抠腚呢~想想也是苦逼的程序员一枚。。不说了，都是泪。。&lt;/p&gt;
-&lt;/blockquote&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>OSX环境下liteide的安装和配置</title>
-      <link>http://luobin.me/post/OSX%E7%8E%AF%E5%A2%83%E4%B8%8Bliteide%E7%9A%84%E5%AE%89%E8%A3%85%E5%92%8C%E9%85%8D%E7%BD%AE/</link>
-      <pubDate>Sun, 26 Apr 2015 21:56:59 +0800</pubDate>
-      
-      <guid>http://luobin.me/post/OSX%E7%8E%AF%E5%A2%83%E4%B8%8Bliteide%E7%9A%84%E5%AE%89%E8%A3%85%E5%92%8C%E9%85%8D%E7%BD%AE/</guid>
-      <description>&lt;p&gt;&amp;emsp;&amp;emsp;首先要安装qt&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;$  brew update &amp;amp;&amp;amp; brew install qt
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&amp;emsp;&amp;emsp;clone liteide代码&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;$  git clone https://github.com/visualfc/liteide.git
-$  cd liteide/build
-$  ./update_pkg.sh
-$ export QTDIR=/usr/local/Cellar/qt/xxx  //qt的版本号
-$ ./build_osx.sh
-$ ./deploy_osx_qt4.sh
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&amp;emsp;&amp;emsp;最后的结果在 liteide/build/liteide,但是liteide/liteidex/liteide/bin 下面也有一个更小的版本。&lt;br /&gt;
-&amp;emsp;&amp;emsp;liteide需要gdb来调试go程序，check下系统有安装了gdb。(命令行下敲gdb有版本信息输出，有安装的话
-用 &lt;code&gt;which gdb&lt;/code&gt; 看下gdb的路径，签名的时候用得着)。没有的话&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;brew update &amp;amp;&amp;amp; brew install gdb
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;然后还要给gdb签名，需要创建一个code signing证书。
-&lt;img src=&#34;http://77g3g7.com1.z0.glb.clouddn.com/gdbcert.png&#34; alt=&#34;&#34; /&gt;
-&amp;emsp;&amp;emsp;如图所示，一直continue，直到选择证书存放地址，选择system。右键刚才创建的 gdbCert 证书，选择Get Info，点击“信任”，
-会显示可以自定义的信任选项。代码签名”选择“总是信任” （Code Signing to Always Trust）。
-&amp;emsp;&amp;emsp;执行：&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;$codesign -s gdb-cert /path/to/gdb
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;然后重启下系统，在liteide中打开view-&amp;gt;edit current environment，在配置文件中设置下&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;LITEIDE_GDB=/path/to/gdb
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;然后就可以在liteide中尽情的享受调试go的快感。。。（目前免费方案中最好用的golang ide，无障碍单步调试）&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>About me</title>
-      <link>http://luobin.me/about/</link>
-      <pubDate>Tue, 14 Apr 2015 22:17:00 +0200</pubDate>
-      
-      <guid>http://luobin.me/about/</guid>
-      <description>&lt;p&gt;85后老程序员&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;2005~2012年 蛰伏与西北某高校潜心修行&lt;/li&gt;
-&lt;li&gt;2012~2013年初 初出茅庐，进入某通信巨头西安分舵&lt;/li&gt;
-&lt;li&gt;2013年 折腾于彭城，相遇人生的另一半&lt;/li&gt;
-&lt;li&gt;2014年 迎着移动互联网的浪潮，南下魔都，在游戏行业扑腾至今&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Mail: &lt;em&gt;icenan2#At#gmail.com&lt;/em&gt;&lt;/p&gt;
 </description>
     </item>
     
