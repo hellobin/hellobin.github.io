@@ -560,7 +560,7 @@ private:
 #endif  // _LIBCPP_HAS_NO_RVALUE_REFERENCES
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;&lt;code&gt;unique_ptr&lt;/code&gt; 通过delete 掉copy constructor和 copy assignment来确保一个&lt;code&gt;unique_ptr&lt;/code&gt;对象对raw指针的唯一控制权。但是通过&lt;code&gt;std::move&lt;/code&gt;可以进行控制权之间的转移，所以使用&lt;code&gt;unique_ptr&lt;/code&gt;谨记一点即可：控制权只能转移，不能复制。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;unique_ptr&lt;/code&gt; 通过delete 掉copy constructor和 copy assignment operators来确保一个&lt;code&gt;unique_ptr&lt;/code&gt;对象对raw指针的唯一控制权。但是通过&lt;code&gt;std::move&lt;/code&gt;可以进行控制权之间的转移，所以使用&lt;code&gt;unique_ptr&lt;/code&gt;谨记一点即可：控制权只能转移，不能复制。&lt;/p&gt;
 
 &lt;h4 id=&#34;总结:86125507f6e433adf8544745a5755250&#34;&gt;总结&lt;/h4&gt;
 
