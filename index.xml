@@ -578,23 +578,35 @@ private:
 
 &lt;h3 id=&#34;value-category:6ca8daf46bf6dcff722d48a42c410183&#34;&gt;value category&lt;/h3&gt;
 
-&lt;p&gt;&amp;emsp;&amp;emsp;左值/右值是沿用c语言中的叫法，直观上理解就是分别出现在赋值表达式左右。c++标准中关于左值和右值的描述如下:
-&amp;gt;An lvalue (so called, historically, because lvalues could appear on the left-hand side of an assignment expression)designates a function or an object. [ Example: If E is an expression of pointer type, then *E is an lvalue expression referring to the object or function to which E points. As another example, the result of calling a function whose return type is an lvalue reference is an lvalue. — end example ]&lt;/p&gt;
+&lt;p&gt;&amp;emsp;&amp;emsp;左值/右值是沿用c语言中的叫法，直观上理解就是分别出现在赋值表达式左右。c++标准中关于左值和右值的描述如下:&lt;/p&gt;
 
-&lt;p&gt;另外还有一种更加直观的描述(判断)：An lvalue (&amp;ldquo;left value&amp;rdquo;) expression is an expression that has identity and cannot be moved from.&amp;ndash;&lt;a href=&#34;http://en.cppreference.com/w/cpp/language/value_category&#34;&gt;cpprefrence&lt;/a&gt;&lt;br /&gt;
-以下是几种左值表达式的例子:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;An lvalue (so called, historically, because lvalues could appear on the left-hand side of an assignment expression)designates a function or an object. [ Example: If E is an expression of pointer type, then *E is an lvalue expression referring to the object or function to which E points. As another example, the result of calling a function whose return type is an lvalue reference is an lvalue. — end example ]&lt;/p&gt;
+&lt;/blockquote&gt;
 
-&lt;pre&gt;&lt;code&gt;a=b
-++a,--a
-std::cin,std::endl
+&lt;p&gt;另外还有一种更加直观的描述(判断)：&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;An lvalue (&amp;ldquo;left value&amp;rdquo;) expression is an expression that has identity and cannot be moved from.&amp;ndash;&lt;a href=&#34;http://en.cppreference.com/w/cpp/language/value_category&#34;&gt;cpprefrence&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;以下是几种左值表达式的例子:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-C++&#34;&gt;	a=b
+	++a,--a
+	std::cin,std::endl
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;blockquote&gt;
 &lt;p&gt;An rvalue (so called, historically, because rvalues could appear on the right-hand side of an assignment expression) is an xvalue, a temporary object (12.2) or subobject thereof, or a value that is not associated with an object.&lt;/p&gt;
 &lt;/blockquote&gt;
 
-&lt;p&gt;同理cppreference中关于右值表达式的描述:&amp;ldquo;An rvalue (&amp;ldquo;right value&amp;rdquo;) expression is an expression that is either a prvalue or an xvalue. It can be moved from. It may or may not have identity.&amp;rdquo;
+&lt;p&gt;同理cppreference中关于右值表达式的描述:&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;&amp;ldquo;An rvalue (&amp;ldquo;right value&amp;rdquo;) expression is an expression that is either a prvalue or an xvalue. It can be moved from. It may or may not have identity.&amp;rdquo;
 几种右值例子：&lt;/p&gt;
+&lt;/blockquote&gt;
 
 &lt;pre&gt;&lt;code&gt;42 //常量
 a++,a--
@@ -604,9 +616,13 @@ std::move(x)
 [](int x){return x*x} //lambda表达式
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;这里提到的xvalue是新的标准中(c++11) 新增加的value category,另外还有glvalue(general lvalue),prvalue(pure rvalue)。glvalue只是个混合概念，由rvalue和xvalue构成；pvalue在标准中的描述为：&lt;br /&gt;
-&amp;gt;A prvalue (“pure” rvalue) is an rvalue that is not an xvalue. [ Example: The result of calling a function whose return type is not a reference is a prvalue. The value of a literal such as 12, 7.3e5, or true is also a prvalue.
-可以这样理解，rvalue里不是xvalue的就是pvalue。cppreference中给的描述是：&amp;rdquo;A prvalue (&amp;ldquo;pure rvalue&amp;rdquo;) expression is an expression that does not have identity and can be moved from.&amp;rdquo;&lt;/p&gt;
+&lt;p&gt;这里提到的xvalue是新的标准中(c++11) 新增加的value category,另外还有glvalue(general lvalue),prvalue(pure rvalue)。glvalue只是个混合概念，由rvalue和xvalue构成；pvalue在标准中的描述为:&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;A prvalue (“pure” rvalue) is an rvalue that is not an xvalue. [ Example: The result of calling a function whose return type is not a reference is a prvalue. The value of a literal such as 12, 7.3e5, or true is also a prvalue.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;可以这样理解，rvalue里不是xvalue的就是pvalue。cppreference中给的描述是：&amp;rdquo;A prvalue (&amp;ldquo;pure rvalue&amp;rdquo;) expression is an expression that does not have identity and can be moved from.&amp;rdquo;&lt;/p&gt;
 
 &lt;blockquote&gt;
 &lt;p&gt;An xvalue (an “eXpiring” value) also refers to an object, usually near the end of its lifetime (so that its resources may be moved, for example). Certain kinds of expressions involving rvalue references (8.3.2) yield xvalues. [ Example: The result of calling a function whose return type is an rvalue reference to an object type is an xvalue (5.2.2). — end example ]&lt;/p&gt;
@@ -614,20 +630,20 @@ std::move(x)
 
 &lt;p&gt;可以理解为，xvalue是rvalue的一种特例。关于xvalue最有代表性的例子是：&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;a.m //其中a是rvalue，m是其非静态非引用成员
-std::move(x)
+&lt;pre&gt;&lt;code class=&#34;language-C++&#34;&gt;	a.m //其中a是rvalue，m是其非静态非引用成员
+	std::move(x)
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;我们可以查看STL中move的实现:&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;template &amp;lt;class _Tp&amp;gt;
-inline _LIBCPP_INLINE_VISIBILITY _LIBCPP_CONSTEXPR_AFTER_CXX11
-typename remove_reference&amp;lt;_Tp&amp;gt;::type&amp;amp;&amp;amp;
-move(_Tp&amp;amp;&amp;amp; __t) _NOEXCEPT
-{
-    typedef typename remove_reference&amp;lt;_Tp&amp;gt;::type _Up;
-    return static_cast&amp;lt;_Up&amp;amp;&amp;amp;&amp;gt;(__t);
-}
+&lt;pre&gt;&lt;code class=&#34;language-C++&#34;&gt;	template &amp;lt;class _Tp&amp;gt;
+	inline _LIBCPP_INLINE_VISIBILITY _LIBCPP_CONSTEXPR_AFTER_CXX11
+	typename remove_reference&amp;lt;_Tp&amp;gt;::type&amp;amp;&amp;amp;
+	move(_Tp&amp;amp;&amp;amp; __t) _NOEXCEPT
+	{
+    	typedef typename remove_reference&amp;lt;_Tp&amp;gt;::type _Up;
+    	return static_cast&amp;lt;_Up&amp;amp;&amp;amp;&amp;gt;(__t);
+	}
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;其返回值类型正式右值引用(rvalue reference)，正式标准中举的Example 类型。
@@ -637,116 +653,119 @@ move(_Tp&amp;amp;&amp;amp; __t) _NOEXCEPT
 
 &lt;p&gt;&amp;emsp;&amp;emsp;好了关于c++的value category背景介绍就到这里，现在开始进入主题 rvalue reference。关于引用我们应该都很熟悉了，教材中都说了，引用是变量的别名&lt;code&gt;C++ references allow you to create a new name for an existing object.&lt;/code&gt;例如：&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;int var=42;
-int&amp;amp; ref=var;
-ref=99;
-cout&amp;lt;&amp;lt;&amp;quot;var=&amp;quot;&amp;lt;&amp;lt;var&amp;lt;&amp;lt;endl;
+&lt;pre&gt;&lt;code class=&#34;language-C++&#34;&gt;	int var=42;
+	int&amp;amp; ref=var;
+	ref=99;
+	cout&amp;lt;&amp;lt;&amp;quot;var=&amp;quot;&amp;lt;&amp;lt;var&amp;lt;&amp;lt;endl;
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;我们会的到输出：var=99;但是如果我们像下面这样写，编译器就不干了。因为传统的&amp;amp;引用是针对左值的，&lt;code&gt;Lvalue references can only be bound to lvalues&lt;/code&gt;.&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;int &amp;amp;ref=42;
+&lt;pre&gt;&lt;code class=&#34;language-C++&#34;&gt;	int &amp;amp;ref=42;
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;但是为了解决一些函数调用的传参问题，C++允许这样写：&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;int const&amp;amp;=42；
+&lt;pre&gt;&lt;code class=&#34;language-C++&#34;&gt;	int const&amp;amp;=42；
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;这实际上是标准中的一个例外，在引入rvalue reference之前，标准中允许你给一个接受引用参数的函数传递临时变量：&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;void print(std::string const&amp;amp; s); 
-print(&amp;quot;hello&amp;quot;);// Create temporary std::string object
+&lt;pre&gt;&lt;code class=&#34;language-C++&#34;&gt;	void print(std::string const&amp;amp; s); 
+	print(&amp;quot;hello&amp;quot;);// Create temporary std::string object
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;c++11中引入&amp;amp;&amp;amp;符号，用于标示右值引用,并严格区分左右值。&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;int&amp;amp;&amp;amp; i=42;
-int j=42; 
-int&amp;amp;&amp;amp; k=j; //error
+&lt;pre&gt;&lt;code class=&#34;language-C++&#34;&gt;	int&amp;amp;&amp;amp; i=42;
+	int j=42; 
+	int&amp;amp;&amp;amp; k=j; //error
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;这样我们就可以重写上面的printf函数：&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;void print(std::string const&amp;amp; s);
-void print(std::string const&amp;amp;&amp;amp; s);
+&lt;pre&gt;&lt;code class=&#34;language-C++&#34;&gt;	void print(std::string const&amp;amp; s);
+	void print(std::string const&amp;amp;&amp;amp; s);
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;这样我们再调用:&lt;code&gt;print(&amp;quot;hello&amp;quot;);&lt;/code&gt;会调用第二个函数的实现。这正是C++11中实现move constructor 和 move assignment operator的基础。&lt;/p&gt;
 
 &lt;h3 id=&#34;move-semantics:6ca8daf46bf6dcff722d48a42c410183&#34;&gt;move semantics&lt;/h3&gt;
 
-&lt;p&gt;&amp;emsp;&amp;emsp;考虑这样一种情况，实现一个函数，接受一个std:vector&lt;int&gt;参数，函数内部需要对这个传入vector进行修改和处理，但是要保证不能影响到原vector,以前我们可以这样实现：
-    void process_copy(std::vector&lt;int&gt; const &amp;amp; vec)
-    {
-        std::vector&lt;int&gt; n_vec(vec);
-        n_vec.push_back(40);
-        &amp;hellip;
-    }
-对于这种实现，我们既可以传入lvalue实参，也可以传入rvalue实参（参见前文），但是不可避免的我们在内部处理的时候都需要对实参进行一份拷贝，尽管有时候实参只是个用完就会结束生命周期的临时变量。很容易设想，如果我们能够区分传入的是个rvalue，我们只是&lt;code&gt;move&lt;/code&gt;它的内容而不是对它进行拷贝，这对于占用存储空间很大的结构，会有非常理想的节省时间和存储空间的优化效果。&lt;/p&gt;
+&lt;p&gt;&amp;emsp;&amp;emsp;考虑这样一种情况，实现一个函数，接受一个std:vector&lt;int&gt;参数，函数内部需要对这个传入vector进行修改和处理，但是要保证不能影响到原vector,以前我们可以这样实现：&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;void process_copy(std::vector&amp;lt;int&amp;gt;&amp;amp;&amp;amp; vec)
-{
-    vec.push_back(40);
-    ...
-}
+&lt;pre&gt;&lt;code class=&#34;language-C++&#34;&gt;	void process_copy(std::vector&amp;lt;int&amp;gt; const &amp;amp; vec)
+	{
+		std::vector&amp;lt;int&amp;gt; n_vec(vec);
+		n_vec.push_back(40);
+		...
+	}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;对于这种实现，我们既可以传入lvalue实参，也可以传入rvalue实参（参见前文），但是不可避免的我们在内部处理的时候都需要对实参进行一份拷贝，尽管有时候实参只是个用完就会结束生命周期的临时变量。很容易设想，如果我们能够区分传入的是个rvalue，我们只是&lt;code&gt;move&lt;/code&gt;它的内容而不是对它进行拷贝，这对于占用存储空间很大的结构，会有非常理想的节省时间和存储空间的优化效果。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-C++&#34;&gt;	void process_copy(std::vector&amp;lt;int&amp;gt;&amp;amp;&amp;amp; vec)
+	{
+		vec.push_back(40);
+		...
+	}
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;当然，关于move semantics最终要的应用就是 move constructor 和 move assignment operator&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;class X{
-public:
-    X()
-        :data(new char[10000])
+&lt;pre&gt;&lt;code class=&#34;language-C++&#34;&gt;	class X{
+	public:
+    	X()
+            :data(new char[10000])
+    	{
+        print_tips(&amp;quot;default constructor&amp;quot;);
+    	}
+    ~X()
     {
-    print_tips(&amp;quot;default constructor&amp;quot;);
+        delete [] data;
+        print_tips(&amp;quot;destructors&amp;quot;);
     }
-~X()
-{
-    delete [] data;
-    print_tips(&amp;quot;destructors&amp;quot;);
-}
-X(X&amp;amp; other)
-        :data(new char[10000])
-{
-    std::copy(other.data,other.data+10000,data);
-    print_tips(&amp;quot;copy constructor&amp;quot;);
-}
-X(X&amp;amp;&amp;amp; other)
-        :data(other.data)
-{
-    other.data = nullptr;
-    print_tips(&amp;quot;move constructor&amp;quot;);
-}
-X&amp;amp; operator=(const X&amp;amp; other)
-{
-    data = new char[10000];
-    std::copy(other.data,other.data+10000,data);
-    print_tips(&amp;quot;copy assignment constructor&amp;quot;);
-    return *this;
-}
-X&amp;amp; operator=(X&amp;amp;&amp;amp; other)
-{
-    data = other.data;
-    other.data = nullptr;
-    print_tips(&amp;quot;move assignment constructor&amp;quot;);
-    return *this;
-}
-private:
-    char *data;
-    void  print_tips(std::string const&amp;amp; str)
+    X(X&amp;amp; other)
+            :data(new char[10000])
     {
-        cout &amp;lt;&amp;lt;&amp;quot;in &amp;quot;&amp;lt;&amp;lt;str&amp;lt;&amp;lt;endl;
+        std::copy(other.data,other.data+10000,data);
+        print_tips(&amp;quot;copy constructor&amp;quot;);
     }
-};
+    X(X&amp;amp;&amp;amp; other)
+            :data(other.data)
+    {
+        other.data = nullptr;
+        print_tips(&amp;quot;move constructor&amp;quot;);
+    }
+    X&amp;amp; operator=(const X&amp;amp; other)
+    {
+        data = new char[10000];
+        std::copy(other.data,other.data+10000,data);
+        print_tips(&amp;quot;copy assignment constructor&amp;quot;);
+        return *this;
+    }
+    X&amp;amp; operator=(X&amp;amp;&amp;amp; other)
+    {
+        data = other.data;
+        other.data = nullptr;
+        print_tips(&amp;quot;move assignment constructor&amp;quot;);
+        return *this;
+    }
+	private:
+    	char *data;
+    	void  print_tips(std::string const&amp;amp; str)
+    	{
+        	cout &amp;lt;&amp;lt;&amp;quot;in &amp;quot;&amp;lt;&amp;lt;str&amp;lt;&amp;lt;endl;
+    	}
+	};
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;可以测试下不同情况下的函数调用情况：&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;X x1;
-X x2(x1),x3(std::move(x1));
-x2 = x3;
-x2 = std::move(x3);
+&lt;pre&gt;&lt;code class=&#34;language-C++&#34;&gt;	X x1;
+	X x2(x1),x3(std::move(x1));
+	x2 = x3;
+	x2 = std::move(x3);
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;可以预见的是的顺序是(忽略default constructor 和 destructor)：copy constructor，move constructor，copy assignment operator，move assignment operator。执行这段代码验证下输出：&lt;/p&gt;
@@ -756,11 +775,11 @@ x2 = std::move(x3);
 &lt;p&gt;和std::move(x)等效的一种写法是 static_cast&lt;X&amp;&amp;&gt;(x),如果你明确知道一个lvalue x不会再用了，想把它的内容move过来，move和static_caset可以助你将其变成左值然后实现move semantic操作。
 &amp;emsp;&amp;emsp;另外有一点要注意的事，对于函数的右值引用参数，可以将其bind to一个右值，但是在函数内部，其是被当做lvalue对待的，例如:&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;void do_stuff(X&amp;amp;&amp;amp; x)
-{
-    X a(x);               //call copy constructor
-    X b(std::move(x));    // call move constructor
-}
+&lt;pre&gt;&lt;code class=&#34;language-C++&#34;&gt;	void do_stuff(X&amp;amp;&amp;amp; x)
+	{
+		X a(x);               //call copy constructor
+		X b(std::move(x));    // call move constructor
+	}
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;&amp;emsp;&amp;emsp;好了，关于rvalue reference的相关总结暂时告一段落，其他相关内容遇到具体问题再做补充。最近在看C++ concurrency，Thread Library才是关于 move reference使用的重灾区，以后再表。&lt;/p&gt;
@@ -817,73 +836,80 @@ x2 = std::move(x3);
       <pubDate>Sun, 25 Aug 2013 09:48:23 +0800</pubDate>
       
       <guid>http://luobin.me/post/C&#43;&#43;%E7%89%B9%E6%AE%8A%E6%88%90%E5%91%98%E5%87%BD%E6%95%B0%E6%80%BB%E7%BB%93/</guid>
-      <description>&lt;p&gt;&amp;emsp;&amp;emsp;所谓特殊成员函数，按照c++11的标准描述：
-&amp;gt;The default constructor, copy constructor and copy assignment operator , move constructor and move assignment operator , and destructor are special member functions. [Note: The implementation will implicitly declare these member functions for some class types when the program does not explicitly declare them. The implementation will implicitly define them if they are odr-used.
-总结下就是：
-.   Default constructors  //默认构造函数
-.   Destructors           //析构函数
-.   Copy constructors     //拷贝构造函数
-.   Copy assignment operators //拷贝赋值操作
-.   Move constructors     // move 构造函数
-.   Move assignment operators  //move 复制操作&lt;/p&gt;
+      <description>&lt;p&gt;&amp;emsp;&amp;emsp;所谓特殊成员函数，按照c++11的标准描述：&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;The default constructor, copy constructor and copy assignment operator , move constructor and move assignment operator , and destructor are special member functions. [Note: The implementation will implicitly declare these member functions for some class types when the program does not explicitly declare them. The implementation will implicitly define them if they are odr-used.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;总结下就是：&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Default constructors  //默认构造函数&lt;/li&gt;
+&lt;li&gt;Destructors           //析构函数&lt;/li&gt;
+&lt;li&gt;Copy constructors     //拷贝构造函数&lt;/li&gt;
+&lt;li&gt;Copy assignment operators //拷贝赋值操作&lt;/li&gt;
+&lt;li&gt;Move constructors     // move 构造函数&lt;/li&gt;
+&lt;li&gt;Move assignment operators  //move 复制操作&lt;/li&gt;
+&lt;/ul&gt;
 
 &lt;p&gt;根据标准中的描述，对于特殊成员函数，如果程序中没有明确的声明，编译器实现会进行隐式的声明，而且符合odr规则，也会提供一份隐式的实现。（odr&amp;ndash;One Definition Rule）。这里我们举个例子验证下：&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;//这六个成员函数我们一个都没有显式的声明和定义
-class X{
-private:
-    int data;
-};
-int main()
-{
-    X x1;  //但是我们却可以通过默认构造函数生成一个对象
-    cout &amp;lt;&amp;lt;&amp;quot;x1.data=&amp;quot;&amp;lt;&amp;lt;x1.get_data()&amp;lt;&amp;lt;endl;
-    X x2 = x1; //通过拷贝构造函数生成新的对象（对的，这种情况并不是调的assignment，后面会有演示）
-    cout &amp;lt;&amp;lt;&amp;quot;x2.data=&amp;quot;&amp;lt;&amp;lt;x2.get_data()&amp;lt;&amp;lt;endl;
-    X x3;
-    cout &amp;lt;&amp;lt;&amp;quot;x3.data=&amp;quot;&amp;lt;&amp;lt;x3.get_data()&amp;lt;&amp;lt;endl;
-    X3 = x1; //这才是assignment 操作
-    cout &amp;lt;&amp;lt;&amp;quot;x3.data=&amp;quot;&amp;lt;&amp;lt;x3.get_data()&amp;lt;&amp;lt;endl;
-    return 0;
-}
+&lt;pre&gt;&lt;code class=&#34;language-C++&#34;&gt;	//这六个成员函数我们一个都没有显式的声明和定义
+	class X{
+	private:
+		int data;
+	};
+	int main()
+	{
+		X x1;  //但是我们却可以通过默认构造函数生成一个对象
+		cout &amp;lt;&amp;lt;&amp;quot;x1.data=&amp;quot;&amp;lt;&amp;lt;x1.get_data()&amp;lt;&amp;lt;endl;
+		X x2 = x1; //通过拷贝构造函数生成新的对象（对的，这种情况并不是调的assignment，后面会有演示）
+		cout &amp;lt;&amp;lt;&amp;quot;x2.data=&amp;quot;&amp;lt;&amp;lt;x2.get_data()&amp;lt;&amp;lt;endl;
+		X x3;
+		cout &amp;lt;&amp;lt;&amp;quot;x3.data=&amp;quot;&amp;lt;&amp;lt;x3.get_data()&amp;lt;&amp;lt;endl;
+		X3 = x1; //这才是assignment 操作
+		cout &amp;lt;&amp;lt;&amp;quot;x3.data=&amp;quot;&amp;lt;&amp;lt;x3.get_data()&amp;lt;&amp;lt;endl;
+		return 0;
+	}
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;执行结果：&lt;img src=&#34;http://77g3g7.com1.z0.glb.clouddn.com/special_member_function_1.png&#34; alt=&#34;&#34; /&gt;
 正如我们所料，第1、2、4行输出的data值相等。说明隐式实现的拷贝构造和赋值操作会对data的值进行拷贝。&lt;br /&gt;
 &amp;emsp;&amp;emsp;利用这一特性方便我们编程的同时，有些时候也会带来一些问题，最简单的，比如有时候我们想禁止对X类型的对象进行进行拷贝，赋值。语言层面就没有提供这样的支持，直到c++11引入了delete关键字。我们可以这样修改上面的class X:&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;class X{
-public:
-   //这里有个坑待填，好像是构造函数只要显示的写了一个，不论有没有delete，
-   //默认构造函数不能再implicitly,否则会报错（至少我mac下用clang编译报错了）
-    X()
-    :data(random())
-    {}
-    X(const X&amp;amp;) = delete;
-    X&amp;amp; operator = (const X&amp;amp;) = delete;
-private:
-    int data;
-};
+&lt;pre&gt;&lt;code class=&#34;language-C++&#34;&gt;	class X{
+	public:
+	   //这里有个坑待填，好像是构造函数只要显示的写了一个，不论有没有delete，
+	   //默认构造函数不能再implicitly,否则会报错（至少我mac下用clang编译报错了）
+	   	X()
+		:data(random())
+		{}
+		X(const X&amp;amp;) = delete;
+		X&amp;amp; operator = (const X&amp;amp;) = delete;
+	private:
+		int data;
+	};
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;此时我们再编译上面那段相同的测试代码，有两个编译错误：
-&lt;img src=&#34;http://77g3g7.com1.z0.glb.clouddn.com/special_member_function_error.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;img src=&#34;http://77g3g7.com1.z0.glb.clouddn.com/special_member_function_2.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;&amp;emsp;&amp;emsp;与delete对应的一个关键字是default,假如上面的class X，我们不想手写default constructor：&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;class X{
-public:
-    X() = default;
-    X(const X&amp;amp;) = default;
-    X&amp;amp; operator = (const X&amp;amp;) = default;
-public:
-    int get_data() const
-    {
-        return data;
-    }
-private:
-    int data;
-};
+&lt;pre&gt;&lt;code class=&#34;language-C++&#34;&gt;	class X{
+	public:
+		X() = default;
+		X(const X&amp;amp;) = default;
+		X&amp;amp; operator = (const X&amp;amp;) = default;
+	public:
+		int get_data() const
+		{
+			return data;
+		}
+	private:
+		int data;
+	};
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;&amp;emsp;&amp;emsp;另外，这些special member function 同样遵守c++的access rules，标准中的原话是这样说的：&lt;/p&gt;
@@ -894,20 +920,20 @@ private:
 
 &lt;p&gt;如果我们灵活运用public、protect、private 等access rules，可以实现，满足各种特殊需求，比如常用的所谓单例模式，强制把各种可能构造出对象的相关的成员函数声明为private，仅提供一个static 成员函数用于获取/生成这个单例对象：&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;class Singleton  
-{
-    public:
-        static Singleton&amp;amp; Instance()
-        {
-        static Singleton instance；
-        return instance；
-        }
-    private:
-        Singleton()；
-        ~Singleton()；
-        Singleton(const Singleton&amp;amp;);
-        Singleton&amp;amp; operator=(const Singleton&amp;amp;);
-};
+&lt;pre&gt;&lt;code class=&#34;language-C++&#34;&gt;    class Singleton  
+    {
+        public:
+            static Singleton&amp;amp; Instance()
+            {
+            static Singleton instance；
+            return instance；
+            }
+        private:
+            Singleton()；
+            ~Singleton()；
+            Singleton(const Singleton&amp;amp;);
+            Singleton&amp;amp; operator=(const Singleton&amp;amp;);
+    };
 &lt;/code&gt;&lt;/pre&gt;
 </description>
     </item>
@@ -1074,14 +1100,14 @@ easy.h should be in /include/curl/
       <description>&lt;p&gt;从mysql5.5起，mysql源码安装开始使用cmake了，所以首先要安装cmake
 可以用命令:&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;    rpm -qa | grep cmake
+&lt;pre&gt;&lt;code class=&#34;language-Shell&#34;&gt;rpm -qa | grep cmake
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;查询当前系统有没有安装查cmake。&lt;/p&gt;
 
 &lt;p&gt;下载解压安装cmake&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;#tar -zvxf cmake-2.8.3.tar.gz
+&lt;pre&gt;&lt;code class=&#34;language-Shell&#34;&gt;#tar -zvxf cmake-2.8.3.tar.gz
 #cd cmake-2.8.3
 #./configure
 #make
@@ -1090,43 +1116,41 @@ easy.h should be in /include/curl/
 
 &lt;p&gt;可能会出现没有C++编译器的错误，默认的gcc默认没有支持c++，使用以下语句安装&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;#yum -y install gcc-c++
+&lt;pre&gt;&lt;code class=&#34;language-Shell&#34;&gt;#yum -y install gcc-c++
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;执行源码编译配置脚本&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;cmake \
--DCMAKE_INSTALL_PREFIX=/usr/local/mysql \
--DMYSQL_UNIX_ADDR=/usr/local/mysql/mysql.sock \
--DDEFAULT_CHARSET=utf8 \
--DDEFAULT_COLLATION=utf8_general_ci \
--DWITH_MYISAM_STORAGE_ENGINE=1 \
--DWITH_INNOBASE_STORAGE_ENGINE=1 \
--DWITH_ARCHIVE_STORAGE_ENGINE=1 \
--DWITH_BLACKHOLE_STORAGE_ENGINE=1 \
--DWITH_MEMORY_STORAGE_ENGINE=1 \
--DWITH_READLINE=1 \
--DENABLED_LOCAL_INFILE=1 \
--DMYSQL_DATADIR=/db/mysql/data \
--DMYSQL_USER=mysql \
--DMYSQL_TCP_PORT=3306
+&lt;pre&gt;&lt;code class=&#34;language-Shell&#34;&gt;	cmake \
+	-DCMAKE_INSTALL_PREFIX=/usr/local/mysql \
+	-DMYSQL_UNIX_ADDR=/usr/local/mysql/mysql.sock \
+	-DDEFAULT_CHARSET=utf8 \
+	-DDEFAULT_COLLATION=utf8_general_ci \
+	-DWITH_MYISAM_STORAGE_ENGINE=1 \
+	-DWITH_INNOBASE_STORAGE_ENGINE=1 \
+	-DWITH_ARCHIVE_STORAGE_ENGINE=1 \
+	-DWITH_BLACKHOLE_STORAGE_ENGINE=1 \
+	-DWITH_MEMORY_STORAGE_ENGINE=1 \
+	-DWITH_READLINE=1 \
+	-DENABLED_LOCAL_INFILE=1 \
+	-DMYSQL_DATADIR=/db/mysql/data \
+	-DMYSQL_USER=mysql \
+	-DMYSQL_TCP_PORT=3306
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;如果出现以下错误：&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;cmake .
--- MySQL 5.5.8
--- Could NOT find Curses (missing:  CURSES_LIBRARY  CURSES_INCLUDE_PATH)
-CMake Error at cmake/readline.cmake:82 (MESSAGE):
-Curses library not found.  Please install appropriate package,。。。
+&lt;pre&gt;&lt;code class=&#34;language-Shell&#34;&gt;	cmake .
+	-- MySQL 5.5.8
+	-- Could NOT find Curses (missing:  CURSES_LIBRARY 	CURSES_INCLUDE_PATH)
+	CMake Error at cmake/readline.cmake:82 (MESSAGE):
+  	Curses library not found.  Please install appropriate package,。。。
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;执行 yum -y install ncurses-devel 命令，然后删除生成的CMakeCache.txt文件，重新执行cmake
 执行 &lt;code&gt;＃make  &amp;amp;&amp;amp; make install&lt;/code&gt; 编译安装
-在运行mysqld的时候可能会遇到类似：&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;ERROR 2002 (HY000): Can’t connect to local MySQL server through socket ‘/var/lib/mysql/mysql.sock’ (2) 
-&lt;/code&gt;&lt;/pre&gt;
+在运行mysqld的时候可能会遇到类似：
+    &lt;code&gt;ERROR 2002 (HY000): Can’t connect to local MySQL server through socket ‘/var/lib/mysql/mysql.sock’ (2)&lt;/code&gt;&lt;/p&gt;
 
 &lt;p&gt;这样的错误，只需重新确认一下mysql.sock文件的路径，在/etc/my.cnf 文件中设施一下socket=path即可。对于mysqladmin，同样需要在/etc/my.cnf 文件中[mysqladmin]下设置socket 路径。&lt;/p&gt;
 </description>
