@@ -564,7 +564,7 @@ private:
 
 &lt;h4 id=&#34;总结:86125507f6e433adf8544745a5755250&#34;&gt;总结&lt;/h4&gt;
 
-&lt;p&gt;&amp;emsp;&amp;emsp;使用智能指针可以很大程度上将精力从繁琐的控制指针生命周期的工作中释放出来，这是C++作为一个没有GC的语言在开发效率上的一大进步。但是使用过程中要牢记，要么全部使用raw指针，要么交由智能指针全权负责，换句话说就是：要么裸奔，要么全副武装，切勿混搭。&lt;/p&gt;
+&lt;p&gt;&amp;emsp;&amp;emsp;使用智能指针可以很大程度上将精力从繁琐的控制指针生命周期的工作中释放出来，这是C++作为一个没有GC的语言在开发效率上的一大进步。但是使用过程中要牢记，要么全部使用raw指针，要么交由智能指针全权负责，换句话说就是：要么裸奔，要么全副武装，谨慎混搭。&lt;/p&gt;
 </description>
     </item>
     
@@ -886,8 +886,11 @@ private:
 };
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;&amp;emsp;&amp;emsp;另外，这些special member function 同样遵守c++的access rules，标准中的原话是这样说的：
-&amp;gt;Special member functions obey the usual access rules (Clause 11). [Example: declaring a constructor protected ensures that only derived classes and friends can create objects using it. — end example ]&lt;/p&gt;
+&lt;p&gt;&amp;emsp;&amp;emsp;另外，这些special member function 同样遵守c++的access rules，标准中的原话是这样说的：&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;Special member functions obey the usual access rules (Clause 11). [Example: declaring a constructor protected ensures that only derived classes and friends can create objects using it. — end example ]&lt;/p&gt;
+&lt;/blockquote&gt;
 
 &lt;p&gt;如果我们灵活运用public、protect、private 等access rules，可以实现，满足各种特殊需求，比如常用的所谓单例模式，强制把各种可能构造出对象的相关的成员函数声明为private，仅提供一个static 成员函数用于获取/生成这个单例对象：&lt;/p&gt;
 
