@@ -236,7 +236,7 @@ explicit shared_ptr(_Yp* __p,typename enable_if&amp;lt;is_convertible&amp;lt;_Yp
 struct is_convertible;
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;&lt;code&gt;typename enable_if&amp;lt;is_convertible&amp;lt;_Yp*, element_type*&amp;gt;::value, __nat&amp;gt;::type = __nat()&lt;/code&gt;这一语句实际上表示的意思是当is_convertible的value为true的时候生命一个带默认值的形参，即成功匹配后的构造函数类型应该是这样的
+&lt;p&gt;&lt;code&gt;typename enable_if&amp;lt;is_convertible&amp;lt;_Yp*, element_type*&amp;gt;::value, __nat&amp;gt;::type = __nat()&lt;/code&gt;这一语句实际上表示的意思是当is_convertible的value为true的时候声明一个带默认值的形参，即成功匹配后的构造函数类型应该是这样的
 &lt;code&gt;shared_ptr(X *__p,__nat=__nat())&lt;/code&gt;,为了验证下我们的分析，将我们上面的测试函数f()稍微修改一下：&lt;/p&gt;
 
 &lt;pre&gt;&lt;code class=&#34;language-C++&#34;&gt;void f()
