@@ -1,147 +1,102 @@
 <!DOCTYPE html>
-<html lang="en-us">
+<html lang="en">
 <head>
-
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-
-  	<meta property="og:title" content=" centos下mysql5.6.10源码安装 &middot;  不足为外人道" />
-  	<meta property="og:site_name" content="不足为外人道" />
-  	<meta property="og:url" content="http://luobin.me/post/centos%E4%B8%8Bmysql5.6.10%E6%BA%90%E7%A0%81%E5%AE%89%E8%A3%85/" />
-
-    
-  	<meta property="og:type" content="article" />
-
-    <meta property="og:article:published_time" content="2013-04-06T22:33:21&#43;08:00" />
-
-    
-    <meta property="og:article:tag" content="linux" />
-    
-    <meta property="og:article:tag" content="mysql" />
-    
-    
-
-  <title>
-     centos下mysql5.6.10源码安装 &middot;  不足为外人道
-  </title>
-
-    <meta name="description" content="程序最根本的目的是什么？复现真实世界或人所构想的规律，减少重复工作的成本，或通过提升规模完成人所不能及之事。但是世间之事万千，有限的程序如何重现复杂的世界呢？答案是“抽象”。论及具体手段，无外乎“求同”与“存异”,即概括一般规律，处理特殊情况。" />
-
-    <meta name="HandheldFriendly" content="True" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-    <link rel="shortcut icon" href="http://luobin.me/images/favicon.ico">
-	  <link rel="apple-touch-icon" href="http://luobin.me/images/apple-touch-icon.png" />
-
-    <link rel="stylesheet" type="text/css" href="http://luobin.me/css/screen.css" />
-    <link rel="stylesheet" type="text/css" href="http://luobin.me/css/nav.css" />
-    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Merriweather:300,700,700italic,300italic|Open+Sans:700,400|Inconsolata" />
-    <link href="http://cdn.bootcss.com/highlight.js/8.0/styles/monokai_sublime.min.css" rel="stylesheet">
-    <script src="http://cdn.bootcss.com/highlight.js/8.0/highlight.min.js"></script>
-
-    
-      
-          <link href="http://luobin.me/index.xml" rel="alternate" type="application/rss+xml" title="不足为外人道" />
-      
-      
-    
-    <meta name="generator" content="Hugo 0.16-DEV" />
-
-    <link rel="canonical" href="http://luobin.me/post/centos%E4%B8%8Bmysql5.6.10%E6%BA%90%E7%A0%81%E5%AE%89%E8%A3%85/" />
-
-    
-
-    
-    <script>
-      var _hmt = _hmt || [];
-      (function() {
-      var hm = document.createElement("script");
-      hm.src = "//hm.baidu.com/hm.js?8bfedf31fe5289efc9183823d0de1d4b";
-      var s = document.getElementsByTagName("script")[0];
-      s.parentNode.insertBefore(hm, s);
-      })();
-    </script>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	
+	<title>centos下mysql5.6.10源码安装</title>
+	
+	<meta name="description" content="">
+	<meta name="image" content="">
+	
+	<meta itemprop="name" content="centos下mysql5.6.10源码安装">
+	<meta itemprop="description" content="">
+	<meta itemprop="image" content="">
+	
+	<meta name="twitter:card" content="summary">
+	<meta name="twitter:title" content="centos下mysql5.6.10源码安装">
+	<meta name="twitter:description" content="">
+	<meta name="twitter:site" content="@">
+	<meta name="twitter:creator" content="@">
+	<meta name="twitter:image:src" content="">
+	
+	
+	<meta name="og:title" content="centos下mysql5.6.10源码安装">
+	<meta name="og:description" content="">
+	
+	<meta name="og:url" content="/post/centos%E4%B8%8Bmysql5.6.10%E6%BA%90%E7%A0%81%E5%AE%89%E8%A3%85/">
+	<meta name="og:site_name" content="centos下mysql5.6.10源码安装">
+	<meta name="og:type" content="article">
+	
+	<meta name="article:author" content="">
+	<meta name="article:tag" content="linux mysql ">
+	<link rel="stylesheet" type="text/css" href="/css/style.css">
+	<script src="/js/caption.js"></script>
 </head>
-<body class="nav-closed">
+<body>
 
-  <div class="nav">
-    <h3 class="nav-title">Menu</h3>
-    <a href="#" class="nav-close">
-        <span class="hidden">Close</span>
-    </a>
-    <ul>
-        
-        
-        
-            
-            <li class="nav-opened" role="presentation">
-            	<a href="/">Blog</a>
-            </li>
-        
-            
-            <li class="nav-opened" role="presentation">
-            	<a href="/about/">About me</a>
-            </li>
-        
-            
-            <li class="nav-opened" role="presentation">
-            	<a href="/joke">Joke</a>
-            </li>
-        
-    </ul>
-    
-    
-    <a class="subscribe-button icon-feed" href="http://luobin.me/index.xml">Subscribe</a>
-    
-</div>
-<span class="nav-cover"></span>
+<header >
+	<a href="/" style="float: left;color:#777;"><strong>不足为外人道</strong>
+	</a>
+	<a href="/index.xml" style="color:#777;float: left;"><strong>
+		&nbsp;
+	<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-rss"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg>
+</strong></a>
+<a href="/archives/" style="color:#777;"><strong>Archives</strong></a>&nbsp;&nbsp;·&nbsp;&nbsp;<a href="/about/" style="color:#777;"><strong>About Me</strong></a>
 
-
- <div class="site-wrapper">
-
-
-
-
-<header class="main-header post-head no-cover">
-  <nav class="main-nav clearfix">
-
-
-  
-  
-      <a class="menu-button" href="#"><span class="burger">&#9776;</span><span class="word">Menu</span></a>
-  
-  </nav>
 </header>
 
 
+<div id="loadingMask" style="width: 100%; height: 100%; position: fixed; background: #fff;"></div>
+<script>
+function fadeOut(el) {
+  el.style.opacity = 1;
 
-<main class="content" role="main">
+  var last = +new Date();
+  var tick = function() {
+    el.style.opacity = +el.style.opacity - (new Date() - last) / 80;
+    last = +new Date();
+    
 
+    if (el.style.opacity > 0) {
+      (window.requestAnimationFrame && requestAnimationFrame(tick)) || setTimeout(tick, 16);
+    } else {
+    	el.style.display='none';
+    }
+  };
 
+  tick();
+}
 
+function ready(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+         el = document.getElementById('loadingMask');
+         fadeOut(el);
+        var elements = document.querySelectorAll("img");
+        Array.prototype.forEach.call(elements, function(el, i) {
+            if (el.getAttribute("alt")) {
+                const caption = document.createElement('figcaption');
+                var node = document.createTextNode(el.getAttribute("alt"));
+                caption.appendChild(node);
+                const wrapper = document.createElement('figure');
+                wrapper.className = 'image';
+                el.parentNode.insertBefore(wrapper, el);
+                el.parentNode.removeChild(el);
+                wrapper.appendChild(el);
+                wrapper.appendChild(caption);
+            }
+        });
 
-  <article class="post post">
+    } else {
+        document.addEventListener('DOMContentLoaded', fn);
+    }
+}
+window.onload = ready;
+</script>
 
-    <header class="post-header">
-        <h1 class="post-title">centos下mysql5.6.10源码安装</h1>
-        <small></small>
-
-        <section class="post-meta">
-        
-          <time class="post-date" datetime="2013-04-06T22:33:21&#43;08:00">
-            Apr 6, 2013
-          </time>
-        
-         
-          <span class="post-tag small"><a href="http://luobin.me/tags/linux/">#linux</a></span>
-         
-          <span class="post-tag small"><a href="http://luobin.me/tags/mysql/">#mysql</a></span>
-         
-        </section>
-    </header>
-
-    <section class="post-content">
-      <p>从mysql5.5起，mysql源码安装开始使用cmake了，所以首先要安装cmake
+<div class="content">
+	<h1>centos下mysql5.6.10源码安装 <aside><a href="/tags/linux/" class="w3-tag">/linux</a>&nbsp;&nbsp;&nbsp;<a href="/tags/mysql/" class="w3-tag">/mysql</a>&nbsp;&nbsp;&nbsp;</aside></h1>
+	<p>从mysql5.5起，mysql源码安装开始使用cmake了，所以首先要安装cmake
 可以用命令:</p>
 
 <pre><code class="language-Shell">rpm -qa | grep cmake
@@ -198,32 +153,26 @@
 
 <p>这样的错误，只需重新确认一下mysql.sock文件的路径，在/etc/my.cnf 文件中设施一下socket=path即可。对于mysqladmin，同样需要在/etc/my.cnf 文件中[mysqladmin]下设置socket 路径。</p>
 
-    </section>
-
-
-  <footer class="post-footer">
-
-
-    
-    
+</div>
 
 
 
 
-  </footer>
-</article>
+	<p><small><em>Written April 6, 2013. </em>
+		
+	</small></p>
 
-</main>
-    <footer class="site-footer clearfix">
-        
-    </footer>
-    </div>
-    <script type="text/javascript" src="http://luobin.me/js/jquery.js"></script>
-    <script type="text/javascript" src="http://luobin.me/js/jquery.fitvids.js"></script>
-    <script type="text/javascript" src="http://luobin.me/js/index.js"></script>
-    <script src="http://cdn.bootcss.com/highlight.js/8.0/highlight.min.js"></script>
-    <script >hljs.initHighlightingOnLoad();</script>
-    
+	<p>
+	<a href="/post/centos%E7%9A%84%E9%80%86%E8%A2%AD/">← CentOS的逆袭</a>&nbsp;
+	<a href="/post/magento-1.7.02%E5%AE%89%E8%A3%85%E9%97%AE%E9%A2%98/" style="float:right;">magento 1.7.02安装问题 →</a>
+	</p>
+
+
+
+
+
+
+<footer>
+</footer>
 </body>
 </html>
-

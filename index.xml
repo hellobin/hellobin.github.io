@@ -2,1271 +2,242 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>不足为外人道</title>
-    <link>http://luobin.me/</link>
+    <link>/</link>
     <description>Recent content on 不足为外人道</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 07 Jan 2016 10:12:02 +0800</lastBuildDate>
-    <atom:link href="http://luobin.me/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 16 Mar 2018 21:58:58 +0800</lastBuildDate>
+    
+	<atom:link href="/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>archives</title>
+      <link>/archives/</link>
+      <pubDate>Fri, 16 Mar 2018 21:58:58 +0800</pubDate>
+      
+      <guid>/archives/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>程序猿和科比</title>
-      <link>http://luobin.me/joke/0/</link>
+      <link>/post/joke/0/</link>
       <pubDate>Thu, 07 Jan 2016 10:12:02 +0800</pubDate>
       
-      <guid>http://luobin.me/joke/0/</guid>
-      <description>&lt;p&gt;&lt;img src=&#34;http://ww3.sinaimg.cn/large/6bb75443gw1ezqqd3orj9j207n053jrc.jpg&#34; alt=&#34;程序猿&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;程序员问科比：“你为什么这么成功？”&lt;br /&gt;
-科比：“你知道洛杉矶早晨4点钟是什么样子吗？”&lt;br /&gt;
-程序员：“知道，一般那时候我还没睡。怎么了？”&lt;br /&gt;
-科比：“……没事！”&lt;/p&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;跟程序员比辛苦，你打完炮了人家还在抠腚呢~想想也是苦逼的程序员一枚。。不说了，都是泪。。&lt;/p&gt;
-&lt;/blockquote&gt;
-</description>
+      <guid>/post/joke/0/</guid>
+      <description>程序员问科比：“你为什么这么成功？”
+科比：“你知道洛杉矶早晨4点钟是什么样子吗？”
+程序员：“知道，一般那时候我还没睡。怎么了？”
+科比：“……没事！”
+ 跟程序员比辛苦，你打完炮了人家还在抠腚呢~想想也是苦逼的程序员一枚。。不说了，都是泪。。
+ </description>
     </item>
     
     <item>
       <title>OSX环境下liteide的安装和配置</title>
-      <link>http://luobin.me/post/OSX%E7%8E%AF%E5%A2%83%E4%B8%8Bliteide%E7%9A%84%E5%AE%89%E8%A3%85%E5%92%8C%E9%85%8D%E7%BD%AE/</link>
+      <link>/post/osx%E7%8E%AF%E5%A2%83%E4%B8%8Bliteide%E7%9A%84%E5%AE%89%E8%A3%85%E5%92%8C%E9%85%8D%E7%BD%AE/</link>
       <pubDate>Sun, 26 Apr 2015 21:56:59 +0800</pubDate>
       
-      <guid>http://luobin.me/post/OSX%E7%8E%AF%E5%A2%83%E4%B8%8Bliteide%E7%9A%84%E5%AE%89%E8%A3%85%E5%92%8C%E9%85%8D%E7%BD%AE/</guid>
-      <description>&lt;p&gt;&amp;emsp;&amp;emsp;首先要安装qt&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;$  brew update &amp;amp;&amp;amp; brew install qt
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&amp;emsp;&amp;emsp;clone liteide代码&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;$  git clone https://github.com/visualfc/liteide.git
-$  cd liteide/build
-$  ./update_pkg.sh
-$ export QTDIR=/usr/local/Cellar/qt/xxx  //qt的版本号
-$ ./build_osx.sh
-$ ./deploy_osx_qt4.sh
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&amp;emsp;&amp;emsp;最后的结果在 liteide/build/liteide,但是liteide/liteidex/liteide/bin 下面也有一个更小的版本。&lt;br /&gt;
-&amp;emsp;&amp;emsp;liteide需要gdb来调试go程序，check下系统有安装了gdb。(命令行下敲gdb有版本信息输出，有安装的话
-用 &lt;code&gt;which gdb&lt;/code&gt; 看下gdb的路径，签名的时候用得着)。没有的话&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;brew update &amp;amp;&amp;amp; brew install gdb
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;然后还要给gdb签名，需要创建一个code signing证书。
-&lt;img src=&#34;http://77g3g7.com1.z0.glb.clouddn.com/gdbcert.png&#34; alt=&#34;&#34; /&gt;
-&amp;emsp;&amp;emsp;如图所示，一直continue，直到选择证书存放地址，选择system。右键刚才创建的 gdbCert 证书，选择Get Info，点击“信任”，
-会显示可以自定义的信任选项。代码签名”选择“总是信任” （Code Signing to Always Trust）。
-&amp;emsp;&amp;emsp;执行：&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;$codesign -s gdb-cert /path/to/gdb
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;然后重启下系统，在liteide中打开view-&amp;gt;edit current environment，在配置文件中设置下&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;LITEIDE_GDB=/path/to/gdb
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;然后就可以在liteide中尽情的享受调试go的快感。。。（目前免费方案中最好用的golang ide，无障碍单步调试）&lt;/p&gt;
-</description>
+      <guid>/post/osx%E7%8E%AF%E5%A2%83%E4%B8%8Bliteide%E7%9A%84%E5%AE%89%E8%A3%85%E5%92%8C%E9%85%8D%E7%BD%AE/</guid>
+      <description>&amp;emsp;&amp;emsp;首先要安装qt
+$ brew update &amp;amp;&amp;amp; brew install qt  &amp;emsp;&amp;emsp;clone liteide代码
+$ git clone https://github.com/visualfc/liteide.git $ cd liteide/build $ ./update_pkg.sh $ export QTDIR=/usr/local/Cellar/qt/xxx //qt的版本号 $ ./build_osx.sh $ ./deploy_osx_qt4.sh  &amp;emsp;&amp;emsp;最后的结果在 liteide/build/liteide,但是liteide/liteidex/liteide/bin 下面也有一个更小的版本。
+&amp;emsp;&amp;emsp;liteide需要gdb来调试go程序，check下系统有安装了gdb。(命令行下敲gdb有版本信息输出，有安装的话 用 which gdb 看下gdb的路径，签名的时候用得着)。没有的话
+brew update &amp;amp;&amp;amp; brew install gdb  然后还要给gdb签名，需要创建一个code signing证书。 &amp;emsp;&amp;emsp;如图所示，一直continue，直到选择证书存放地址，选择system。右键刚才创建的 gdbCert 证书，选择Get Info，点击“信任”， 会显示可以自定义的信任选项。代码签名”选择“总是信任” （Code Signing to Always Trust）。 &amp;emsp;&amp;emsp;执行：
+$codesign -s gdb-cert /path/to/gdb  然后重启下系统，在liteide中打开view-&amp;gt;edit current environment，在配置文件中设置下
+LITEIDE_GDB=/path/to/gdb  然后就可以在liteide中尽情的享受调试go的快感。。。（目前免费方案中最好用的golang ide，无障碍单步调试）</description>
     </item>
     
     <item>
       <title>About me</title>
-      <link>http://luobin.me/about/</link>
+      <link>/about/</link>
       <pubDate>Tue, 14 Apr 2015 22:17:00 +0200</pubDate>
       
-      <guid>http://luobin.me/about/</guid>
-      <description>&lt;p&gt;85后老程序员&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;2005~2012年 蛰伏与西北某高校潜心修行&lt;/li&gt;
-&lt;li&gt;2012~2013年初 初出茅庐，进入某通信巨头西安分舵&lt;/li&gt;
-&lt;li&gt;2013年 折腾于彭城，相遇人生的另一半&lt;/li&gt;
-&lt;li&gt;2014年 迎着移动互联网的浪潮，南下魔都，在游戏行业扑腾至今&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Mail: &lt;em&gt;icenan2#At#gmail.com&lt;/em&gt;&lt;/p&gt;
-</description>
+      <guid>/about/</guid>
+      <description>85后老程序员
+ 2005~2012年 蛰伏与西北某高校潜心修行 2012~2013年初 初出茅庐，进入某通信巨头西安分舵 2013年 折腾于彭城，相遇人生的另一半 2014年 迎着移动互联网的浪潮，南下魔都，在游戏行业扑腾至今  Mail: icenan2#At#gmail.com</description>
     </item>
     
     <item>
       <title>C&#43;&#43;智能指针</title>
-      <link>http://luobin.me/post/C&#43;&#43;%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88/</link>
+      <link>/post/c&#43;&#43;%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88/</link>
       <pubDate>Sat, 07 Jun 2014 17:50:24 +0800</pubDate>
       
-      <guid>http://luobin.me/post/C&#43;&#43;%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88/</guid>
-      <description>
-
-&lt;p&gt;&amp;emsp;&amp;emsp;关于智能指针，C++11中废弃了原来的auto_ptr，引入了shared_ptr,unique_ptr,weak_ptr。在引入智能指针之前，我们使用原生指针(built-in or raw)来手动控制内存的操作和释放，稍有不慎常会发生各种内存泄露或者undefined行为，这点使用c/c++开发过项目的必然都深有体会。世间万事万物都有其两面性，我们享受直接内存操作的便利快感的同时，有时候难免要忍受调试各种稀奇古怪的内存bug的酸爽。下面将逐个剖析新的智能指针系列引入的这几种类型的背后实现机制以及对于开发工作会有那些帮助。&lt;/p&gt;
-
-&lt;h4 id=&#34;shared-ptr:86125507f6e433adf8544745a5755250&#34;&gt;shared_ptr&lt;/h4&gt;
-
-&lt;p&gt;&amp;emsp;&amp;emsp;首先这三种类型都是STL中实现的，具体不同的编译器附带的STL中的实现会有差异(事实上差异还比较大)，但是我们使用的时候需要引用的同一个头文件名:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;#include&amp;lt;memory&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;由于本人的主要开发环境是OS X,对应的主力编译器是clang,clang默认由原来使用GNU的libstdc++到现在自己重新实现了一套c++标准库，叫libc++,所以这里不加特别说明的话，当介绍具体实现的时候，默认指的是libc++的实现。&lt;br /&gt;
-&amp;emsp;&amp;emsp;shared_基本用法:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-C++&#34;&gt;
-#include &amp;lt;iostream&amp;gt;
-#include &amp;lt;memory&amp;gt;
-using namespace std;
-
-class X{
-public:
-    X()=default;
-    X(int value)
-            :data(value)
-    {
-        cout &amp;lt;&amp;lt;&amp;quot;constructor&amp;quot;&amp;lt;&amp;lt;endl;
-    }
-    ~X()
-    {
-        cout &amp;lt;&amp;lt;&amp;quot;destrucctor&amp;quot;&amp;lt;&amp;lt;endl;
-    }
-    int get_data() const
-    {
-        return  data;
-    }
-
-    friend ostream&amp;amp; operator &amp;lt;&amp;lt; (ostream &amp;amp;out, const X&amp;amp; x)
-    {
-        out &amp;lt;&amp;lt;x.get_data();
-        return out;
-    }
-
-private:
-    int data;
-};
-void f()
-{
-    shared_ptr&amp;lt;X&amp;gt; sp(new X(5)); //
-    cout&amp;lt;&amp;lt;*sp&amp;lt;&amp;lt;endl; //the same use as raw point
-    cout &amp;lt;&amp;lt;&amp;quot;data = &amp;quot;&amp;lt;&amp;lt;sp-&amp;gt;get_data()&amp;lt;&amp;lt;endl;
-    cout &amp;lt;&amp;lt;&amp;quot;use_count = &amp;quot; &amp;lt;&amp;lt;sp.use_count()&amp;lt;&amp;lt;endl; // should print use_count = 1
-    shared_ptr&amp;lt;X&amp;gt; sp1 = sp;
-    cout &amp;lt;&amp;lt;&amp;quot;use_count = &amp;quot; &amp;lt;&amp;lt;sp.use_count()&amp;lt;&amp;lt;endl; // should print use_count = 2
-    sp.reset();
-    cout &amp;lt;&amp;lt;&amp;quot;use_count = &amp;quot; &amp;lt;&amp;lt;sp.use_count()&amp;lt;&amp;lt;endl; // should print use_count = 0 because sp is reseted
-    shared_ptr&amp;lt;X&amp;gt; sp2 = sp1;
-    cout &amp;lt;&amp;lt;&amp;quot;use_count = &amp;quot; &amp;lt;&amp;lt;sp1.use_count()&amp;lt;&amp;lt;endl; // should print use_count = 2
-    sp = sp1;  // now can also assign to sp with a same(or convertible) type of shared_ptr
-    cout &amp;lt;&amp;lt;&amp;quot;use_count = &amp;quot; &amp;lt;&amp;lt;sp.use_count()&amp;lt;&amp;lt;endl; // should print use_count = 3
-    sp = nullptr; //the same effect as reset
-    cout &amp;lt;&amp;lt;&amp;quot;use_count = &amp;quot; &amp;lt;&amp;lt;sp.use_count()&amp;lt;&amp;lt;endl; //shoud print use_cout = 0
-    cout &amp;lt;&amp;lt;&amp;quot;use_count = &amp;quot; &amp;lt;&amp;lt;sp1.use_count()&amp;lt;&amp;lt;endl; // should print use_cout = 2
-}
-int main()
-{
-    f();
-    return 0;
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;运行下测试程序验证输出结果正如如我们注释中所料：
-&lt;img src=&#34;http://77g3g7.com1.z0.glb.clouddn.com/shared_ptr.png&#34; alt=&#34;&#34; /&gt;
-仅仅介绍怎么用远不是在我们这篇文章的终极目标，下面让我们一层一层揭开智能指针的神秘面纱。从上面的例子我们已经可以看出，shared_ptr本质是一个模板类，这个模板类实例化的参数类型就是对应我们要“智能”管理对象类型(或者 convertible的类型)，讲起来还是蛮拗口的,举个栗子：&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-C++&#34;&gt;class Y:public X
-{
-private:
-    float value;
-};
-...
-shared_ptr&amp;lt;X&amp;gt; sfp(new Y()); //这么写也是合法的
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;说了这么多，shared_ptr的本质就是一个包含raw指针以及关于这个raw指针的全局引用信息的对象，通过在这个对象的destructor中修改raw指针的全局引用信息来控制raw指针的释放时机。&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-C++&#34;&gt;template&amp;lt;class _Tp&amp;gt;
-class _LIBCPP_TYPE_VIS_ONLY shared_ptr
-{
-public:
-    typedef _Tp element_type;
-private:
-    element_type*      __ptr_;
-    __shared_weak_count* __cntrl_;
-
-    struct __nat {int __for_bool_;};
-public:
-    _LIBCPP_CONSTEXPR shared_ptr() _NOEXCEPT;
-    _LIBCPP_CONSTEXPR shared_ptr(nullptr_t) _NOEXCEPT;
-    template&amp;lt;class _Yp&amp;gt;
-        explicit shared_ptr(_Yp* __p,
-                            typename enable_if&amp;lt;is_convertible&amp;lt;_Yp*, element_type*&amp;gt;::value, __nat&amp;gt;::type = __nat());
-     			...
-    element_type* get() const _NOEXCEPT {return __ptr_;}
-    _LIBCPP_INLINE_VISIBILITY
-    typename add_lvalue_reference&amp;lt;element_type&amp;gt;::type operator*() const _NOEXCEPT
-        {return *__ptr_;}
-    _LIBCPP_INLINE_VISIBILITY
-    element_type* operator-&amp;gt;() const _NOEXCEPT {return __ptr_;}
-    _LIBCPP_INLINE_VISIBILITY
-    long use_count() const _NOEXCEPT {return __cntrl_ ? __cntrl_-&amp;gt;use_count() : 0;}
-    			...
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;如上代码所示，&lt;code&gt;__ptr_&lt;/code&gt;即是我们说的raw指针，&lt;code&gt;__cntrl_&lt;/code&gt;就是那个控制raw指针的全局引用信息的对象指针，其中&lt;code&gt;__share_weak_count&lt;/code&gt;又是继承自一个叫&lt;code&gt;__shared_count&lt;/code&gt;的类:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-C++&#34;&gt;class _LIBCPP_TYPE_VIS __shared_weak_count
-    : private __shared_count
-{
-    long __shared_weak_owners_;
-
-public:
-    _LIBCPP_INLINE_VISIBILITY
-    explicit __shared_weak_count(long __refs = 0) _NOEXCEPT
-        : __shared_count(__refs),
-          __shared_weak_owners_(__refs) {}
-protected:
-    virtual ~__shared_weak_count();
-
-public:
-    void __add_shared() _NOEXCEPT;
-    void __add_weak() _NOEXCEPT;
-    void __release_shared() _NOEXCEPT;
-    void __release_weak() _NOEXCEPT;
-    _LIBCPP_INLINE_VISIBILITY
-    long use_count() const _NOEXCEPT {return __shared_count::use_count();}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;我们上个shared_ptr简单实用的例子中输出的use_count信息实际上完全是由这个&lt;code&gt;shared_count&lt;/code&gt;来控制的,即实际是下面的__shared_owers_这个变量的值&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-C++&#34;&gt;class _LIBCPP_TYPE_VIS __shared_count
-{
-    __shared_count(const __shared_count&amp;amp;);
-    __shared_count&amp;amp; operator=(const __shared_count&amp;amp;);
-
-protected:
-    long __shared_owners_;
-    virtual ~__shared_count();
-private:
-    virtual void __on_zero_shared() _NOEXCEPT = 0;
-
-public:
-    _LIBCPP_INLINE_VISIBILITY
-    explicit __shared_count(long __refs = 0) _NOEXCEPT
-        : __shared_owners_(__refs) {}
-
-    void __add_shared() _NOEXCEPT;
-    bool __release_shared() _NOEXCEPT;
-    _LIBCPP_INLINE_VISIBILITY
-    long use_count() const _NOEXCEPT {return __shared_owners_ + 1;}
-};
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;code&gt;shared_ptr&amp;lt;X&amp;gt; sp(new X(5));&lt;/code&gt;搞懂懂这个语句背后发生了什么，可谓费了好大一番周折，学习了C++中一种叫SFINAE的技巧&amp;mdash;&amp;mdash;&lt;em&gt;匹配失败并不是一种错误(Substitution Failure Is Not An Error)&lt;/em&gt;.
-首先我们要搞懂shared_ptr模板类中下面这个声明的意思:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-C++&#34;&gt;template&amp;lt;class _Yp&amp;gt;
-explicit shared_ptr(_Yp* __p,typename enable_if&amp;lt;is_convertible&amp;lt;_Yp*, element_type*&amp;gt;::value, __nat&amp;gt;::type = __nat());
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;SFINAE名字听上去很高大上，其实知道is_convertible和enable_if表示什么意思后也不是太难理解.从字面上理解is_convertible应该就是判断两个类型是否可以相互转换,其模板类型：&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-C++&#34;&gt;template&amp;lt; class From, class To &amp;gt;
-struct is_convertible;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;code&gt;typename enable_if&amp;lt;is_convertible&amp;lt;_Yp*, element_type*&amp;gt;::value, __nat&amp;gt;::type = __nat()&lt;/code&gt;这一语句实际上表示的意思是当is_convertible的value为true的时候声明一个带默认值的形参，即成功匹配后的构造函数类型应该是这样的
-&lt;code&gt;shared_ptr(X *__p,__nat=__nat())&lt;/code&gt;,为了验证下我们的分析，将我们上面的测试函数f()稍微修改一下：&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-C++&#34;&gt;void f()
-{
-    shared_ptr&amp;lt;X&amp;gt; sp(new X(5),{1});  //这里我们指定一个实参取代__nat() 
-    cout&amp;lt;&amp;lt;*sp&amp;lt;&amp;lt;endl; //the same use as raw point
-    cout &amp;lt;&amp;lt;&amp;quot;data = &amp;quot;&amp;lt;&amp;lt;sp-&amp;gt;get_data()&amp;lt;&amp;lt;endl;
-    cout &amp;lt;&amp;lt;&amp;quot;use_count = &amp;quot; &amp;lt;&amp;lt;sp.use_count()&amp;lt;&amp;lt;endl; // should print use_count = 1
-    shared_ptr&amp;lt;X&amp;gt; sp1 = sp;
-    cout &amp;lt;&amp;lt;&amp;quot;use_count = &amp;quot; &amp;lt;&amp;lt;sp.use_count()&amp;lt;&amp;lt;endl; // should print use_count = 2
-    sp.reset();
-    cout &amp;lt;&amp;lt;&amp;quot;use_count = &amp;quot; &amp;lt;&amp;lt;sp.use_count()&amp;lt;&amp;lt;endl; // should print use_count = 0 because sp is reseted
-    shared_ptr&amp;lt;X&amp;gt; sp2 = sp1;
-    cout &amp;lt;&amp;lt;&amp;quot;use_count = &amp;quot; &amp;lt;&amp;lt;sp1.use_count()&amp;lt;&amp;lt;endl; // should print use_count = 2
-    sp = sp1;  // now can also assign to sp with a same(or convertible) type of shared_ptr
-    cout &amp;lt;&amp;lt;&amp;quot;use_count = &amp;quot; &amp;lt;&amp;lt;sp.use_count()&amp;lt;&amp;lt;endl; // should print use_count = 3
-    sp = nullptr; //the same effect as reset
-    cout &amp;lt;&amp;lt;&amp;quot;use_count = &amp;quot; &amp;lt;&amp;lt;sp.use_count()&amp;lt;&amp;lt;endl; //shoud print use_cout = 0
-    cout &amp;lt;&amp;lt;&amp;quot;use_count = &amp;quot; &amp;lt;&amp;lt;sp1.use_count()&amp;lt;&amp;lt;endl; // should print use_cout = 2
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;然后执行，输出相同的结果:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-C++&#34;&gt;luobin@luobinMini:shared_point$ clang++ -std=c++11 main.cpp 
-luobin@luobinMini:shared_point$ ./a.out 
-constructor
-5
-data = 5
-use_count = 1
-use_count = 2
-use_count = 0
-use_count = 2
-use_count = 3
-use_count = 0
-use_count = 2
-destrucctor
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;下面是shared_ptr这个构造函数的具体模板实现&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-C++&#34;&gt;template&amp;lt;class _Tp&amp;gt;
-template&amp;lt;class _Yp&amp;gt;
-shared_ptr&amp;lt;_Tp&amp;gt;::shared_ptr(_Yp* __p,
-                            typename enable_if&amp;lt;is_convertible&amp;lt;_Yp*, element_type*&amp;gt;::value, __nat&amp;gt;::type)
-    : __ptr_(__p)
-{
-    unique_ptr&amp;lt;_Yp&amp;gt; __hold(__p);
-    typedef __shared_ptr_pointer&amp;lt;_Yp*, default_delete&amp;lt;_Yp&amp;gt;, allocator&amp;lt;_Yp&amp;gt; &amp;gt; _CntrlBlk;
-    __cntrl_ = new _CntrlBlk(__p, default_delete&amp;lt;_Yp&amp;gt;(), allocator&amp;lt;_Yp&amp;gt;()); //__contrl_实际上是个指向个__shared_ptr_pointer类型
-    __hold.release();
-    __enable_weak_this(__p);
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;__shared_ptr_pointer:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-C++&#34;&gt;class __shared_ptr_pointer
-    : public __shared_weak_count
-{
-    __compressed_pair&amp;lt;__compressed_pair&amp;lt;_Tp, _Dp&amp;gt;, _Alloc&amp;gt; __data_;
-public:
-    _LIBCPP_INLINE_VISIBILITY
-    __shared_ptr_pointer(_Tp __p, _Dp __d, _Alloc __a)
-        :  __data_(__compressed_pair&amp;lt;_Tp, _Dp&amp;gt;(__p, _VSTD::move(__d)), _VSTD::move(__a)) {}
-
-#ifndef _LIBCPP_NO_RTTI
-    virtual const void* __get_deleter(const type_info&amp;amp;) const _NOEXCEPT;
-#endif
-
-private:
-    virtual void __on_zero_shared() _NOEXCEPT;  //这个是负责最终delete掉所管理的raw指针
-    virtual void __on_zero_shared_weak() _NOEXCEPT; //这个是处理weak引用，暂不细表
-};
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;其成员&lt;code&gt;__data_&lt;/code&gt;是个&lt;code&gt;__compressd_pair&lt;/code&gt;,其中first依旧是个&lt;code&gt;__compressed_pair&lt;/code&gt;,second是个_Alloc(//叫对象生成器?)。first.first是_Alloc生成对象的指针类型(我们的raw指针)，first.second是个&lt;code&gt;default_delete&lt;/code&gt;(叫对象销毁器?),这个才是关键。
-形势逐渐明朗了，现在我们可以一窥shared_ptr如何控制raw指针的释放时机了，进入~shared_ptr():&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-C++&#34;&gt;template&amp;lt;class _Tp&amp;gt;
-shared_ptr&amp;lt;_Tp&amp;gt;::~shared_ptr()
-{
-    if (__cntrl_)
-        __cntrl_-&amp;gt;__release_shared();
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;进入&lt;code&gt;__shared_weak_count&lt;/code&gt; 的&lt;code&gt;__release_shared()&lt;/code&gt;:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-C++&#34;&gt;void
-__shared_weak_count::__release_shared() _NOEXCEPT
-{
-    if (__shared_count::__release_shared())
-        __release_weak();
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;这里调用下&lt;code&gt;__shared_count::__release_shared()&lt;/code&gt;,true 的话继续处理&lt;code&gt;__release_weak()&lt;/code&gt;,进入&lt;code&gt;__shared_count::__release_shared()&lt;/code&gt;:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-C++&#34;&gt;bool
-__shared_count::__release_shared() _NOEXCEPT
-{
-    if (decrement(__shared_owners_) == -1) //表示这是raw指针的最后一个引用
-    {
-        __on_zero_shared();
-        return true;
-    }
-    return false;
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;由于&lt;code&gt;__on_zero_shared()&lt;/code&gt;是个虚函数,所以这里实际上调用的是&lt;code&gt;__shared_ptr_pointer&lt;/code&gt;中的实现:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-C++&#34;&gt;__shared_ptr_pointer&amp;lt;_Tp, _Dp, _Alloc&amp;gt;::__on_zero_shared() _NOEXCEPT
-{
-    __data_.first().second()(__data_.first().first()); //first.first就是我们的raw指针，这里被最终释放啦
-    __data_.first().second().~_Dp(); //?这里是销毁器也要释放的意思吗，看着像default_delete的析构函数？
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;有前面分析已知fisrt().second()是一个default_delete:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-C++&#34;&gt;template &amp;lt;class _Tp&amp;gt;
-struct _LIBCPP_TYPE_VIS_ONLY default_delete
-{
-#ifndef _LIBCPP_HAS_NO_DEFAULTED_FUNCTIONS
-    _LIBCPP_INLINE_VISIBILITY _LIBCPP_CONSTEXPR default_delete() _NOEXCEPT = default;
-#else
-    _LIBCPP_INLINE_VISIBILITY _LIBCPP_CONSTEXPR default_delete() _NOEXCEPT {}
-#endif
-    template &amp;lt;class _Up&amp;gt;
-        _LIBCPP_INLINE_VISIBILITY default_delete(const default_delete&amp;lt;_Up&amp;gt;&amp;amp;,
-             typename enable_if&amp;lt;is_convertible&amp;lt;_Up*, _Tp*&amp;gt;::value&amp;gt;::type* = 0) _NOEXCEPT {}
-    _LIBCPP_INLINE_VISIBILITY void operator() (_Tp* __ptr) const _NOEXCEPT
-        {
-            static_assert(sizeof(_Tp) &amp;gt; 0, &amp;quot;default_delete can not delete incomplete type&amp;quot;);
-            static_assert(!is_void&amp;lt;_Tp&amp;gt;::value, &amp;quot;default_delete can not delete incomplete type&amp;quot;);
-            delete __ptr;
-        }
-};
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;内部重载了operator()，接收一个_Tp* __ptr参数，&lt;code&gt;__data_.first().second()(__data_.first().first());&lt;/code&gt;这句调用时传进的参数正是我们的raw指针。
-关于shared_ptr的分析告一段落。&lt;/p&gt;
-
-&lt;h4 id=&#34;weak-ptr:86125507f6e433adf8544745a5755250&#34;&gt;weak_ptr&lt;/h4&gt;
-
-&lt;p&gt;&amp;emsp;&amp;emsp;经过上面的分析，shared_ptr似乎可以满足我们大部分关于指针的应用场景，然而智能毕竟不是万能,还有一些shared_ptr干不了的活,熟悉ios开发的同学应该清楚，强大的ARC(Automatic Reference Counting)技术依然解决不好如下图所示的循环引用的问题,所以引入了weak指针，同理C++11中引入weak_ptr来解决这一类问题.
-&lt;img src=&#34;http://77g3g7.com1.z0.glb.clouddn.com/weak_ptr.png&#34; alt=&#34;&#34; /&gt;
-我们可以把上面的&lt;code&gt;class X&lt;/code&gt;,稍微修改验证下循环引用的问题：&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-C++&#34;&gt;class X{
-public:
-    X()= default;
-    X(int value)
-            :data(value),sp_(nullptr)
-    {
-        cout &amp;lt;&amp;lt;&amp;quot;constructor&amp;quot;&amp;lt;&amp;lt;endl;
-    }
-    X(int value,shared_ptr&amp;lt;X&amp;gt; &amp;amp;sp)
-    :data(value),sp_(sp)
-    {
-        cout &amp;lt;&amp;lt;&amp;quot;constructor&amp;quot;&amp;lt;&amp;lt;endl;
-    }
-    ~X()
-    {
-        cout &amp;lt;&amp;lt;&amp;quot;destructor&amp;quot;&amp;lt;&amp;lt;endl;
-    }
-    int get_data() const
-    {
-        return  data;
-    }
-
-    friend ostream&amp;amp; operator &amp;lt;&amp;lt; (ostream &amp;amp;out, const X&amp;amp; x)
-    {
-        out &amp;lt;&amp;lt;x.get_data();
-        return out;
-    }
-    void set_sp(shared_ptr&amp;lt;X&amp;gt; &amp;amp;sp)
-    {
-        sp_ = sp;
-    }
-
-private:
-    int data;
-    shared_ptr&amp;lt;X&amp;gt;  sp_;
-};
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;测试代码如下：&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-C++&#34;&gt;void g()
-{
-    shared_ptr&amp;lt;X&amp;gt; sp1(new X(1));
-    shared_ptr&amp;lt;X&amp;gt; sp2(new X(2,sp1));
-    shared_ptr&amp;lt;X&amp;gt; sp3(new X(3,sp2));
-    sp1-&amp;gt;set_sp(sp3);
-}
-
-int main()
-{
-    //f();
-    g();
-    return 0;
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;执行编译一下：&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-shell&#34;&gt;luobin@luobinMini:shared_point$ clang++ -std=c++11 main.cpp 
-luobin@luobinMini:shared_point$ ./a.out 
-constructor
-constructor
-constructor
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;事实证明我们new出来的3个对象在g()退出后并没有被释放，而我们又失去了对其的控制，所以造成了内存泄露。
-我们将成员&lt;code&gt;sp_&lt;/code&gt;改成weak_ptr,另外由于weak_ptr不能用nullptr构造,所以还要修改下第二个构造函数：&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-C++&#34;&gt;    X(int value)
-            :data(value)
-    {
-        cout &amp;lt;&amp;lt;&amp;quot;constructor&amp;quot;&amp;lt;&amp;lt;endl;
-    }
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;继续执行相同的测试代码：&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-shell&#34;&gt;luobin@luobinMini:shared_point$ clang++ -std=c++11 main.cpp 
-luobin@luobinMini:shared_point$ ./a.out 
-constructor
-constructor
-constructor
-destructor
-destructor
-destructor
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;perfect,完美解决环形引用的问题。
-有了前面的分析基础，我们看下weak_ptr的模板类的实现：&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-C++&#34;&gt;template&amp;lt;class _Tp&amp;gt;
-class _LIBCPP_TYPE_VIS_ONLY weak_ptr
-{
-public:
-    typedef _Tp element_type;
-private:
-    element_type*        __ptr_;
-    __shared_weak_count* __cntrl_;
-
-public:
-    _LIBCPP_CONSTEXPR weak_ptr() _NOEXCEPT;
-    template&amp;lt;class _Yp&amp;gt; weak_ptr(shared_ptr&amp;lt;_Yp&amp;gt; const&amp;amp; __r,
-                   typename enable_if&amp;lt;is_convertible&amp;lt;_Yp*, _Tp*&amp;gt;::value, __nat*&amp;gt;::type = 0)
-                        _NOEXCEPT;
-    weak_ptr(weak_ptr const&amp;amp; __r) _NOEXCEPT;
-    ...
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;结构大同小异，甚至&lt;code&gt;__cntrl_&lt;/code&gt;都是相同的&lt;code&gt;__shared_weak_cout&lt;/code&gt;类型。&lt;/p&gt;
-
-&lt;h4 id=&#34;unique-ptr:86125507f6e433adf8544745a5755250&#34;&gt;unique_ptr&lt;/h4&gt;
-
-&lt;p&gt;&amp;emsp;&amp;emsp;关于unique_ptr,从名字看，强调的是unique,表示的是全局只能有一个unique_ptr对象对raw指针拥有控制权。在一些适应的场景下比shared_ptr更高效一些，因为，&lt;code&gt;shared_ptr&lt;/code&gt;要通过一个&lt;code&gt;__cntrl_&lt;/code&gt;控制引用计数决定raw指针的施放时机，而&lt;code&gt;unique_ptr&lt;/code&gt;只需要维护一个&lt;code&gt;__ptr_&lt;/code&gt; :&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-C++&#34;&gt;template &amp;lt;class _Tp, class _Dp = default_delete&amp;lt;_Tp&amp;gt; &amp;gt;
-class _LIBCPP_TYPE_VIS_ONLY unique_ptr
-{
-public:
-    typedef _Tp element_type;
-    typedef _Dp deleter_type;
-    typedef typename __pointer_type&amp;lt;_Tp, deleter_type&amp;gt;::type pointer;
-private:
-    __compressed_pair&amp;lt;pointer, deleter_type&amp;gt; __ptr_;
-
-#ifdef _LIBCPP_HAS_NO_RVALUE_REFERENCES
-    unique_ptr(unique_ptr&amp;amp;);
-    template &amp;lt;class _Up, class _Ep&amp;gt;
-        unique_ptr(unique_ptr&amp;lt;_Up, _Ep&amp;gt;&amp;amp;);
-    unique_ptr&amp;amp; operator=(unique_ptr&amp;amp;);
-    template &amp;lt;class _Up, class _Ep&amp;gt;
-        unique_ptr&amp;amp; operator=(unique_ptr&amp;lt;_Up, _Ep&amp;gt;&amp;amp;);
-#endif  // _LIBCPP_HAS_NO_RVALUE_REFERENCES
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;code&gt;unique_ptr&lt;/code&gt; 通过delete 掉copy constructor和 copy assignment operators来确保一个&lt;code&gt;unique_ptr&lt;/code&gt;对象对raw指针的唯一控制权。但是通过&lt;code&gt;std::move&lt;/code&gt;可以进行控制权之间的转移，所以使用&lt;code&gt;unique_ptr&lt;/code&gt;谨记一点即可：控制权只能转移，不能复制。&lt;/p&gt;
-
-&lt;h4 id=&#34;总结:86125507f6e433adf8544745a5755250&#34;&gt;总结&lt;/h4&gt;
-
-&lt;p&gt;&amp;emsp;&amp;emsp;使用智能指针可以很大程度上将精力从繁琐的控制指针生命周期的工作中释放出来，这是C++作为一个没有GC的语言在开发效率上的一大进步。但是使用过程中要牢记，要么全部使用raw指针，要么交由智能指针全权负责，换句话说就是：要么裸奔，要么全副武装，谨慎混搭。&lt;/p&gt;
-</description>
+      <guid>/post/c&#43;&#43;%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88/</guid>
+      <description>&amp;emsp;&amp;emsp;关于智能指针，C++11中废弃了原来的auto_ptr，引入了shared_ptr,unique_ptr,weak_ptr。在引入智能指针之前，我们使用原生指针(built-in or raw)来手动控制内存的操作和释放，稍有不慎常会发生各种内存泄露或者undefined行为，这点使用c/c++开发过项目的必然都深有体会。世间万事万物都有其两面性，我们享受直接内存操作的便利快感的同时，有时候难免要忍受调试各种稀奇古怪的内存bug的酸爽。下面将逐个剖析新的智能指针系列引入的这几种类型的背后实现机制以及对于开发工作会有那些帮助。
+shared_ptr &amp;emsp;&amp;emsp;首先这三种类型都是STL中实现的，具体不同的编译器附带的STL中的实现会有差异(事实上差异还比较大)，但是我们使用的时候需要引用的同一个头文件名:
+#include&amp;lt;memory&amp;gt;  由于本人的主要开发环境是OS X,对应的主力编译器是clang,clang默认由原来使用GNU的libstdc++到现在自己重新实现了一套c++标准库，叫libc++,所以这里不加特别说明的话，当介绍具体实现的时候，默认指的是libc++的实现。
+&amp;emsp;&amp;emsp;shared_基本用法:
+#include &amp;lt;iostream&amp;gt; #include &amp;lt;memory&amp;gt; using namespace std; class X{ public: X()=default; X(int value) :data(value) { cout &amp;lt;&amp;lt;&amp;quot;constructor&amp;quot;&amp;lt;&amp;lt;endl; } ~X() { cout &amp;lt;&amp;lt;&amp;quot;destrucctor&amp;quot;&amp;lt;&amp;lt;endl; } int get_data() const { return data; } friend ostream&amp;amp; operator &amp;lt;&amp;lt; (ostream &amp;amp;out, const X&amp;amp; x) { out &amp;lt;&amp;lt;x.get_data(); return out; } private: int data; }; void f() { shared_ptr&amp;lt;X&amp;gt; sp(new X(5)); // cout&amp;lt;&amp;lt;*sp&amp;lt;&amp;lt;endl; //the same use as raw point cout &amp;lt;&amp;lt;&amp;quot;data = &amp;quot;&amp;lt;&amp;lt;sp-&amp;gt;get_data()&amp;lt;&amp;lt;endl; cout &amp;lt;&amp;lt;&amp;quot;use_count = &amp;quot; &amp;lt;&amp;lt;sp.</description>
     </item>
     
     <item>
       <title>C&#43;&#43;右值引用</title>
-      <link>http://luobin.me/post/C&#43;&#43;%E5%8F%B3%E5%80%BC%E5%BC%95%E7%94%A8/</link>
+      <link>/post/c&#43;&#43;%E5%8F%B3%E5%80%BC%E5%BC%95%E7%94%A8/</link>
       <pubDate>Fri, 21 Mar 2014 16:20:01 +0800</pubDate>
       
-      <guid>http://luobin.me/post/C&#43;&#43;%E5%8F%B3%E5%80%BC%E5%BC%95%E7%94%A8/</guid>
-      <description>
-
-&lt;h3 id=&#34;value-category:6ca8daf46bf6dcff722d48a42c410183&#34;&gt;value category&lt;/h3&gt;
-
-&lt;p&gt;&amp;emsp;&amp;emsp;左值/右值是沿用c语言中的叫法，直观上理解就是分别出现在赋值表达式左右。c++标准中关于左值和右值的描述如下:&lt;/p&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;An lvalue (so called, historically, because lvalues could appear on the left-hand side of an assignment expression)designates a function or an object. [ Example: If E is an expression of pointer type, then *E is an lvalue expression referring to the object or function to which E points. As another example, the result of calling a function whose return type is an lvalue reference is an lvalue. — end example ]&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;另外还有一种更加直观的描述(判断)：&lt;/p&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;An lvalue (&amp;ldquo;left value&amp;rdquo;) expression is an expression that has identity and cannot be moved from.&amp;ndash;&lt;a href=&#34;http://en.cppreference.com/w/cpp/language/value_category&#34;&gt;cpprefrence&lt;/a&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;以下是几种左值表达式的例子:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-C++&#34;&gt;	a=b
-	++a,--a
-	std::cin,std::endl
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;An rvalue (so called, historically, because rvalues could appear on the right-hand side of an assignment expression) is an xvalue, a temporary object (12.2) or subobject thereof, or a value that is not associated with an object.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;同理cppreference中关于右值表达式的描述:&lt;/p&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;&amp;ldquo;An rvalue (&amp;ldquo;right value&amp;rdquo;) expression is an expression that is either a prvalue or an xvalue. It can be moved from. It may or may not have identity.&amp;rdquo;
-几种右值例子：&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;pre&gt;&lt;code&gt;42 //常量
-a++,a--
-a+b,a&amp;amp;b
-&amp;amp;a
-std::move(x)
-[](int x){return x*x} //lambda表达式
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;这里提到的xvalue是新的标准中(c++11) 新增加的value category,另外还有glvalue(general lvalue),prvalue(pure rvalue)。glvalue只是个混合概念，由rvalue和xvalue构成；pvalue在标准中的描述为:&lt;/p&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;A prvalue (“pure” rvalue) is an rvalue that is not an xvalue. [ Example: The result of calling a function whose return type is not a reference is a prvalue. The value of a literal such as 12, 7.3e5, or true is also a prvalue.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;可以这样理解，rvalue里不是xvalue的就是pvalue。cppreference中给的描述是：&amp;rdquo;A prvalue (&amp;ldquo;pure rvalue&amp;rdquo;) expression is an expression that does not have identity and can be moved from.&amp;rdquo;&lt;/p&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;An xvalue (an “eXpiring” value) also refers to an object, usually near the end of its lifetime (so that its resources may be moved, for example). Certain kinds of expressions involving rvalue references (8.3.2) yield xvalues. [ Example: The result of calling a function whose return type is an rvalue reference to an object type is an xvalue (5.2.2). — end example ]&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;可以理解为，xvalue是rvalue的一种特例。关于xvalue最有代表性的例子是：&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-C++&#34;&gt;	a.m //其中a是rvalue，m是其非静态非引用成员
-	std::move(x)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;我们可以查看STL中move的实现:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-C++&#34;&gt;	template &amp;lt;class _Tp&amp;gt;
-	inline _LIBCPP_INLINE_VISIBILITY _LIBCPP_CONSTEXPR_AFTER_CXX11
-	typename remove_reference&amp;lt;_Tp&amp;gt;::type&amp;amp;&amp;amp;
-	move(_Tp&amp;amp;&amp;amp; __t) _NOEXCEPT
-	{
-    	typedef typename remove_reference&amp;lt;_Tp&amp;gt;::type _Up;
-    	return static_cast&amp;lt;_Up&amp;amp;&amp;amp;&amp;gt;(__t);
-	}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;其返回值类型正式右值引用(rvalue reference)，正式标准中举的Example 类型。
-&lt;img src=&#34;http://77g3g7.com1.z0.glb.clouddn.com/valueCategory.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
-
-&lt;h3 id=&#34;rvalue-reference:6ca8daf46bf6dcff722d48a42c410183&#34;&gt;rvalue reference&lt;/h3&gt;
-
-&lt;p&gt;&amp;emsp;&amp;emsp;好了关于c++的value category背景介绍就到这里，现在开始进入主题 rvalue reference。关于引用我们应该都很熟悉了，教材中都说了，引用是变量的别名&lt;code&gt;C++ references allow you to create a new name for an existing object.&lt;/code&gt;例如：&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-C++&#34;&gt;	int var=42;
-	int&amp;amp; ref=var;
-	ref=99;
-	cout&amp;lt;&amp;lt;&amp;quot;var=&amp;quot;&amp;lt;&amp;lt;var&amp;lt;&amp;lt;endl;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;我们会的到输出：var=99;但是如果我们像下面这样写，编译器就不干了。因为传统的&amp;amp;引用是针对左值的，&lt;code&gt;Lvalue references can only be bound to lvalues&lt;/code&gt;.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-C++&#34;&gt;	int &amp;amp;ref=42;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;但是为了解决一些函数调用的传参问题，C++允许这样写：&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-C++&#34;&gt;	int const&amp;amp;=42；
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;这实际上是标准中的一个例外，在引入rvalue reference之前，标准中允许你给一个接受引用参数的函数传递临时变量：&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-C++&#34;&gt;	void print(std::string const&amp;amp; s); 
-	print(&amp;quot;hello&amp;quot;);// Create temporary std::string object
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;c++11中引入&amp;amp;&amp;amp;符号，用于标示右值引用,并严格区分左右值。&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-C++&#34;&gt;	int&amp;amp;&amp;amp; i=42;
-	int j=42; 
-	int&amp;amp;&amp;amp; k=j; //error
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;这样我们就可以重写上面的printf函数：&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-C++&#34;&gt;	void print(std::string const&amp;amp; s);
-	void print(std::string const&amp;amp;&amp;amp; s);
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;这样我们再调用:&lt;code&gt;print(&amp;quot;hello&amp;quot;);&lt;/code&gt;会调用第二个函数的实现。这正是C++11中实现move constructor 和 move assignment operator的基础。&lt;/p&gt;
-
-&lt;h3 id=&#34;move-semantics:6ca8daf46bf6dcff722d48a42c410183&#34;&gt;move semantics&lt;/h3&gt;
-
-&lt;p&gt;&amp;emsp;&amp;emsp;考虑这样一种情况，实现一个函数，接受一个std:vector&lt;int&gt;参数，函数内部需要对这个传入vector进行修改和处理，但是要保证不能影响到原vector,以前我们可以这样实现：&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-C++&#34;&gt;	void process_copy(std::vector&amp;lt;int&amp;gt; const &amp;amp; vec)
-	{
-		std::vector&amp;lt;int&amp;gt; n_vec(vec);
-		n_vec.push_back(40);
-		...
-	}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;对于这种实现，我们既可以传入lvalue实参，也可以传入rvalue实参（参见前文），但是不可避免的我们在内部处理的时候都需要对实参进行一份拷贝，尽管有时候实参只是个用完就会结束生命周期的临时变量。很容易设想，如果我们能够区分传入的是个rvalue，我们只是&lt;code&gt;move&lt;/code&gt;它的内容而不是对它进行拷贝，这对于占用存储空间很大的结构，会有非常理想的节省时间和存储空间的优化效果。&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-C++&#34;&gt;	void process_copy(std::vector&amp;lt;int&amp;gt;&amp;amp;&amp;amp; vec)
-	{
-		vec.push_back(40);
-		...
-	}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;当然，关于move semantics最终要的应用就是 move constructor 和 move assignment operator&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-C++&#34;&gt;	class X{
-	public:
-    	X()
-            :data(new char[10000])
-    	{
-        print_tips(&amp;quot;default constructor&amp;quot;);
-    	}
-    ~X()
-    {
-        delete [] data;
-        print_tips(&amp;quot;destructors&amp;quot;);
-    }
-    X(X&amp;amp; other)
-            :data(new char[10000])
-    {
-        std::copy(other.data,other.data+10000,data);
-        print_tips(&amp;quot;copy constructor&amp;quot;);
-    }
-    X(X&amp;amp;&amp;amp; other)
-            :data(other.data)
-    {
-        other.data = nullptr;
-        print_tips(&amp;quot;move constructor&amp;quot;);
-    }
-    X&amp;amp; operator=(const X&amp;amp; other)
-    {
-        data = new char[10000];
-        std::copy(other.data,other.data+10000,data);
-        print_tips(&amp;quot;copy assignment constructor&amp;quot;);
-        return *this;
-    }
-    X&amp;amp; operator=(X&amp;amp;&amp;amp; other)
-    {
-        data = other.data;
-        other.data = nullptr;
-        print_tips(&amp;quot;move assignment constructor&amp;quot;);
-        return *this;
-    }
-	private:
-    	char *data;
-    	void  print_tips(std::string const&amp;amp; str)
-    	{
-        	cout &amp;lt;&amp;lt;&amp;quot;in &amp;quot;&amp;lt;&amp;lt;str&amp;lt;&amp;lt;endl;
-    	}
-	};
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;可以测试下不同情况下的函数调用情况：&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-C++&#34;&gt;	X x1;
-	X x2(x1),x3(std::move(x1));
-	x2 = x3;
-	x2 = std::move(x3);
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;可以预见的是的顺序是(忽略default constructor 和 destructor)：copy constructor，move constructor，copy assignment operator，move assignment operator。执行这段代码验证下输出：&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://77g3g7.com1.z0.glb.clouddn.com/rvalueReference.png&#34; alt=&#34;rvalueReference&#34; title=&#34;rvalueReference&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;和std::move(x)等效的一种写法是 static_cast&lt;X&amp;&amp;&gt;(x),如果你明确知道一个lvalue x不会再用了，想把它的内容move过来，move和static_caset可以助你将其变成左值然后实现move semantic操作。
-&amp;emsp;&amp;emsp;另外有一点要注意的事，对于函数的右值引用参数，可以将其bind to一个右值，但是在函数内部，其是被当做lvalue对待的，例如:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-C++&#34;&gt;	void do_stuff(X&amp;amp;&amp;amp; x)
-	{
-		X a(x);               //call copy constructor
-		X b(std::move(x));    // call move constructor
-	}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&amp;emsp;&amp;emsp;好了，关于rvalue reference的相关总结暂时告一段落，其他相关内容遇到具体问题再做补充。最近在看C++ concurrency，Thread Library才是关于 move reference使用的重灾区，以后再表。&lt;/p&gt;
-</description>
+      <guid>/post/c&#43;&#43;%E5%8F%B3%E5%80%BC%E5%BC%95%E7%94%A8/</guid>
+      <description>value category &amp;emsp;&amp;emsp;左值/右值是沿用c语言中的叫法，直观上理解就是分别出现在赋值表达式左右。c++标准中关于左值和右值的描述如下:
+ An lvalue (so called, historically, because lvalues could appear on the left-hand side of an assignment expression)designates a function or an object. [ Example: If E is an expression of pointer type, then *E is an lvalue expression referring to the object or function to which E points. As another example, the result of calling a function whose return type is an lvalue reference is an lvalue.</description>
     </item>
     
     <item>
       <title>C/C&#43;&#43;学习资源</title>
-      <link>http://luobin.me/post/c&#43;&#43;%E5%AD%A6%E4%B9%A0%E8%B5%84%E6%BA%90/</link>
+      <link>/post/c&#43;&#43;%E5%AD%A6%E4%B9%A0%E8%B5%84%E6%BA%90/</link>
       <pubDate>Sun, 09 Mar 2014 21:52:05 +0800</pubDate>
       
-      <guid>http://luobin.me/post/c&#43;&#43;%E5%AD%A6%E4%B9%A0%E8%B5%84%E6%BA%90/</guid>
-      <description>
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://www.ibm.com/developerworks/community/blogs/5894415f-be62-4bc0-81c5-3956e82276f3?sortby=0&amp;amp;maxresults=15&amp;amp;order=desc&amp;amp;lang=en&#34;&gt;IBM C/C++ Cafe&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://isocpp.org/wiki/faq&#34;&gt;C++ FAQ&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;http://www.stroustrup.com/C++11FAQ.html&#34;&gt;C++11FAQ by Bjarne Stroustrup&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;http://www.open-std.org/jtc1/sc22/wg21/&#34;&gt;latest C++ standards drafts&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;http://www.umich.edu/~eecs381/handouts/C++11_smart_ptrs.pdf&#34;&gt;C++11’s Smart Pointers&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://en.wikibooks.org/wiki/More_C%2B%2B_Idioms&#34;&gt;More C++ Idioms&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;http://www.umich.edu/~eecs381/&#34;&gt;University of Michigan&amp;rsquo;s EECS 381 - Object-Oriented and Advanced Programming&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://github.com/wuye9036/CppTemplateTutorial&#34;&gt;CppTemplateTutorial-空明流转作品&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;http://www.opensource.apple.com/source/libcpp/&#34;&gt;apple libcpp&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://isocpp.org/&#34;&gt;isocpp&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&#34;blogs:e2038cc77dcd4378caf4476464aa8303&#34;&gt;Blogs&lt;/h3&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://solarianprogrammer.com/&#34;&gt;Solarian Programmer&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&#34;graphic:e2038cc77dcd4378caf4476464aa8303&#34;&gt;Graphic&lt;/h3&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://github.com/ssloy/tinyrenderer/wiki&#34;&gt;How OpenGL works:soft render&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&#34;network:e2038cc77dcd4378caf4476464aa8303&#34;&gt;Network&lt;/h3&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://github.com/cloudwu/skynet&#34;&gt;skynet&amp;ndash;A lightweight online game framework&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;http://www.kegel.com/c10k.html&#34;&gt;The C10K problem&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;http://www.wangafu.net/~nickm/libevent-book/&#34;&gt;Fast portable non-blocking network programming with Libevent&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;http://en.cppreference.com/w/&#34;&gt;cppreference&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-</description>
+      <guid>/post/c&#43;&#43;%E5%AD%A6%E4%B9%A0%E8%B5%84%E6%BA%90/</guid>
+      <description>  IBM C/C++ Cafe C++ FAQ C++11FAQ by Bjarne Stroustrup latest C++ standards drafts C++11’s Smart Pointers More C++ Idioms University of Michigan&amp;rsquo;s EECS 381 - Object-Oriented and Advanced Programming CppTemplateTutorial-空明流转作品 apple libcpp isocpp  Blogs  Solarian Programmer  Graphic  How OpenGL works:soft render  Network  skynet&amp;ndash;A lightweight online game framework The C10K problem Fast portable non-blocking network programming with Libevent cppreference  </description>
     </item>
     
     <item>
       <title>C&#43;&#43;特殊成员函数总结</title>
-      <link>http://luobin.me/post/C&#43;&#43;%E7%89%B9%E6%AE%8A%E6%88%90%E5%91%98%E5%87%BD%E6%95%B0%E6%80%BB%E7%BB%93/</link>
+      <link>/post/c&#43;&#43;%E7%89%B9%E6%AE%8A%E6%88%90%E5%91%98%E5%87%BD%E6%95%B0%E6%80%BB%E7%BB%93/</link>
       <pubDate>Sun, 25 Aug 2013 09:48:23 +0800</pubDate>
       
-      <guid>http://luobin.me/post/C&#43;&#43;%E7%89%B9%E6%AE%8A%E6%88%90%E5%91%98%E5%87%BD%E6%95%B0%E6%80%BB%E7%BB%93/</guid>
-      <description>&lt;p&gt;&amp;emsp;&amp;emsp;所谓特殊成员函数，按照c++11的标准描述：&lt;/p&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;The default constructor, copy constructor and copy assignment operator , move constructor and move assignment operator , and destructor are special member functions. [Note: The implementation will implicitly declare these member functions for some class types when the program does not explicitly declare them. The implementation will implicitly define them if they are odr-used.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;总结下就是：&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Default constructors  //默认构造函数&lt;/li&gt;
-&lt;li&gt;Destructors           //析构函数&lt;/li&gt;
-&lt;li&gt;Copy constructors     //拷贝构造函数&lt;/li&gt;
-&lt;li&gt;Copy assignment operators //拷贝赋值操作&lt;/li&gt;
-&lt;li&gt;Move constructors     // move 构造函数&lt;/li&gt;
-&lt;li&gt;Move assignment operators  //move 复制操作&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;根据标准中的描述，对于特殊成员函数，如果程序中没有明确的声明，编译器实现会进行隐式的声明，而且符合odr规则，也会提供一份隐式的实现。（odr&amp;ndash;One Definition Rule）。这里我们举个例子验证下：&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-C++&#34;&gt;	//这六个成员函数我们一个都没有显式的声明和定义
-	class X{
-	private:
-		int data;
-	};
-	int main()
-	{
-		X x1;  //但是我们却可以通过默认构造函数生成一个对象
-		cout &amp;lt;&amp;lt;&amp;quot;x1.data=&amp;quot;&amp;lt;&amp;lt;x1.get_data()&amp;lt;&amp;lt;endl;
-		X x2 = x1; //通过拷贝构造函数生成新的对象（对的，这种情况并不是调的assignment，后面会有演示）
-		cout &amp;lt;&amp;lt;&amp;quot;x2.data=&amp;quot;&amp;lt;&amp;lt;x2.get_data()&amp;lt;&amp;lt;endl;
-		X x3;
-		cout &amp;lt;&amp;lt;&amp;quot;x3.data=&amp;quot;&amp;lt;&amp;lt;x3.get_data()&amp;lt;&amp;lt;endl;
-		X3 = x1; //这才是assignment 操作
-		cout &amp;lt;&amp;lt;&amp;quot;x3.data=&amp;quot;&amp;lt;&amp;lt;x3.get_data()&amp;lt;&amp;lt;endl;
-		return 0;
-	}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;执行结果：&lt;img src=&#34;http://77g3g7.com1.z0.glb.clouddn.com/special_member_function_1.png&#34; alt=&#34;&#34; /&gt;
-正如我们所料，第1、2、4行输出的data值相等。说明隐式实现的拷贝构造和赋值操作会对data的值进行拷贝。&lt;br /&gt;
-&amp;emsp;&amp;emsp;利用这一特性方便我们编程的同时，有些时候也会带来一些问题，最简单的，比如有时候我们想禁止对X类型的对象进行进行拷贝，赋值。语言层面就没有提供这样的支持，直到c++11引入了delete关键字。我们可以这样修改上面的class X:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-C++&#34;&gt;	class X{
-	public:
-	   //这里有个坑待填，好像是构造函数只要显示的写了一个，不论有没有delete，
-	   //默认构造函数不能再implicitly,否则会报错（至少我mac下用clang编译报错了）
-	   	X()
-		:data(random())
-		{}
-		X(const X&amp;amp;) = delete;
-		X&amp;amp; operator = (const X&amp;amp;) = delete;
-	private:
-		int data;
-	};
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;此时我们再编译上面那段相同的测试代码，有两个编译错误：
-&lt;img src=&#34;http://77g3g7.com1.z0.glb.clouddn.com/special_member_function_2.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&amp;emsp;&amp;emsp;与delete对应的一个关键字是default,假如上面的class X，我们不想手写default constructor：&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-C++&#34;&gt;	class X{
-	public:
-		X() = default;
-		X(const X&amp;amp;) = default;
-		X&amp;amp; operator = (const X&amp;amp;) = default;
-	public:
-		int get_data() const
-		{
-			return data;
-		}
-	private:
-		int data;
-	};
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&amp;emsp;&amp;emsp;另外，这些special member function 同样遵守c++的access rules，标准中的原话是这样说的：&lt;/p&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;Special member functions obey the usual access rules (Clause 11). [Example: declaring a constructor protected ensures that only derived classes and friends can create objects using it. — end example ]&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;如果我们灵活运用public、protect、private 等access rules，可以实现，满足各种特殊需求，比如常用的所谓单例模式，强制把各种可能构造出对象的相关的成员函数声明为private，仅提供一个static 成员函数用于获取/生成这个单例对象：&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-C++&#34;&gt;    class Singleton  
-    {
-        public:
-            static Singleton&amp;amp; Instance()
-            {
-            static Singleton instance；
-            return instance；
-            }
-        private:
-            Singleton()；
-            ~Singleton()；
-            Singleton(const Singleton&amp;amp;);
-            Singleton&amp;amp; operator=(const Singleton&amp;amp;);
-    };
-&lt;/code&gt;&lt;/pre&gt;
-</description>
+      <guid>/post/c&#43;&#43;%E7%89%B9%E6%AE%8A%E6%88%90%E5%91%98%E5%87%BD%E6%95%B0%E6%80%BB%E7%BB%93/</guid>
+      <description>&amp;emsp;&amp;emsp;所谓特殊成员函数，按照c++11的标准描述：
+ The default constructor, copy constructor and copy assignment operator , move constructor and move assignment operator , and destructor are special member functions. [Note: The implementation will implicitly declare these member functions for some class types when the program does not explicitly declare them. The implementation will implicitly define them if they are odr-used.
+ 总结下就是：
+ Default constructors //默认构造函数 Destructors //析构函数 Copy constructors //拷贝构造函数 Copy assignment operators //拷贝赋值操作 Move constructors // move 构造函数 Move assignment operators //move 复制操作  根据标准中的描述，对于特殊成员函数，如果程序中没有明确的声明，编译器实现会进行隐式的声明，而且符合odr规则，也会提供一份隐式的实现。（odr&amp;ndash;One Definition Rule）。这里我们举个例子验证下：</description>
     </item>
     
     <item>
       <title>“名不副实”的JSON</title>
-      <link>http://luobin.me/post/%E5%90%8D%E4%B8%8D%E5%89%AF%E5%AE%9E%E7%9A%84JSON/</link>
+      <link>/post/%E5%90%8D%E4%B8%8D%E5%89%AF%E5%AE%9E%E7%9A%84json/</link>
       <pubDate>Wed, 15 May 2013 09:21:14 +0800</pubDate>
       
-      <guid>http://luobin.me/post/%E5%90%8D%E4%B8%8D%E5%89%AF%E5%AE%9E%E7%9A%84JSON/</guid>
-      <description>
-
-&lt;p&gt;JSON (Javascript Object Notation):直接翻译就是javascript的对象表示方法。是一种轻量级的数据交换格式。 易于人阅读和编写。同时也易于机器解析和生成。 它基于JavaScript Programming Language, Standard ECMA-262 3rd Edition - December 1999的一个子集。 JSON采用完全独立于语言的文本格式，但是也使用了类似于C语言家族的习惯（包括C, C++, C#, Java, JavaScript, Perl, Python等）。 这些特性使JSON成为理想的数据交换语言。也就是说现在的JSON俨然已经“名不副实”了。&lt;/p&gt;
-
-&lt;h4 id=&#34;json的特点:34a70b2ffff87e489a0148d8433d2726&#34;&gt;JSON的特点:&lt;/h4&gt;
-
-&lt;ol&gt;
-&lt;li&gt;JSON 是纯文本&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;JSON 具有“自我描述性”（人类可读）&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;JSON 具有层级结构（值中存在值）&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;JSON 可通过 JavaScript 进行解析&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;JSON 数据可使用 AJAX 进行传输&lt;br /&gt;&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h4 id=&#34;与xml相比:34a70b2ffff87e489a0148d8433d2726&#34;&gt;与XML相比&lt;/h4&gt;
-
-&lt;ol&gt;
-&lt;li&gt;没有结束标签&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;更短&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;读写的速度更快&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;能够使用内建的 JavaScript eval() 方法进行解析&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;使用数组&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;不使用保留字&lt;br /&gt;
-正因为如此JSON大有取缔XML之势&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h4 id=&#34;json-的语法规则:34a70b2ffff87e489a0148d8433d2726&#34;&gt;JSON 的语法规则&lt;/h4&gt;
-
-&lt;p&gt;JSON 语法是 JavaScript 对象表示法语法的子集。&lt;/p&gt;
-
-&lt;ol&gt;
-&lt;li&gt;数据在名称/值对中&lt;/li&gt;
-&lt;li&gt;数据由逗号分隔&lt;/li&gt;
-&lt;li&gt;花括号保存对象&lt;/li&gt;
-&lt;li&gt;方括号保存数组&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;Example 1.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;{
-  &amp;quot;employees&amp;quot;: [
-    { &amp;quot;firstName&amp;quot;:&amp;quot;Bill&amp;quot; , &amp;quot;lastName&amp;quot;:&amp;quot;Gates&amp;quot; },
-    { &amp;quot;firstName&amp;quot;:&amp;quot;George&amp;quot; , &amp;quot;lastName&amp;quot;:&amp;quot;Bush&amp;quot; },
-    { &amp;quot;firstName&amp;quot;:&amp;quot;Thomas&amp;quot; , &amp;quot;lastName&amp;quot;:&amp;quot;Carter&amp;quot; }
-     ]
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;这个 employee 对象是包含 3 个员工记录（对象）的数组&lt;/p&gt;
-
-&lt;p&gt;JSON 值可以是：&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;数字（整数或浮点数）
-字符串（在双引号中）
-逻辑值（true 或 false）
-数组（在方括号中）
-对象（在花括号中）
-null
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;因为 JSON 使用 JavaScript 语法，所以无需额外的软件就能处理 JavaScript 中的 JSON。
-通过 JavaScript，您可以创建一个对象数组，并像这样进行赋值：&lt;br /&gt;
-Example 2.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;var employees = [
-{ &amp;quot;firstName&amp;quot;:&amp;quot;Bill&amp;quot; , &amp;quot;lastName&amp;quot;:&amp;quot;Gates&amp;quot; },
-{ &amp;quot;firstName&amp;quot;:&amp;quot;George&amp;quot; , &amp;quot;lastName&amp;quot;:&amp;quot;Bush&amp;quot; },
-{ &amp;quot;firstName&amp;quot;:&amp;quot;Thomas&amp;quot; , &amp;quot;lastName&amp;quot;: &amp;quot;Carter&amp;quot; }
-];
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;可以像这样访问 JavaScript 对象数组中的第一项：&lt;code&gt;employees[0].lastName;&lt;/code&gt;
-返回的内容是：Gates&lt;/p&gt;
-</description>
+      <guid>/post/%E5%90%8D%E4%B8%8D%E5%89%AF%E5%AE%9E%E7%9A%84json/</guid>
+      <description>JSON (Javascript Object Notation):直接翻译就是javascript的对象表示方法。是一种轻量级的数据交换格式。 易于人阅读和编写。同时也易于机器解析和生成。 它基于JavaScript Programming Language, Standard ECMA-262 3rd Edition - December 1999的一个子集。 JSON采用完全独立于语言的文本格式，但是也使用了类似于C语言家族的习惯（包括C, C++, C#, Java, JavaScript, Perl, Python等）。 这些特性使JSON成为理想的数据交换语言。也就是说现在的JSON俨然已经“名不副实”了。
+JSON的特点:  JSON 是纯文本
+ JSON 具有“自我描述性”（人类可读）
+ JSON 具有层级结构（值中存在值）
+ JSON 可通过 JavaScript 进行解析
+ JSON 数据可使用 AJAX 进行传输
+  与XML相比  没有结束标签
+ 更短
+ 读写的速度更快
+ 能够使用内建的 JavaScript eval() 方法进行解析
+ 使用数组
+ 不使用保留字
+正因为如此JSON大有取缔XML之势  JSON 的语法规则 JSON 语法是 JavaScript 对象表示法语法的子集。</description>
     </item>
     
     <item>
       <title>centos下源码安装php5.3.24注意事项</title>
-      <link>http://luobin.me/post/centos%E4%B8%8B%E6%BA%90%E7%A0%81%E5%AE%89%E8%A3%85php5.3.24%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9/</link>
+      <link>/post/centos%E4%B8%8B%E6%BA%90%E7%A0%81%E5%AE%89%E8%A3%85php5.3.24%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9/</link>
       <pubDate>Sun, 14 Apr 2013 22:13:13 +0800</pubDate>
       
-      <guid>http://luobin.me/post/centos%E4%B8%8B%E6%BA%90%E7%A0%81%E5%AE%89%E8%A3%85php5.3.24%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9/</guid>
-      <description>&lt;p&gt;1.注意事项.&lt;br /&gt;
- &amp;emsp;&amp;emsp;需要先安装libxml2 和 libxml2-devel&lt;br /&gt;
-2.php.ini的路径&lt;br /&gt;
-&amp;emsp;&amp;emsp;在Unix上，php.ini文件缺省放在/usr/local/lib上面，因为缺省的存放路径是/lib，但是可以在编译的时候使用&amp;ndash;with-config-file-path参数 来修改php.ini的存放位置，例如你可以使用&amp;ndash;with-config-file-path=/etc把它存放到/etc下面，然后可以从源码包中拷贝php.ini-develop 或者 php.ini-product到/etc/php.ini并修改使之满足需要。&lt;br /&gt;
-3.安装php的mcrypt扩展(动态加载编译)&lt;br /&gt;
-&amp;emsp;&amp;emsp;执行 &lt;code&gt;yum list installed|grep mcrypt&lt;/code&gt;查看mcrypt及依赖库是否安装，没有的话执行 &lt;code&gt;yum -y install libmcrypt libmcrypt-devel mcrypt mhash&lt;/code&gt;安装。下载php下的mcrypt扩展或者直接下载php的完整安装包,切换到php代码下的 ext/mcrypt目录执phpize命令（phpize是用来扩展php扩展模块的，通过phpize可以建立php的外挂模块）执行完后，会发现当前目录下多了一些configure文件，执行:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;./configure --with-php-config=/usr/local/bin/php-config` //根据具体的安装路径
-make &amp;amp;&amp;amp; make install
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;最后出现提示：&lt;br /&gt;
-&lt;code&gt;Installing shared extensions: /path&lt;/code&gt; //path可在 php-config 中的extension_dir处设置&lt;/p&gt;
-
-&lt;p&gt;接下来在php.ini 中修改&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;extension_dir=/path
-extension=mcrypt.so
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;4.在安装gd扩展的时候 如果出现 &lt;code&gt;configure: error: png.h not found.&lt;/code&gt;的错误&lt;/p&gt;
-
-&lt;p&gt;需要安装一下 libpng-devel&lt;br /&gt;
-&lt;code&gt;yum -y install libpng-devel&lt;/code&gt; 即可&lt;/p&gt;
-
-&lt;p&gt;5.在安装curl扩展的时候如果出现：&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;configure: error: Please reinstall the libcurl distribution -
-easy.h should be in /include/curl/
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;解决办法同4，安装一下curl的devel包就ok了&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;yum -y install curl-devel    
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;6.在用phpmyadmin导入数据经常会出现提示:*没有接收到要导入的数据*。可能是文件名没有提交，也可能是文件大小超出 PHP 限制。phpmyadmin在选择文件时会有最大限制的提示，对比下待导入数据的大小，然后打开php.ini,查找&lt;code&gt;upload_max_filesize&lt;/code&gt;关键字，将其修改为比待导入数据稍大些的值，然后重启 web服务器即可。&lt;/p&gt;
-</description>
+      <guid>/post/centos%E4%B8%8B%E6%BA%90%E7%A0%81%E5%AE%89%E8%A3%85php5.3.24%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9/</guid>
+      <description>1.注意事项.
+&amp;emsp;&amp;emsp;需要先安装libxml2 和 libxml2-devel
+2.php.ini的路径
+&amp;emsp;&amp;emsp;在Unix上，php.ini文件缺省放在/usr/local/lib上面，因为缺省的存放路径是/lib，但是可以在编译的时候使用&amp;ndash;with-config-file-path参数 来修改php.ini的存放位置，例如你可以使用&amp;ndash;with-config-file-path=/etc把它存放到/etc下面，然后可以从源码包中拷贝php.ini-develop 或者 php.ini-product到/etc/php.ini并修改使之满足需要。
+3.安装php的mcrypt扩展(动态加载编译)
+&amp;emsp;&amp;emsp;执行 yum list installed|grep mcrypt查看mcrypt及依赖库是否安装，没有的话执行 yum -y install libmcrypt libmcrypt-devel mcrypt mhash安装。下载php下的mcrypt扩展或者直接下载php的完整安装包,切换到php代码下的 ext/mcrypt目录执phpize命令（phpize是用来扩展php扩展模块的，通过phpize可以建立php的外挂模块）执行完后，会发现当前目录下多了一些configure文件，执行:
+./configure --with-php-config=/usr/local/bin/php-config` //根据具体的安装路径 make &amp;amp;&amp;amp; make install  最后出现提示：
+Installing shared extensions: /path //path可在 php-config 中的extension_dir处设置
+接下来在php.ini 中修改
+extension_dir=/path extension=mcrypt.so  4.在安装gd扩展的时候 如果出现 configure: error: png.h not found.的错误
+需要安装一下 libpng-devel
+yum -y install libpng-devel 即可
+5.在安装curl扩展的时候如果出现：
+configure: error: Please reinstall the libcurl distribution - easy.h should be in /include/curl/  解决办法同4，安装一下curl的devel包就ok了</description>
     </item>
     
     <item>
       <title>magento 1.7.02安装问题</title>
-      <link>http://luobin.me/post/magento-1.7.02%E5%AE%89%E8%A3%85%E9%97%AE%E9%A2%98/</link>
+      <link>/post/magento-1.7.02%E5%AE%89%E8%A3%85%E9%97%AE%E9%A2%98/</link>
       <pubDate>Sat, 13 Apr 2013 22:40:08 +0800</pubDate>
       
-      <guid>http://luobin.me/post/magento-1.7.02%E5%AE%89%E8%A3%85%E9%97%AE%E9%A2%98/</guid>
-      <description>&lt;p&gt;&amp;emsp;&amp;emsp;很明显错误的提示是当前数据库不支持InnoDB storage engine，但是通过show engines命令以及phpinfo()函数查看，mysql的InnodB都是正常的，后来搜到magento中文社区的&lt;a href=&#34;http://www.magentochina.org/blog/install-magento-on-mysql-5-6&#34;&gt;一篇文章&lt;/a&gt;,原因是Mysql 5.6.1版本已经已经丢弃了&lt;code&gt;have_innodb&lt;/code&gt;这个函数.而Magento1.7.0.2以下都是使用该函数检测Mysql是否激活了InnodB引擎。而我的数据库版本正好是5.6.10按照文章中的修改方法:&lt;br /&gt;
-在文件app/code/core/Mage/Install/Model/Installer/Db/Mysql4.php中找到以下代码&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;$variables  = $this-&amp;gt;_getConnection()-&amp;gt;fetchPairs(&#39;SHOW VARIABLES&#39;);
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;在其后加上:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;if (!isset($variables[&#39;have_innodb&#39;])) 
-{
-    $engines = $this-&amp;gt;_getConnection()-&amp;gt;fetchPairs(&#39;SHOW ENGINES&#39;);        
-    return (isset($engines[&#39;InnoDB&#39;]) &amp;amp;&amp;amp; ($engines[&#39;InnoDB&#39;] == &#39;DEFAULT&#39; || $engines[&#39;InnoDB&#39;] == &#39;YES&#39;);
-    ...
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;原来的return语句注释掉或者保留都不会影响。刷新一下即可继续正常安装了。&lt;/p&gt;
-</description>
+      <guid>/post/magento-1.7.02%E5%AE%89%E8%A3%85%E9%97%AE%E9%A2%98/</guid>
+      <description>&amp;emsp;&amp;emsp;很明显错误的提示是当前数据库不支持InnoDB storage engine，但是通过show engines命令以及phpinfo()函数查看，mysql的InnodB都是正常的，后来搜到magento中文社区的一篇文章,原因是Mysql 5.6.1版本已经已经丢弃了have_innodb这个函数.而Magento1.7.0.2以下都是使用该函数检测Mysql是否激活了InnodB引擎。而我的数据库版本正好是5.6.10按照文章中的修改方法:
+在文件app/code/core/Mage/Install/Model/Installer/Db/Mysql4.php中找到以下代码
+$variables = $this-&amp;gt;_getConnection()-&amp;gt;fetchPairs(&#39;SHOW VARIABLES&#39;);  在其后加上:
+if (!isset($variables[&#39;have_innodb&#39;])) { $engines = $this-&amp;gt;_getConnection()-&amp;gt;fetchPairs(&#39;SHOW ENGINES&#39;); return (isset($engines[&#39;InnoDB&#39;]) &amp;amp;&amp;amp; ($engines[&#39;InnoDB&#39;] == &#39;DEFAULT&#39; || $engines[&#39;InnoDB&#39;] == &#39;YES&#39;); ...  原来的return语句注释掉或者保留都不会影响。刷新一下即可继续正常安装了。</description>
     </item>
     
     <item>
       <title>centos下mysql5.6.10源码安装</title>
-      <link>http://luobin.me/post/centos%E4%B8%8Bmysql5.6.10%E6%BA%90%E7%A0%81%E5%AE%89%E8%A3%85/</link>
+      <link>/post/centos%E4%B8%8Bmysql5.6.10%E6%BA%90%E7%A0%81%E5%AE%89%E8%A3%85/</link>
       <pubDate>Sat, 06 Apr 2013 22:33:21 +0800</pubDate>
       
-      <guid>http://luobin.me/post/centos%E4%B8%8Bmysql5.6.10%E6%BA%90%E7%A0%81%E5%AE%89%E8%A3%85/</guid>
-      <description>&lt;p&gt;从mysql5.5起，mysql源码安装开始使用cmake了，所以首先要安装cmake
-可以用命令:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-Shell&#34;&gt;rpm -qa | grep cmake
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;查询当前系统有没有安装查cmake。&lt;/p&gt;
-
-&lt;p&gt;下载解压安装cmake&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-Shell&#34;&gt;#tar -zvxf cmake-2.8.3.tar.gz
-#cd cmake-2.8.3
-#./configure
-#make
-#make install 
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;可能会出现没有C++编译器的错误，默认的gcc默认没有支持c++，使用以下语句安装&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-Shell&#34;&gt;#yum -y install gcc-c++
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;执行源码编译配置脚本&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-Shell&#34;&gt;	cmake \
-	-DCMAKE_INSTALL_PREFIX=/usr/local/mysql \
-	-DMYSQL_UNIX_ADDR=/usr/local/mysql/mysql.sock \
-	-DDEFAULT_CHARSET=utf8 \
-	-DDEFAULT_COLLATION=utf8_general_ci \
-	-DWITH_MYISAM_STORAGE_ENGINE=1 \
-	-DWITH_INNOBASE_STORAGE_ENGINE=1 \
-	-DWITH_ARCHIVE_STORAGE_ENGINE=1 \
-	-DWITH_BLACKHOLE_STORAGE_ENGINE=1 \
-	-DWITH_MEMORY_STORAGE_ENGINE=1 \
-	-DWITH_READLINE=1 \
-	-DENABLED_LOCAL_INFILE=1 \
-	-DMYSQL_DATADIR=/db/mysql/data \
-	-DMYSQL_USER=mysql \
-	-DMYSQL_TCP_PORT=3306
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;如果出现以下错误：&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-Shell&#34;&gt;	cmake .
-	-- MySQL 5.5.8
-	-- Could NOT find Curses (missing:  CURSES_LIBRARY 	CURSES_INCLUDE_PATH)
-	CMake Error at cmake/readline.cmake:82 (MESSAGE):
-  	Curses library not found.  Please install appropriate package,。。。
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;执行 yum -y install ncurses-devel 命令，然后删除生成的CMakeCache.txt文件，重新执行cmake
-执行 &lt;code&gt;＃make  &amp;amp;&amp;amp; make install&lt;/code&gt; 编译安装
-在运行mysqld的时候可能会遇到类似：
-    &lt;code&gt;ERROR 2002 (HY000): Can’t connect to local MySQL server through socket ‘/var/lib/mysql/mysql.sock’ (2)&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;这样的错误，只需重新确认一下mysql.sock文件的路径，在/etc/my.cnf 文件中设施一下socket=path即可。对于mysqladmin，同样需要在/etc/my.cnf 文件中[mysqladmin]下设置socket 路径。&lt;/p&gt;
-</description>
+      <guid>/post/centos%E4%B8%8Bmysql5.6.10%E6%BA%90%E7%A0%81%E5%AE%89%E8%A3%85/</guid>
+      <description>从mysql5.5起，mysql源码安装开始使用cmake了，所以首先要安装cmake 可以用命令:
+rpm -qa | grep cmake  查询当前系统有没有安装查cmake。
+下载解压安装cmake
+#tar -zvxf cmake-2.8.3.tar.gz #cd cmake-2.8.3 #./configure #make #make install  可能会出现没有C++编译器的错误，默认的gcc默认没有支持c++，使用以下语句安装
+#yum -y install gcc-c++  执行源码编译配置脚本
+cmake \ -DCMAKE_INSTALL_PREFIX=/usr/local/mysql \ -DMYSQL_UNIX_ADDR=/usr/local/mysql/mysql.sock \ -DDEFAULT_CHARSET=utf8 \ -DDEFAULT_COLLATION=utf8_general_ci \ -DWITH_MYISAM_STORAGE_ENGINE=1 \ -DWITH_INNOBASE_STORAGE_ENGINE=1 \ -DWITH_ARCHIVE_STORAGE_ENGINE=1 \ -DWITH_BLACKHOLE_STORAGE_ENGINE=1 \ -DWITH_MEMORY_STORAGE_ENGINE=1 \ -DWITH_READLINE=1 \ -DENABLED_LOCAL_INFILE=1 \ -DMYSQL_DATADIR=/db/mysql/data \ -DMYSQL_USER=mysql \ -DMYSQL_TCP_PORT=3306  如果出现以下错误：
+cmake . -- MySQL 5.5.8 -- Could NOT find Curses (missing: CURSES_LIBRARY CURSES_INCLUDE_PATH) CMake Error at cmake/readline.</description>
     </item>
     
     <item>
       <title>CentOS的逆袭</title>
-      <link>http://luobin.me/post/centos%E7%9A%84%E9%80%86%E8%A2%AD/</link>
+      <link>/post/centos%E7%9A%84%E9%80%86%E8%A2%AD/</link>
       <pubDate>Fri, 08 Mar 2013 22:52:24 +0800</pubDate>
       
-      <guid>http://luobin.me/post/centos%E7%9A%84%E9%80%86%E8%A2%AD/</guid>
-      <description>&lt;p&gt;&lt;img src=&#34;http://user-image.logdown.io/user/1175/blog/1158/post/98892/NdKBG3eTS2mFhnM7n1IS_centos.png&#34; alt=&#34;centos.png&#34; /&gt;&lt;br /&gt;
-最近想用python搭个网站，研究了目前主流服务器的配置，最后操作系统决定选择CentOS，为什么选它呢：&lt;/p&gt;
-
-&lt;ol&gt;
-&lt;li&gt;免费&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;稳定&lt;/li&gt;
-&lt;li&gt;以前用过，容易上手和维护~
-&lt;br /&gt;&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;CentOS的英文全称是Community Enterprise Operating System,翻译一下就是社区版企业操作系统，Linux的众多发行版之一，是由Red Hat Enterprise Linux（大名鼎鼎的小红帽）的开源代码重新修改编译而成。用时下比较流行的一个词语就是CentOS其实就是一个彻头彻尾的山寨版 RHEL，而且人家还是完全合法的山寨。众所周知Linux的内核发布遵循GNU的GPL开源协议，红帽在linux内核的基础上开发面向企业用户的linux发行版，其所有的源代码也必须开源RHEL高度的稳定性和安全性在服务器领域是有口皆碑的。所以提到CentOS不能不介绍下RHEL。&lt;br /&gt;
-&amp;emsp;&amp;emsp;RHEL（Red Hat Enterprise Linux）是由RedHat公司在linux内核的基础上开发的面向企业用户的众多linux发行版之一 ，由于其强大的安全性和高度的稳定性，在web服务器端被广泛使用。RHEL在发行的时候，有两种方式，一种是二进制的发行方式，另外一种是源代码的发行方式。无论是哪一种发行方式，你都可以免费获得（例如从网上下载），并再次发布。但如果你使用了他们的在线升级（包括补丁）或咨询服务，就必须要付费（这也是红帽的主要盈利模式）。RHEL 一直都提供源代码的发行方式，CentOS 就是将 RHEL 发行的源代码去掉RedHat商标之后重新编译一次，形成一个可使用的二进制版本。由于 LINUX 的源代码是 GNU，所以从获得 RHEL 的源代码到编译成新的二进制，都是合法的。只是 REDHAT 是商标，所以必须在新的发行版里将 REDHAT 的商标去掉。REDHAT 对这种发行版的态度是：&amp;rdquo;我们其实并不反对这种发行版，真正向我们付费的用户，他们重视的并不是系统本身，而是我们所提供的商业服务。&amp;rdquo; 所以，CentOS 可以得到 RHEL 的所有功能，甚至是更好的软件。但 CentOS 并不向用户提供商业支持，当然也不负上任何商业责任。如果你要将你的 RHEL 转到 CentOS 上，因为你不希望为 RHEL 升级而付费。当然，你必须有丰富 linux 使用经验，因此 RHEL 的商业技术支持对你来说并不重要。但如果你是单纯的业务型企业，那么还是建议你选购 RHEL 软件并购买相应服务。这样可以节省你的 IT 管理费用，并可得到专业服务。一句话，选用 CentOS 还是 RHEL，取决于你所在公司是否拥有相应的技术力量。&lt;br /&gt;
-               &lt;img src=&#34;http://user-image.logdown.io/user/1175/blog/1158/post/98892/uz90Xz8IQX6aA9r92F1q_linux-marketshare2.jpg&#34; alt=&#34;linux-marketshare2.jpg&#34; /&gt;&lt;br /&gt;
-               &amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp; &amp;emsp;&amp;emsp;&amp;emsp;图 linux阵营里各发行版在服务器端的市场份额&lt;/p&gt;
-
-&lt;p&gt;从渊源上讲CentOS和RHEL完全是一奶同胞的亲兄弟，差别只是RHEL有红帽这个有钱的干爹。从份额上看为什么傍干爹的RHEL干不过自生自灭的CentOS，老湿窃以为有几个原因：1.RHEL虽然根正苗红，而且有正规的技术支持和商业服务，但是服务费用确实有点高哈，号称每台一年的服务费用1000刀，对于有几十上百台服务器的用户来讲这是笔不小的预算，高富帅才玩得起；2.对于服务器而言可靠性和稳定性非常重要,RHEL每五年左右更新一次，在系统的稳定性和安全性上有着极大的优势，但是对许多服务不利，比如MySQL和PHP等工具，它们在这五年的发布周期中可能会进行繁重的开发和大量的修改，尽管YUM工具的出现已经解决了软件包的更新问题，但是由于CentOS滞后于RHEL发布，这一过程中可能会修复一些最新版RHEL中的已知小bug,这也算是CentOS的一个优势；3.其它发行版本诸如fedora、Ubuntu等在作为服务器在稳定上与这二位相比还是略逊一筹; 3.CentOS 是RHEL的克隆版，如果需要可以随时平滑切换到 RHEL，从而享受红帽的服务支持。&lt;br /&gt;
-所以从创业的角度看，CentOS作为服务器无疑是首选，性价比最高，而且创业成功屌丝逆袭之后需要相应的技术支持和商业服务来降低运营风险时也可以很方便平稳的过渡到RHEL，傍上红帽这棵大树。一句话，选用 CentOS 还是 RHEL，不仅仅取决于你所在公司是否拥有相应的技术力量，还取决于一旦出了问题能不能找到个背黑锅的。&lt;/p&gt;
-</description>
+      <guid>/post/centos%E7%9A%84%E9%80%86%E8%A2%AD/</guid>
+      <description>最近想用python搭个网站，研究了目前主流服务器的配置，最后操作系统决定选择CentOS，为什么选它呢：
+ 免费
+ 稳定 以前用过，容易上手和维护~   CentOS的英文全称是Community Enterprise Operating System,翻译一下就是社区版企业操作系统，Linux的众多发行版之一，是由Red Hat Enterprise Linux（大名鼎鼎的小红帽）的开源代码重新修改编译而成。用时下比较流行的一个词语就是CentOS其实就是一个彻头彻尾的山寨版 RHEL，而且人家还是完全合法的山寨。众所周知Linux的内核发布遵循GNU的GPL开源协议，红帽在linux内核的基础上开发面向企业用户的linux发行版，其所有的源代码也必须开源RHEL高度的稳定性和安全性在服务器领域是有口皆碑的。所以提到CentOS不能不介绍下RHEL。
+&amp;emsp;&amp;emsp;RHEL（Red Hat Enterprise Linux）是由RedHat公司在linux内核的基础上开发的面向企业用户的众多linux发行版之一 ，由于其强大的安全性和高度的稳定性，在web服务器端被广泛使用。RHEL在发行的时候，有两种方式，一种是二进制的发行方式，另外一种是源代码的发行方式。无论是哪一种发行方式，你都可以免费获得（例如从网上下载），并再次发布。但如果你使用了他们的在线升级（包括补丁）或咨询服务，就必须要付费（这也是红帽的主要盈利模式）。RHEL 一直都提供源代码的发行方式，CentOS 就是将 RHEL 发行的源代码去掉RedHat商标之后重新编译一次，形成一个可使用的二进制版本。由于 LINUX 的源代码是 GNU，所以从获得 RHEL 的源代码到编译成新的二进制，都是合法的。只是 REDHAT 是商标，所以必须在新的发行版里将 REDHAT 的商标去掉。REDHAT 对这种发行版的态度是：&amp;rdquo;我们其实并不反对这种发行版，真正向我们付费的用户，他们重视的并不是系统本身，而是我们所提供的商业服务。&amp;rdquo; 所以，CentOS 可以得到 RHEL 的所有功能，甚至是更好的软件。但 CentOS 并不向用户提供商业支持，当然也不负上任何商业责任。如果你要将你的 RHEL 转到 CentOS 上，因为你不希望为 RHEL 升级而付费。当然，你必须有丰富 linux 使用经验，因此 RHEL 的商业技术支持对你来说并不重要。但如果你是单纯的业务型企业，那么还是建议你选购 RHEL 软件并购买相应服务。这样可以节省你的 IT 管理费用，并可得到专业服务。一句话，选用 CentOS 还是 RHEL，取决于你所在公司是否拥有相应的技术力量。
+&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp; &amp;emsp;&amp;emsp;&amp;emsp;图 linux阵营里各发行版在服务器端的市场份额
+从渊源上讲CentOS和RHEL完全是一奶同胞的亲兄弟，差别只是RHEL有红帽这个有钱的干爹。从份额上看为什么傍干爹的RHEL干不过自生自灭的CentOS，老湿窃以为有几个原因：1.RHEL虽然根正苗红，而且有正规的技术支持和商业服务，但是服务费用确实有点高哈，号称每台一年的服务费用1000刀，对于有几十上百台服务器的用户来讲这是笔不小的预算，高富帅才玩得起；2.对于服务器而言可靠性和稳定性非常重要,RHEL每五年左右更新一次，在系统的稳定性和安全性上有着极大的优势，但是对许多服务不利，比如MySQL和PHP等工具，它们在这五年的发布周期中可能会进行繁重的开发和大量的修改，尽管YUM工具的出现已经解决了软件包的更新问题，但是由于CentOS滞后于RHEL发布，这一过程中可能会修复一些最新版RHEL中的已知小bug,这也算是CentOS的一个优势；3.其它发行版本诸如fedora、Ubuntu等在作为服务器在稳定上与这二位相比还是略逊一筹; 3.CentOS 是RHEL的克隆版，如果需要可以随时平滑切换到 RHEL，从而享受红帽的服务支持。
+所以从创业的角度看，CentOS作为服务器无疑是首选，性价比最高，而且创业成功屌丝逆袭之后需要相应的技术支持和商业服务来降低运营风险时也可以很方便平稳的过渡到RHEL，傍上红帽这棵大树。一句话，选用 CentOS 还是 RHEL，不仅仅取决于你所在公司是否拥有相应的技术力量，还取决于一旦出了问题能不能找到个背黑锅的。</description>
     </item>
     
     <item>
       <title>centos搭建svn服务器</title>
-      <link>http://luobin.me/post/centos%E6%90%AD%E5%BB%BAsvn%E6%9C%8D%E5%8A%A1%E5%99%A8/</link>
+      <link>/post/centos%E6%90%AD%E5%BB%BAsvn%E6%9C%8D%E5%8A%A1%E5%99%A8/</link>
       <pubDate>Mon, 18 Feb 2013 21:43:12 +0800</pubDate>
       
-      <guid>http://luobin.me/post/centos%E6%90%AD%E5%BB%BAsvn%E6%9C%8D%E5%8A%A1%E5%99%A8/</guid>
-      <description>
-
-&lt;h3 id=&#34;安装:3ceb527a872673594bc5e76baba49d67&#34;&gt;安装&lt;/h3&gt;
-
-&lt;p&gt;首先安装subversion，直接：
-    yum -y install subversion
-&lt;code&gt;svnserve --version&lt;/code&gt; 查看 返回版本号说明安装成功
-建立svn库,执行：&lt;br /&gt;
-    svnadmin create /opt/svn/kuyustore
-执行上面的命令后，自动在kuyustore下建立多个文件， 分别是conf, db,format,hooks, locks, README.txt。&lt;/p&gt;
-
-&lt;h3 id=&#34;配置:3ceb527a872673594bc5e76baba49d67&#34;&gt;配置&lt;/h3&gt;
-
-&lt;p&gt;进入上面生成conf目录， 有以下几个文件:&lt;/p&gt;
-
-&lt;p&gt;authz, passwd, svnserve.conf&lt;/p&gt;
-
-&lt;p&gt;其中authz 配置用户权限，设置哪些用户可以读写哪些目录,passwd是设置用户和密码的, svnserve是主配置文件设置svn相关的操作。&lt;br /&gt;
-passwd文件:&lt;br /&gt;
-[users]
-# 用户名 =密码&lt;br /&gt;
-kuyu=123456
-以上表示建立了用户kuyu，注意行首不能有空格&lt;br /&gt;
-authz文件:&lt;br /&gt;
-[/]&lt;br /&gt;
-kuyu= rw&lt;br /&gt;
-。。。&lt;br /&gt;
-意思是用户kuyu对所有的目录有读写权限&lt;/p&gt;
-
-&lt;p&gt;svnserve.conf文件:&lt;br /&gt;
-[general]&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;auth-access = write
-password-db = passwd
-authz-db = authz
-realm = kuyustore
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;启动svn服务&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;svnserve -d -r /opt/svn
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;然后就可以通过TortoiseSVN客户端输入 svn://ip/kuyustore 链接svn服务了。虽然git等分布式版本控制工具是大势所趋，但是使用svn进行版本管理相对git来讲有以下优势&lt;/p&gt;
-
-&lt;ol&gt;
-&lt;li&gt;相对简单，比git学习成本低。&lt;/li&gt;
-&lt;li&gt;权限控制比git好，可以精确控制目录权限&lt;/li&gt;
-&lt;li&gt;svn支持空目录，windows平台有较好的支持&lt;/li&gt;
-&lt;/ol&gt;
-</description>
+      <guid>/post/centos%E6%90%AD%E5%BB%BAsvn%E6%9C%8D%E5%8A%A1%E5%99%A8/</guid>
+      <description> 安装 首先安装subversion，直接： yum -y install subversion svnserve --version 查看 返回版本号说明安装成功 建立svn库,执行：
+svnadmin create /opt/svn/kuyustore 执行上面的命令后，自动在kuyustore下建立多个文件， 分别是conf, db,format,hooks, locks, README.txt。
+配置 进入上面生成conf目录， 有以下几个文件:
+authz, passwd, svnserve.conf
+其中authz 配置用户权限，设置哪些用户可以读写哪些目录,passwd是设置用户和密码的, svnserve是主配置文件设置svn相关的操作。
+passwd文件:
+[users] # 用户名 =密码
+kuyu=123456 以上表示建立了用户kuyu，注意行首不能有空格
+authz文件:
+[/]
+kuyu= rw
+。。。
+意思是用户kuyu对所有的目录有读写权限
+svnserve.conf文件:
+[general]
+auth-access = write password-db = passwd authz-db = authz realm = kuyustore  启动svn服务
+svnserve -d -r /opt/svn  然后就可以通过TortoiseSVN客户端输入 svn://ip/kuyustore 链接svn服务了。虽然git等分布式版本控制工具是大势所趋，但是使用svn进行版本管理相对git来讲有以下优势
+ 相对简单，比git学习成本低。 权限控制比git好，可以精确控制目录权限 svn支持空目录，windows平台有较好的支持  </description>
     </item>
     
     <item>
       <title>win7下开启具有管理员权限的命令行窗口</title>
-      <link>http://luobin.me/post/win7%E4%B8%8B%E5%BC%80%E5%90%AF%E5%85%B7%E6%9C%89%E7%AE%A1%E7%90%86%E5%91%98%E6%9D%83%E9%99%90%E7%9A%84%E5%91%BD%E4%BB%A4%E8%A1%8C%E7%AA%97%E5%8F%A3/</link>
+      <link>/post/win7%E4%B8%8B%E5%BC%80%E5%90%AF%E5%85%B7%E6%9C%89%E7%AE%A1%E7%90%86%E5%91%98%E6%9D%83%E9%99%90%E7%9A%84%E5%91%BD%E4%BB%A4%E8%A1%8C%E7%AA%97%E5%8F%A3/</link>
       <pubDate>Sun, 13 Jan 2013 22:19:53 +0800</pubDate>
       
-      <guid>http://luobin.me/post/win7%E4%B8%8B%E5%BC%80%E5%90%AF%E5%85%B7%E6%9C%89%E7%AE%A1%E7%90%86%E5%91%98%E6%9D%83%E9%99%90%E7%9A%84%E5%91%BD%E4%BB%A4%E8%A1%8C%E7%AA%97%E5%8F%A3/</guid>
-      <description>&lt;p&gt;使用vim在win7下敲代码的时候，发现最后保存的时候提示错误 ：E212：无法打开并写入文件，很是奇怪。&lt;br /&gt;
-不论是新建文件还是编辑已有的文件，问题现象一致，猜想应该是所在目录的权限设置问题。但是问题又只在通过cmd窗口启动vim时才会出现，使用右键&amp;ndash;&amp;gt;vim编辑打开文件是ok的，查了一下，原来Windows7在开启UAC的情况下使用运行启动的cmd.exe是没有管理员权限的。而我的系统文件夹均是在图形界面下创建的，默认是管理员，其他用户没有写的权限。&lt;br /&gt;
-那么，如何使用管理员权限启动cmd或者其他程序呢，一个简单的方法是：&lt;br /&gt;
-&lt;em&gt;在开始菜单的搜索框里输入cmd或者你要运行的程序名称，然后按下ctrl + shift + enter&lt;/em&gt; 即可&lt;/p&gt;
-</description>
+      <guid>/post/win7%E4%B8%8B%E5%BC%80%E5%90%AF%E5%85%B7%E6%9C%89%E7%AE%A1%E7%90%86%E5%91%98%E6%9D%83%E9%99%90%E7%9A%84%E5%91%BD%E4%BB%A4%E8%A1%8C%E7%AA%97%E5%8F%A3/</guid>
+      <description>使用vim在win7下敲代码的时候，发现最后保存的时候提示错误 ：E212：无法打开并写入文件，很是奇怪。
+不论是新建文件还是编辑已有的文件，问题现象一致，猜想应该是所在目录的权限设置问题。但是问题又只在通过cmd窗口启动vim时才会出现，使用右键&amp;ndash;&amp;gt;vim编辑打开文件是ok的，查了一下，原来Windows7在开启UAC的情况下使用运行启动的cmd.exe是没有管理员权限的。而我的系统文件夹均是在图形界面下创建的，默认是管理员，其他用户没有写的权限。
+那么，如何使用管理员权限启动cmd或者其他程序呢，一个简单的方法是：
+在开始菜单的搜索框里输入cmd或者你要运行的程序名称，然后按下ctrl + shift + enter 即可</description>
     </item>
     
     <item>
       <title>windows下为有道添加星际译王词典</title>
-      <link>http://luobin.me/post/windows%E4%B8%8B%E4%B8%BA%E6%9C%89%E9%81%93%E6%B7%BB%E5%8A%A0%E6%98%9F%E9%99%85%E8%AF%91%E7%8E%8B%E8%AF%8D%E5%85%B8/</link>
+      <link>/post/windows%E4%B8%8B%E4%B8%BA%E6%9C%89%E9%81%93%E6%B7%BB%E5%8A%A0%E6%98%9F%E9%99%85%E8%AF%91%E7%8E%8B%E8%AF%8D%E5%85%B8/</link>
       <pubDate>Thu, 16 Feb 2012 22:29:34 +0800</pubDate>
       
-      <guid>http://luobin.me/post/windows%E4%B8%8B%E4%B8%BA%E6%9C%89%E9%81%93%E6%B7%BB%E5%8A%A0%E6%98%9F%E9%99%85%E8%AF%91%E7%8E%8B%E8%AF%8D%E5%85%B8/</guid>
-      <description>&lt;p&gt;windows下一直使用有道词典，缺陷没有离线词库。今天终于找到让有道词典可以支持离线的方法，那就是给其添加大名鼎鼎的星际译王的词典（其实星际译王也有windows版的）。&lt;br /&gt;
- 1.   到这里&lt;a href=&#34;http://abloz.com/huzheng/stardict-dic/zh_CN/&#34;&gt;下载&lt;/a&gt;自己需要的词典&lt;br /&gt;
- 2.   下载的文件默认是tar.bz2格式，一种linux的文件打包压缩格式（因为星际诞生于gnu/linux平台）。有道并不支持这种压缩的格式，需要解压。用winrar，等很多解压缩软件都可以。&lt;br /&gt;
- 3.   解压出来，后缀为dz,idx,ifo三个文件。建议将其全部拷贝到X:/Program Files/Youdao/DeskDict2/localdicts  （X为你的有道安装目录）。&lt;br /&gt;
- 4.   打开有道桌面词典，按照下面的顺序操作：选项…-&amp;gt;词典管理-&amp;gt;添加，找到刚刚解压缩获得的文件夹里的ifo格式的文件，确认后添加。&lt;br /&gt;
-现在可以方便的使用有道词典离线查词啦&lt;/p&gt;
-</description>
+      <guid>/post/windows%E4%B8%8B%E4%B8%BA%E6%9C%89%E9%81%93%E6%B7%BB%E5%8A%A0%E6%98%9F%E9%99%85%E8%AF%91%E7%8E%8B%E8%AF%8D%E5%85%B8/</guid>
+      <description>windows下一直使用有道词典，缺陷没有离线词库。今天终于找到让有道词典可以支持离线的方法，那就是给其添加大名鼎鼎的星际译王的词典（其实星际译王也有windows版的）。
+1. 到这里下载自己需要的词典
+2. 下载的文件默认是tar.bz2格式，一种linux的文件打包压缩格式（因为星际诞生于gnu/linux平台）。有道并不支持这种压缩的格式，需要解压。用winrar，等很多解压缩软件都可以。
+3. 解压出来，后缀为dz,idx,ifo三个文件。建议将其全部拷贝到X:/Program Files/Youdao/DeskDict2/localdicts （X为你的有道安装目录）。
+4. 打开有道桌面词典，按照下面的顺序操作：选项…-&amp;gt;词典管理-&amp;gt;添加，找到刚刚解压缩获得的文件夹里的ifo格式的文件，确认后添加。
+现在可以方便的使用有道词典离线查词啦</description>
     </item>
     
   </channel>
