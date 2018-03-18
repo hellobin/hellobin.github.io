@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	
+	<title>centos下mysql5.6.10源码安装</title>
+	
+	<meta name="description" content="">
+	<meta name="image" content="">
+	
+	<meta itemprop="name" content="centos下mysql5.6.10源码安装">
+	<meta itemprop="description" content="">
+	<meta itemprop="image" content="">
+	
+	<meta name="twitter:card" content="summary">
+	<meta name="twitter:title" content="centos下mysql5.6.10源码安装">
+	<meta name="twitter:description" content="">
+	<meta name="twitter:site" content="@">
+	<meta name="twitter:creator" content="@">
+	<meta name="twitter:image:src" content="">
+	
+	
+	<meta name="og:title" content="centos下mysql5.6.10源码安装">
+	<meta name="og:description" content="">
+	
+	<meta name="og:url" content="/post/centos%E4%B8%8Bmysql5.6.10%E6%BA%90%E7%A0%81%E5%AE%89%E8%A3%85/">
+	<meta name="og:site_name" content="centos下mysql5.6.10源码安装">
+	<meta name="og:type" content="article">
+	
+	<meta name="article:author" content="">
+	<meta name="article:tag" content="linux mysql ">
+	<link rel="stylesheet" type="text/css" href="/css/style.css">
+	<script src="/js/caption.js"></script>
+</head>
+<body>
+
+<header >
+	<a href="/" style="float: left;color:#777;"><strong>不足为外人道</strong>
+	</a>
+	<a href="/index.xml" style="color:#777;float: left;"><strong>
+		&nbsp;
+	<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-rss"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg>
+</strong></a>
+<a href="/archives/" style="color:#777;"><strong>Archives</strong></a>&nbsp;&nbsp;·&nbsp;&nbsp;<a href="/about/" style="color:#777;"><strong>About Me</strong></a>
+
+</header>
+
+
+<div id="loadingMask" style="width: 100%; height: 100%; position: fixed; background: #fff;"></div>
+<script>
+function fadeOut(el) {
+  el.style.opacity = 1;
+
+  var last = +new Date();
+  var tick = function() {
+    el.style.opacity = +el.style.opacity - (new Date() - last) / 80;
+    last = +new Date();
+    
+
+    if (el.style.opacity > 0) {
+      (window.requestAnimationFrame && requestAnimationFrame(tick)) || setTimeout(tick, 16);
+    } else {
+    	el.style.display='none';
+    }
+  };
+
+  tick();
+}
+
+function ready(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+         el = document.getElementById('loadingMask');
+         fadeOut(el);
+        var elements = document.querySelectorAll("img");
+        Array.prototype.forEach.call(elements, function(el, i) {
+            if (el.getAttribute("alt")) {
+                const caption = document.createElement('figcaption');
+                var node = document.createTextNode(el.getAttribute("alt"));
+                caption.appendChild(node);
+                const wrapper = document.createElement('figure');
+                wrapper.className = 'image';
+                el.parentNode.insertBefore(wrapper, el);
+                el.parentNode.removeChild(el);
+                wrapper.appendChild(el);
+                wrapper.appendChild(caption);
+            }
+        });
+
+    } else {
+        document.addEventListener('DOMContentLoaded', fn);
+    }
+}
+window.onload = ready;
+</script>
+
+<div class="content">
+	<h1>centos下mysql5.6.10源码安装 <aside><a href="/tags/linux/" class="w3-tag">/linux</a>&nbsp;&nbsp;&nbsp;<a href="/tags/mysql/" class="w3-tag">/mysql</a>&nbsp;&nbsp;&nbsp;</aside></h1>
+	<p>从mysql5.5起，mysql源码安装开始使用cmake了，所以首先要安装cmake
+可以用命令:</p>
+
+<pre><code class="language-Shell">rpm -qa | grep cmake
+</code></pre>
+
+<p>查询当前系统有没有安装查cmake。</p>
+
+<p>下载解压安装cmake</p>
+
+<pre><code class="language-Shell">#tar -zvxf cmake-2.8.3.tar.gz
+#cd cmake-2.8.3
+#./configure
+#make
+#make install 
+</code></pre>
+
+<p>可能会出现没有C++编译器的错误，默认的gcc默认没有支持c++，使用以下语句安装</p>
+
+<pre><code class="language-Shell">#yum -y install gcc-c++
+</code></pre>
+
+<p>执行源码编译配置脚本</p>
+
+<pre><code class="language-Shell">	cmake \
+	-DCMAKE_INSTALL_PREFIX=/usr/local/mysql \
+	-DMYSQL_UNIX_ADDR=/usr/local/mysql/mysql.sock \
+	-DDEFAULT_CHARSET=utf8 \
+	-DDEFAULT_COLLATION=utf8_general_ci \
+	-DWITH_MYISAM_STORAGE_ENGINE=1 \
+	-DWITH_INNOBASE_STORAGE_ENGINE=1 \
+	-DWITH_ARCHIVE_STORAGE_ENGINE=1 \
+	-DWITH_BLACKHOLE_STORAGE_ENGINE=1 \
+	-DWITH_MEMORY_STORAGE_ENGINE=1 \
+	-DWITH_READLINE=1 \
+	-DENABLED_LOCAL_INFILE=1 \
+	-DMYSQL_DATADIR=/db/mysql/data \
+	-DMYSQL_USER=mysql \
+	-DMYSQL_TCP_PORT=3306
+</code></pre>
+
+<p>如果出现以下错误：</p>
+
+<pre><code class="language-Shell">	cmake .
+	-- MySQL 5.5.8
+	-- Could NOT find Curses (missing:  CURSES_LIBRARY 	CURSES_INCLUDE_PATH)
+	CMake Error at cmake/readline.cmake:82 (MESSAGE):
+  	Curses library not found.  Please install appropriate package,。。。
+</code></pre>
+
+<p>执行 yum -y install ncurses-devel 命令，然后删除生成的CMakeCache.txt文件，重新执行cmake
+执行 <code>＃make  &amp;&amp; make install</code> 编译安装
+在运行mysqld的时候可能会遇到类似：
+    <code>ERROR 2002 (HY000): Can’t connect to local MySQL server through socket ‘/var/lib/mysql/mysql.sock’ (2)</code></p>
+
+<p>这样的错误，只需重新确认一下mysql.sock文件的路径，在/etc/my.cnf 文件中设施一下socket=path即可。对于mysqladmin，同样需要在/etc/my.cnf 文件中[mysqladmin]下设置socket 路径。</p>
+
+</div>
+
+
+
+
+	<p><small><em>Written April 6, 2013. </em>
+		
+	</small></p>
+
+	<p>
+	<a href="/post/centos%E7%9A%84%E9%80%86%E8%A2%AD/">← CentOS的逆袭</a>&nbsp;
+	<a href="/post/magento-1.7.02%E5%AE%89%E8%A3%85%E9%97%AE%E9%A2%98/" style="float:right;">magento 1.7.02安装问题 →</a>
+	</p>
+
+
+
+
+
+
+<footer>
+</footer>
+</body>
+</html>

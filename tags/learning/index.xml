@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Learning on 不足为外人道</title>
+    <link>/tags/learning/</link>
+    <description>Recent content in Learning on 不足为外人道</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 09 Mar 2014 21:52:05 +0800</lastBuildDate>
+    
+	<atom:link href="/tags/learning/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>c/c&#43;&#43;学习资源</title>
+      <link>/post/c&#43;&#43;%E5%AD%A6%E4%B9%A0%E8%B5%84%E6%BA%90/</link>
+      <pubDate>Sun, 09 Mar 2014 21:52:05 +0800</pubDate>
+      
+      <guid>/post/c&#43;&#43;%E5%AD%A6%E4%B9%A0%E8%B5%84%E6%BA%90/</guid>
+      <description>  IBM C/C++ Cafe C++ FAQ C++11FAQ by Bjarne Stroustrup latest C++ standards drafts C++11’s Smart Pointers More C++ Idioms University of Michigan&amp;rsquo;s EECS 381 - Object-Oriented and Advanced Programming CppTemplateTutorial-空明流转作品 apple libcpp isocpp  Blogs  Solarian Programmer  Graphic  How OpenGL works:soft render  Network  skynet&amp;ndash;A lightweight online game framework The C10K problem Fast portable non-blocking network programming with Libevent cppreference  </description>
+    </item>
+    
+  </channel>
+</rss>

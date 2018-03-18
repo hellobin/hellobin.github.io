@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	
+	<title>centos下源码安装php5.3.24注意事项</title>
+	
+	<meta name="description" content="">
+	<meta name="image" content="">
+	
+	<meta itemprop="name" content="centos下源码安装php5.3.24注意事项">
+	<meta itemprop="description" content="">
+	<meta itemprop="image" content="">
+	
+	<meta name="twitter:card" content="summary">
+	<meta name="twitter:title" content="centos下源码安装php5.3.24注意事项">
+	<meta name="twitter:description" content="">
+	<meta name="twitter:site" content="@">
+	<meta name="twitter:creator" content="@">
+	<meta name="twitter:image:src" content="">
+	
+	
+	<meta name="og:title" content="centos下源码安装php5.3.24注意事项">
+	<meta name="og:description" content="">
+	
+	<meta name="og:url" content="/post/centos%E4%B8%8B%E6%BA%90%E7%A0%81%E5%AE%89%E8%A3%85php5.3.24%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9/">
+	<meta name="og:site_name" content="centos下源码安装php5.3.24注意事项">
+	<meta name="og:type" content="article">
+	
+	<meta name="article:author" content="">
+	<meta name="article:tag" content="php centos ">
+	<link rel="stylesheet" type="text/css" href="/css/style.css">
+	<script src="/js/caption.js"></script>
+</head>
+<body>
+
+<header >
+	<a href="/" style="float: left;color:#777;"><strong>不足为外人道</strong>
+	</a>
+	<a href="/index.xml" style="color:#777;float: left;"><strong>
+		&nbsp;
+	<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-rss"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg>
+</strong></a>
+<a href="/archives/" style="color:#777;"><strong>Archives</strong></a>&nbsp;&nbsp;·&nbsp;&nbsp;<a href="/about/" style="color:#777;"><strong>About Me</strong></a>
+
+</header>
+
+
+<div id="loadingMask" style="width: 100%; height: 100%; position: fixed; background: #fff;"></div>
+<script>
+function fadeOut(el) {
+  el.style.opacity = 1;
+
+  var last = +new Date();
+  var tick = function() {
+    el.style.opacity = +el.style.opacity - (new Date() - last) / 80;
+    last = +new Date();
+    
+
+    if (el.style.opacity > 0) {
+      (window.requestAnimationFrame && requestAnimationFrame(tick)) || setTimeout(tick, 16);
+    } else {
+    	el.style.display='none';
+    }
+  };
+
+  tick();
+}
+
+function ready(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+         el = document.getElementById('loadingMask');
+         fadeOut(el);
+        var elements = document.querySelectorAll("img");
+        Array.prototype.forEach.call(elements, function(el, i) {
+            if (el.getAttribute("alt")) {
+                const caption = document.createElement('figcaption');
+                var node = document.createTextNode(el.getAttribute("alt"));
+                caption.appendChild(node);
+                const wrapper = document.createElement('figure');
+                wrapper.className = 'image';
+                el.parentNode.insertBefore(wrapper, el);
+                el.parentNode.removeChild(el);
+                wrapper.appendChild(el);
+                wrapper.appendChild(caption);
+            }
+        });
+
+    } else {
+        document.addEventListener('DOMContentLoaded', fn);
+    }
+}
+window.onload = ready;
+</script>
+
+<div class="content">
+	<h1>centos下源码安装php5.3.24注意事项 <aside><a href="/tags/php/" class="w3-tag">/php</a>&nbsp;&nbsp;&nbsp;<a href="/tags/centos/" class="w3-tag">/centos</a>&nbsp;&nbsp;&nbsp;</aside></h1>
+	<p>1.注意事项.<br />
+ &emsp;&emsp;需要先安装libxml2 和 libxml2-devel<br />
+2.php.ini的路径<br />
+&emsp;&emsp;在Unix上，php.ini文件缺省放在/usr/local/lib上面，因为缺省的存放路径是/lib，但是可以在编译的时候使用&ndash;with-config-file-path参数 来修改php.ini的存放位置，例如你可以使用&ndash;with-config-file-path=/etc把它存放到/etc下面，然后可以从源码包中拷贝php.ini-develop 或者 php.ini-product到/etc/php.ini并修改使之满足需要。<br />
+3.安装php的mcrypt扩展(动态加载编译)<br />
+&emsp;&emsp;执行 <code>yum list installed|grep mcrypt</code>查看mcrypt及依赖库是否安装，没有的话执行 <code>yum -y install libmcrypt libmcrypt-devel mcrypt mhash</code>安装。下载php下的mcrypt扩展或者直接下载php的完整安装包,切换到php代码下的 ext/mcrypt目录执phpize命令（phpize是用来扩展php扩展模块的，通过phpize可以建立php的外挂模块）执行完后，会发现当前目录下多了一些configure文件，执行:</p>
+
+<pre><code>./configure --with-php-config=/usr/local/bin/php-config` //根据具体的安装路径
+make &amp;&amp; make install
+</code></pre>
+
+<p>最后出现提示：<br />
+<code>Installing shared extensions: /path</code> //path可在 php-config 中的extension_dir处设置</p>
+
+<p>接下来在php.ini 中修改</p>
+
+<pre><code>extension_dir=/path
+extension=mcrypt.so
+</code></pre>
+
+<p>4.在安装gd扩展的时候 如果出现 <code>configure: error: png.h not found.</code>的错误</p>
+
+<p>需要安装一下 libpng-devel<br />
+<code>yum -y install libpng-devel</code> 即可</p>
+
+<p>5.在安装curl扩展的时候如果出现：</p>
+
+<pre><code>configure: error: Please reinstall the libcurl distribution -
+easy.h should be in /include/curl/
+</code></pre>
+
+<p>解决办法同4，安装一下curl的devel包就ok了</p>
+
+<pre><code>yum -y install curl-devel    
+</code></pre>
+
+<p>6.在用phpmyadmin导入数据经常会出现提示:*没有接收到要导入的数据*。可能是文件名没有提交，也可能是文件大小超出 PHP 限制。phpmyadmin在选择文件时会有最大限制的提示，对比下待导入数据的大小，然后打开php.ini,查找<code>upload_max_filesize</code>关键字，将其修改为比待导入数据稍大些的值，然后重启 web服务器即可。</p>
+
+</div>
+
+
+
+
+	<p><small><em>Written April 14, 2013. </em>
+		
+	</small></p>
+
+	<p>
+	<a href="/post/magento-1.7.02%E5%AE%89%E8%A3%85%E9%97%AE%E9%A2%98/">← magento 1.7.02安装问题</a>&nbsp;
+	<a href="/post/%E5%90%8D%E4%B8%8D%E5%89%AF%E5%AE%9E%E7%9A%84json/" style="float:right;">“名不副实”的json →</a>
+	</p>
+
+
+
+
+
+
+<footer>
+</footer>
+</body>
+</html>

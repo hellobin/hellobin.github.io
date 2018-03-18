@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	
+	<title>windows下为有道添加星际译王词典</title>
+	
+	<meta name="description" content="">
+	<meta name="image" content="">
+	
+	<meta itemprop="name" content="windows下为有道添加星际译王词典">
+	<meta itemprop="description" content="">
+	<meta itemprop="image" content="">
+	
+	<meta name="twitter:card" content="summary">
+	<meta name="twitter:title" content="windows下为有道添加星际译王词典">
+	<meta name="twitter:description" content="">
+	<meta name="twitter:site" content="@">
+	<meta name="twitter:creator" content="@">
+	<meta name="twitter:image:src" content="">
+	
+	
+	<meta name="og:title" content="windows下为有道添加星际译王词典">
+	<meta name="og:description" content="">
+	
+	<meta name="og:url" content="/post/windows%E4%B8%8B%E4%B8%BA%E6%9C%89%E9%81%93%E6%B7%BB%E5%8A%A0%E6%98%9F%E9%99%85%E8%AF%91%E7%8E%8B%E8%AF%8D%E5%85%B8/">
+	<meta name="og:site_name" content="windows下为有道添加星际译王词典">
+	<meta name="og:type" content="article">
+	
+	<meta name="article:author" content="">
+	<meta name="article:tag" content="windows ">
+	<link rel="stylesheet" type="text/css" href="/css/style.css">
+	<script src="/js/caption.js"></script>
+</head>
+<body>
+
+<header >
+	<a href="/" style="float: left;color:#777;"><strong>不足为外人道</strong>
+	</a>
+	<a href="/index.xml" style="color:#777;float: left;"><strong>
+		&nbsp;
+	<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-rss"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg>
+</strong></a>
+<a href="/archives/" style="color:#777;"><strong>Archives</strong></a>&nbsp;&nbsp;·&nbsp;&nbsp;<a href="/about/" style="color:#777;"><strong>About Me</strong></a>
+
+</header>
+
+
+<div id="loadingMask" style="width: 100%; height: 100%; position: fixed; background: #fff;"></div>
+<script>
+function fadeOut(el) {
+  el.style.opacity = 1;
+
+  var last = +new Date();
+  var tick = function() {
+    el.style.opacity = +el.style.opacity - (new Date() - last) / 80;
+    last = +new Date();
+    
+
+    if (el.style.opacity > 0) {
+      (window.requestAnimationFrame && requestAnimationFrame(tick)) || setTimeout(tick, 16);
+    } else {
+    	el.style.display='none';
+    }
+  };
+
+  tick();
+}
+
+function ready(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+         el = document.getElementById('loadingMask');
+         fadeOut(el);
+        var elements = document.querySelectorAll("img");
+        Array.prototype.forEach.call(elements, function(el, i) {
+            if (el.getAttribute("alt")) {
+                const caption = document.createElement('figcaption');
+                var node = document.createTextNode(el.getAttribute("alt"));
+                caption.appendChild(node);
+                const wrapper = document.createElement('figure');
+                wrapper.className = 'image';
+                el.parentNode.insertBefore(wrapper, el);
+                el.parentNode.removeChild(el);
+                wrapper.appendChild(el);
+                wrapper.appendChild(caption);
+            }
+        });
+
+    } else {
+        document.addEventListener('DOMContentLoaded', fn);
+    }
+}
+window.onload = ready;
+</script>
+
+<div class="content">
+	<h1>windows下为有道添加星际译王词典 <aside><a href="/tags/windows/" class="w3-tag">/windows</a>&nbsp;&nbsp;&nbsp;</aside></h1>
+	<p>windows下一直使用有道词典，缺陷没有离线词库。今天终于找到让有道词典可以支持离线的方法，那就是给其添加大名鼎鼎的星际译王的词典（其实星际译王也有windows版的）。<br />
+ 1.   到这里<a href="http://abloz.com/huzheng/stardict-dic/zh_CN/">下载</a>自己需要的词典<br />
+ 2.   下载的文件默认是tar.bz2格式，一种linux的文件打包压缩格式（因为星际诞生于gnu/linux平台）。有道并不支持这种压缩的格式，需要解压。用winrar，等很多解压缩软件都可以。<br />
+ 3.   解压出来，后缀为dz,idx,ifo三个文件。建议将其全部拷贝到X:/Program Files/Youdao/DeskDict2/localdicts  （X为你的有道安装目录）。<br />
+ 4.   打开有道桌面词典，按照下面的顺序操作：选项…-&gt;词典管理-&gt;添加，找到刚刚解压缩获得的文件夹里的ifo格式的文件，确认后添加。<br />
+现在可以方便的使用有道词典离线查词啦</p>
+
+</div>
+
+
+
+
+	<p><small><em>Written February 16, 2012. </em>
+		
+	</small></p>
+
+	<p>
+	
+	<a href="/post/win7%E4%B8%8B%E5%BC%80%E5%90%AF%E5%85%B7%E6%9C%89%E7%AE%A1%E7%90%86%E5%91%98%E6%9D%83%E9%99%90%E7%9A%84%E5%91%BD%E4%BB%A4%E8%A1%8C%E7%AA%97%E5%8F%A3/" style="float:right;">win7下开启具有管理员权限的命令行窗口 →</a>
+	</p>
+
+
+
+
+
+
+<footer>
+</footer>
+</body>
+</html>
