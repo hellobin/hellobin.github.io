@@ -26,7 +26,7 @@
     </item>
     
     <item>
-      <title>OSX环境下liteide的安装和配置</title>
+      <title>osx环境下liteide的安装和配置</title>
       <link>/post/osx%E7%8E%AF%E5%A2%83%E4%B8%8Bliteide%E7%9A%84%E5%AE%89%E8%A3%85%E5%92%8C%E9%85%8D%E7%BD%AE/</link>
       <pubDate>Sun, 26 Apr 2015 21:56:59 +0800</pubDate>
       
@@ -41,7 +41,7 @@ LITEIDE_GDB=/path/to/gdb  然后就可以在liteide中尽情的享受调试go的
     </item>
     
     <item>
-      <title>C&#43;&#43;智能指针</title>
+      <title>c&#43;&#43;智能指针</title>
       <link>/post/c&#43;&#43;%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88/</link>
       <pubDate>Sat, 07 Jun 2014 17:50:24 +0800</pubDate>
       
@@ -54,7 +54,7 @@ shared_ptr &amp;emsp;&amp;emsp;首先这三种类型都是STL中实现的，具�
     </item>
     
     <item>
-      <title>C&#43;&#43;右值引用</title>
+      <title>c&#43;&#43;右值引用</title>
       <link>/post/c&#43;&#43;%E5%8F%B3%E5%80%BC%E5%BC%95%E7%94%A8/</link>
       <pubDate>Fri, 21 Mar 2014 16:20:01 +0800</pubDate>
       
@@ -64,7 +64,7 @@ shared_ptr &amp;emsp;&amp;emsp;首先这三种类型都是STL中实现的，具�
     </item>
     
     <item>
-      <title>C/C&#43;&#43;学习资源</title>
+      <title>c/c&#43;&#43;学习资源</title>
       <link>/post/c&#43;&#43;%E5%AD%A6%E4%B9%A0%E8%B5%84%E6%BA%90/</link>
       <pubDate>Sun, 09 Mar 2014 21:52:05 +0800</pubDate>
       
@@ -73,7 +73,7 @@ shared_ptr &amp;emsp;&amp;emsp;首先这三种类型都是STL中实现的，具�
     </item>
     
     <item>
-      <title>C&#43;&#43;特殊成员函数总结</title>
+      <title>c&#43;&#43;特殊成员函数总结</title>
       <link>/post/c&#43;&#43;%E7%89%B9%E6%AE%8A%E6%88%90%E5%91%98%E5%87%BD%E6%95%B0%E6%80%BB%E7%BB%93/</link>
       <pubDate>Sun, 25 Aug 2013 09:48:23 +0800</pubDate>
       
@@ -85,7 +85,7 @@ shared_ptr &amp;emsp;&amp;emsp;首先这三种类型都是STL中实现的，具�
     </item>
     
     <item>
-      <title>“名不副实”的JSON</title>
+      <title>“名不副实”的json</title>
       <link>/post/%E5%90%8D%E4%B8%8D%E5%89%AF%E5%AE%9E%E7%9A%84json/</link>
       <pubDate>Wed, 15 May 2013 09:21:14 +0800</pubDate>
       
